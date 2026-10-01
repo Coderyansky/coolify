@@ -14,7 +14,7 @@ concurrency:
 
 jobs:
   php:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     env:
       APP_ENV: testing
       APP_MAINTENANCE_DRIVER: file
@@ -40,7 +40,7 @@ jobs:
           echo "APP_KEY=base64:$(php -r 'echo base64_encode(random_bytes(32));')" >> "$GITHUB_ENV"
       - name: Install PHP dependencies
         run: composer install --no-interaction --prefer-dist --no-progress
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
           node-version: "24"
           cache: npm
@@ -57,14 +57,8 @@ jobs:
             tests/Feature/ResourcePermissionCalloutTest.php \
             tests/Feature/SettingsSectionDescriptionTest.php
           git diff --binary > "${{ runner.temp }}/pint.patch"
-      - name: Run affected PHP tests
-        run: |
-          php artisan test --compact \
-            tests/Feature/DarkOnlyInterfaceTest.php \
-            tests/Feature/AdminAccessAuthorizationTest.php \
-            tests/Feature/Authorization/ServerAuthorizationTest.php \
-            tests/Feature/ResourcePermissionCalloutTest.php \
-            tests/Feature/SettingsSectionDescriptionTest.php
+      - name: Run PHP unit and feature tests
+        run: php artisan test --compact tests/Unit tests/Feature
       - name: Compile Blade views
         run: php artisan view:cache
       - name: Clear compiled views
@@ -74,19 +68,19 @@ jobs:
         run: git diff --exit-code
       - name: Upload formatting patch
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: pint-patch
           path: ${{ runner.temp }}/pint.patch
           if-no-files-found: ignore
 
   frontend:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v5
         with:
           persist-credentials: false
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
           node-version: "24"
           cache: npm

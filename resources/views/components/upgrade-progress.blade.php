@@ -26,14 +26,14 @@
                 class="flex min-h-10 items-center justify-center gap-2 border-r border-neutral-200 px-2 text-[11px] font-medium last:border-r-0 dark:border-white/[0.08] sm:px-3"
                 :class="{
                     'bg-neutral-100 text-neutral-900 dark:bg-white/[0.08] dark:text-fg': currentStep === {{ $stepNumber }},
-                    'text-emerald-600 dark:text-emerald-400': currentStep > {{ $stepNumber }},
+                    'text-success dark:text-success': currentStep > {{ $stepNumber }},
                     'text-neutral-500 dark:text-fg-dim': currentStep < {{ $stepNumber }}
                 }">
                 <span
                     class="flex size-5 shrink-0 items-center justify-center rounded-full border text-[10px] font-semibold"
                     :class="{
                         'border-neutral-300 bg-white dark:border-white/[0.16] dark:bg-white/[0.1]': currentStep === {{ $stepNumber }},
-                        'border-emerald-500/25 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400': currentStep > {{ $stepNumber }},
+                        'border-white/15 bg-white/[0.04] text-success dark:text-success': currentStep > {{ $stepNumber }},
                         'border-neutral-200 dark:border-white/[0.1]': currentStep < {{ $stepNumber }}
                     }">
                     <template x-if="currentStep > {{ $stepNumber }}">

@@ -140,7 +140,7 @@
         <span class="shrink-0 px-0.5 text-neutral-300 dark:text-fg-faint">/</span>
         <div class="relative min-w-0 shrink" x-data="{ open: false }" @keydown.escape.window="open = false">
             <button type="button" @click="open = !open" @click.outside="open = false" title="Switch page"
-                class="flex h-8 min-w-0 items-center gap-1.5 rounded-md px-2 opacity-70 transition-[background-color,opacity] hover:bg-neutral-100 hover:opacity-100 dark:hover:bg-white/[0.05]">
+                class="flex h-8 min-w-0 items-center gap-1.5 rounded-full px-2 opacity-70 transition-[background-color,opacity] hover:bg-neutral-100 hover:opacity-100 dark:hover:bg-white/[0.05]">
                 <span class="min-w-0 truncate font-semibold text-black dark:text-fg">{{ $dashboardContext }}</span>
                 <svg class="size-4 shrink-0 text-neutral-400 dark:text-fg-faint" viewBox="0 0 24 24"
                     fill="none">
@@ -178,7 +178,7 @@
                 <span class="inline-flex h-[22px] shrink-0 items-center gap-1.5 rounded-full border border-neutral-200 bg-neutral-100 px-2.5 text-xs font-medium text-black dark:border-white/[0.12] dark:bg-white/[0.08] dark:text-fg"
                     x-data="{ usable: @js((bool) $currentStorage->is_usable) }"
                     @storage-status-changed.window="usable = $event.detail.isUsable">
-                    <span class="size-1.5 rounded-full" :class="usable ? 'bg-[#3fb950]' : 'bg-red-500'"></span>
+                    <span class="size-1.5 rounded-full" :class="usable ? 'bg-success' : 'bg-error'"></span>
                     <span x-text="usable ? 'Connected' : 'Not usable'"></span>
                 </span>
             </x-slot:meta>
@@ -202,7 +202,7 @@
                 <span class="inline-flex h-[22px] shrink-0 items-center gap-1.5 rounded-full border border-neutral-200 bg-neutral-100 px-2.5 text-xs font-medium text-black dark:border-white/[0.12] dark:bg-white/[0.08] dark:text-fg">
                 <span @class([
                     'size-1.5 rounded-full',
-                    'bg-[#3fb950]' => $sourceConnected,
+                    'bg-success' => $sourceConnected,
                     'bg-warning' => ! $sourceConnected,
                 ])></span>
                     {{ $sourceConnected ? 'Connected' : 'Setup incomplete' }}
@@ -221,7 +221,7 @@
                 <span class="inline-flex h-[22px] shrink-0 items-center gap-1.5 rounded-full border border-neutral-200 bg-neutral-100 px-2.5 text-xs font-medium text-black dark:border-white/[0.12] dark:bg-white/[0.08] dark:text-fg">
                 <span @class([
                     'size-1.5 rounded-full',
-                    'bg-[#3fb950]' => $currentDestination->getMorphClass() === 'App\\Models\\StandaloneDocker',
+                    'bg-success' => $currentDestination->getMorphClass() === 'App\\Models\\StandaloneDocker',
                     'bg-warning' => $currentDestination->getMorphClass() !== 'App\\Models\\StandaloneDocker',
                 ])></span>
                     {{ $currentDestination->getMorphClass() === 'App\\Models\\StandaloneDocker' ? 'Docker' : 'Deprecated' }}
@@ -247,7 +247,7 @@
         {{-- Project switcher --}}
         <div class="relative min-w-0 shrink" x-data="{ open: false }" @keydown.escape.window="open = false">
             <button type="button" @click="open = !open" @click.outside="open = false" title="Switch project"
-                class="flex items-center gap-1.5 min-w-0 h-8 px-2 rounded-md opacity-70 transition-[background-color,opacity] hover:opacity-100 hover:bg-neutral-100 dark:hover:bg-white/[0.05]">
+                class="flex items-center gap-1.5 min-w-0 h-8 px-2 rounded-full opacity-70 transition-[background-color,opacity] hover:opacity-100 hover:bg-neutral-100 dark:hover:bg-white/[0.05]">
                 <span class="min-w-0 truncate font-semibold text-black dark:text-fg">{{ $currentProject->name }}</span>
                 <svg class="size-4 shrink-0 text-neutral-400 dark:text-fg-faint" viewBox="0 0 24 24" fill="none">
                     <path d="M8 9l4-4 4 4M8 15l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
@@ -273,7 +273,7 @@
         {{-- Environment switcher --}}
         <div class="relative min-w-0 shrink" x-data="{ open: false }" @keydown.escape.window="open = false">
             <button type="button" @click="open = !open" @click.outside="open = false" title="Switch environment"
-                class="flex items-center gap-1.5 min-w-0 h-8 px-2 rounded-md opacity-70 transition-[background-color,opacity] hover:opacity-100 hover:bg-neutral-100 dark:hover:bg-white/[0.05]">
+                class="flex items-center gap-1.5 min-w-0 h-8 px-2 rounded-full opacity-70 transition-[background-color,opacity] hover:opacity-100 hover:bg-neutral-100 dark:hover:bg-white/[0.05]">
                 <span class="min-w-0 truncate font-semibold text-black dark:text-fg">{{ $currentEnvironment->name }}</span>
                 <svg class="size-4 shrink-0 text-neutral-400 dark:text-fg-faint" viewBox="0 0 24 24" fill="none">
                     <path d="M8 9l4-4 4 4M8 15l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />

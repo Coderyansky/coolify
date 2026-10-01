@@ -124,7 +124,7 @@
             <a href="https://coolify.io/sponsorships" target="_blank" rel="noopener noreferrer"
                 class="listbox-option">
                 <span class="flex items-center gap-2">
-                    <x-reicon name="sponsor" class="size-4 text-pink-500" />
+                    <x-reicon name="sponsor" class="size-4 text-fg-dim" />
                     Sponsor us
                 </span>
             </a>

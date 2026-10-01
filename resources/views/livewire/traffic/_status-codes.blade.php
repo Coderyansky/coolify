@@ -3,15 +3,15 @@
     class (2xx / 3xx / 4xx / 5xx) with a legend of per-class counts, driven by the
     overview totals. Plain server-rendered markup — it updates via Livewire morph on
     range/live refresh. Hovering a segment shows a cursor-following tooltip styled to
-    match the ApexCharts charts. Colors are inlined (categorical, theme-neutral) so the
-    bar reads the same in light and dark. Expects `$overview` in scope.
+    match the ApexCharts charts. Classes are told apart by brightness (monochrome chart
+    scale); only 5xx keeps the destructive red. Expects `$overview` in scope.
 --}}
 @php
     $codes = [
-        ['label' => '2xx', 'count' => (int) ($overview['s2xx'] ?? 0), 'color' => '#3b82f6'],
-        ['label' => '3xx', 'count' => (int) ($overview['s3xx'] ?? 0), 'color' => '#eab308'],
-        ['label' => '4xx', 'count' => (int) ($overview['s4xx'] ?? 0), 'color' => '#ec4899'],
-        ['label' => '5xx', 'count' => (int) ($overview['s5xx'] ?? 0), 'color' => '#a855f7'],
+        ['label' => '2xx', 'count' => (int) ($overview['s2xx'] ?? 0), 'color' => '#f5f5f7'],
+        ['label' => '3xx', 'count' => (int) ($overview['s3xx'] ?? 0), 'color' => '#a1a1a6'],
+        ['label' => '4xx', 'count' => (int) ($overview['s4xx'] ?? 0), 'color' => '#6e6e73'],
+        ['label' => '5xx', 'count' => (int) ($overview['s5xx'] ?? 0), 'color' => '#ff453a'],
     ];
     $total = array_sum(array_column($codes, 'count'));
 @endphp

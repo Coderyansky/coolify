@@ -29,7 +29,6 @@
 <script>
     (() => {
         requestAnimationFrame(() => {
-        checkTheme();
 
         const chartId = @js($chartId);
         const initial = @js($initialChartData);
@@ -41,7 +40,7 @@
         const emptyEl = document.getElementById(`${chartId}-requests-empty`);
         if (!el) { return; }
         const cssVar = name => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
-        const accent = () => cssVar('--chart-status-3xx') || '#3b82f6';
+        const accent = () => cssVar('--chart-status-2xx') || '#f5f5f7';
         const gridColor = () => cssVar('--chart-geo-empty') || 'rgba(128,128,128,0.15)';
 
         // `24h` buckets are hourly, `7d`/`30d` daily — pick a matching axis/tooltip format.
@@ -115,7 +114,6 @@
         chart.render();
 
         Livewire.on(`refreshChartData-${chartId}-status`, payload => {
-            checkTheme();
             const data = Array.isArray(payload) ? payload[0] : payload;
             if (!data || !data.timeSeries) { return; }
 

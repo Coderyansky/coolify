@@ -2,7 +2,7 @@
 
 <div class="relative ml-auto shrink-0" @click.outside="themeOpen = false">
     <button type="button"
-        class="terminal-theme-trigger flex h-8 items-center gap-2 rounded-md px-2.5 text-xs font-medium text-white/70 transition-colors hover:bg-white/[0.08] hover:text-white"
+        class="terminal-theme-trigger flex h-8 items-center gap-2 rounded-full px-2.5 text-xs font-medium text-white/70 transition-colors hover:bg-white/[0.08] hover:text-white"
         @click="themeOpen = !themeOpen" aria-label="Choose terminal theme" :aria-expanded="themeOpen">
         <span class="size-2 rounded-full ring-1 ring-white/20"
             :style="{ backgroundColor: @js($themeAccents)[consoleTheme] }"></span>
@@ -22,7 +22,7 @@
                 <span class="h-3 w-5 rounded-full border border-white/10"
                     style="background: {{ $theme['background'] }}"></span>
                 <span class="flex-1">{{ $theme['name'] }}</span>
-                <svg x-show="consoleTheme === '{{ $theme['key'] }}'" class="size-3 text-[#fcd452]"
+                <svg x-show="consoleTheme === '{{ $theme['key'] }}'" class="size-3 text-fg"
                     viewBox="0 0 12 12" fill="none" aria-hidden="true">
                     <path d="m2.5 6.25 2.1 2.1 4.9-5" stroke="currentColor" stroke-width="1.4"
                         stroke-linecap="round" stroke-linejoin="round" />

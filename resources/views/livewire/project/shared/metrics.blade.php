@@ -68,7 +68,6 @@
             @script
             <script>
                 (() => {
-                    checkTheme();
 
                     const cpuChart = new ApexCharts(document.getElementById('{!! $chartId !!}-cpu'), {
                         chart: {
@@ -168,7 +167,6 @@
                     cpuChart.render();
 
                     Livewire.on('refreshChartData-{!! $chartId !!}-cpu', chartData => {
-                        checkTheme();
                         cpuChart.updateOptions({
                             colors: [cpuColor],
                             series: [{
@@ -219,7 +217,6 @@
             @script
             <script>
                 (() => {
-                    checkTheme();
 
                     const memoryChart = new ApexCharts(document.getElementById('{!! $chartId !!}-memory'), {
                         chart: {
@@ -315,7 +312,6 @@
                     memoryChart.render();
 
                     Livewire.on('refreshChartData-{!! $chartId !!}-memory', chartData => {
-                        checkTheme();
                         memoryChart.updateOptions({
                             colors: [ramColor],
                             series: [{

@@ -72,7 +72,6 @@
                 @script
                     <script>
                         (() => {
-                            checkTheme();
 
                             const formatPercent = value => {
                                 const number = Number(value);
@@ -201,7 +200,6 @@
                             memoryChart.render();
 
                             Livewire.on('refreshChartData-{!! $chartId !!}-metrics', chartData => {
-                                checkTheme();
                                 const data = Array.isArray(chartData) ? chartData[0] : chartData;
 
                                 cpuChart.updateOptions({

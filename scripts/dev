@@ -169,7 +169,7 @@ compose() {
     env_files+=(--env-file .env)
   fi
   docker compose -p "$(project_name "$name")" -f "$COMPOSE_FILE" \
-    "${env_files[@]}" --env-file "$(env_file "$name")" "${profiles[@]}" "$@"
+    ${env_files[@]+"${env_files[@]}"} --env-file "$(env_file "$name")" ${profiles[@]+"${profiles[@]}"} "$@"
 }
 
 select_backend() {
@@ -254,7 +254,7 @@ tailscale_serve() {
 
 vm_domains() {
   command -v virsh >/dev/null || return 0
-  "${privileged[@]}" virsh --connect qemu:///system list "$@" --name 2>/dev/null |
+  ${privileged[@]+"${privileged[@]}"} virsh --connect qemu:///system list "$@" --name 2>/dev/null |
     grep -E "^coolify-dev-${instance}--" || true
 }
 
@@ -391,7 +391,7 @@ start_backend() {
       DEVELOPMENT_QEMU_SLOT="$(env_value "$instance" DEVELOPMENT_QEMU_SLOT)" \
       DEVELOPMENT_QEMU_DOCKER_NETWORK="$(project_name "$instance")" \
       DEVELOPMENT_QEMU_COOLIFY_CONTAINER="$(project_name "$instance")" \
-      "${privileged[@]}" php artisan dev:qemu "$profile" --as-localhost
+      ${privileged[@]+"${privileged[@]}"} php artisan dev:qemu "$profile" --as-localhost
   elif [[ "$backend" == "lima" ]]; then
     echo "Using Lima profile: $profile"
     start_lima_vm
@@ -405,7 +405,7 @@ stop_backend() {
   if [[ "$backend" == "kvm" ]]; then
     for domain in $(vm_domains --state-running); do
       if [[ -z "$profile_arg" || "$domain" == "coolify-dev-${instance}--${profile_arg}" ]]; then
-        "${privileged[@]}" virsh --connect qemu:///system shutdown "$domain"
+        ${privileged[@]+"${privileged[@]}"} virsh --connect qemu:///system shutdown "$domain"
       fi
     done
   elif [[ "$backend" == "lima" ]]; then
@@ -448,16 +448,16 @@ cmd_destroy() {
   done
   if command -v virsh >/dev/null; then
     for domain in $(vm_domains --all); do
-      "${privileged[@]}" virsh --connect qemu:///system destroy "$domain" >/dev/null 2>&1 || true
-      "${privileged[@]}" virsh --connect qemu:///system undefine "$domain" >/dev/null
+      ${privileged[@]+"${privileged[@]}"} virsh --connect qemu:///system destroy "$domain" >/dev/null 2>&1 || true
+      ${privileged[@]+"${privileged[@]}"} virsh --connect qemu:///system undefine "$domain" >/dev/null
     done
-    "${privileged[@]}" rm -f "$QEMU_STORAGE/coolify-dev-${name}--"*
-    if "${privileged[@]}" virsh --connect qemu:///system net-info "coolify-dev-${slot}" >/dev/null 2>&1; then
-      "${privileged[@]}" virsh --connect qemu:///system net-destroy "coolify-dev-${slot}" >/dev/null 2>&1 || true
-      "${privileged[@]}" virsh --connect qemu:///system net-undefine "coolify-dev-${slot}" >/dev/null
+    ${privileged[@]+"${privileged[@]}"} rm -f "$QEMU_STORAGE/coolify-dev-${name}--"*
+    if ${privileged[@]+"${privileged[@]}"} virsh --connect qemu:///system net-info "coolify-dev-${slot}" >/dev/null 2>&1; then
+      ${privileged[@]+"${privileged[@]}"} virsh --connect qemu:///system net-destroy "coolify-dev-${slot}" >/dev/null 2>&1 || true
+      ${privileged[@]+"${privileged[@]}"} virsh --connect qemu:///system net-undefine "coolify-dev-${slot}" >/dev/null
     fi
     if [[ -n "$subnet" ]]; then
-      "${privileged[@]}" iptables -D LIBVIRT_FWI -s "$subnet" -d "10.221.${slot}.0/24" -o "cdevbr${slot}" -j ACCEPT >/dev/null 2>&1 || true
+      ${privileged[@]+"${privileged[@]}"} iptables -D LIBVIRT_FWI -s "$subnet" -d "10.221.${slot}.0/24" -o "cdevbr${slot}" -j ACCEPT >/dev/null 2>&1 || true
     fi
   fi
   rm -f "$(env_file "$name")" "$ENV_DIR/$name.appkey"

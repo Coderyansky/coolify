@@ -4,11 +4,8 @@
         monacoContent: @entangle($id),
         monacoLanguage: '',
         monacoLoader: true,
-        monacoFontSize: '15px',
+        monacoFontSize: '12.5px',
         monacoId: $id('monaco-editor'),
-        isDarkMode() {
-            return document.documentElement.classList.contains('dark') || localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches);
-        },
         monacoEditor(editor) {
             editor.onDidChangeModelContent((e) => {
                 this.monacoContent = editor.getValue();
@@ -33,7 +30,6 @@
         <div x-cloak x-init="if (typeof _amdLoaderGlobal == 'undefined' && !window.__coolifyMonacoLoaderAdding) {
             monacoEditorAddLoaderScriptToHead();
         }
-        checkTheme();
         let monacoLoaderInterval = setInterval(() => {
             if (typeof _amdLoaderGlobal !== 'undefined') {
                 require.config({ paths: { 'vs': `/js/monaco-editor-${monacoVersion}/min/vs` } });
@@ -44,12 +40,37 @@
                         monaco.editor.defineTheme('coolify-dark', {
                             base: 'vs-dark',
                             inherit: true,
-                            rules: [],
+                            rules: [
+                                { token: '', foreground: 'e8e8ea' },
+                                { token: 'comment', foreground: '7d8590' },
+                                { token: 'keyword', foreground: 'ff7b72' },
+                                { token: 'string', foreground: 'a5d6ff' },
+                                { token: 'number', foreground: '79c0ff' },
+                                { token: 'constant', foreground: '79c0ff' },
+                                { token: 'type', foreground: 'ffa657' },
+                                { token: 'variable', foreground: 'ffa657' },
+                                { token: 'function', foreground: 'd2a8ff' },
+                                { token: 'key', foreground: '7ee787' },
+                                { token: 'attribute.name', foreground: '7ee787' },
+                                { token: 'string.key.json', foreground: '7ee787' },
+                                { token: 'tag', foreground: '7ee787' },
+                                { token: 'delimiter', foreground: '8e8e93' },
+                                { token: 'operator', foreground: 'ff7b72' }
+                            ],
                             colors: {
-                                'editor.background': '#0b0b0c',
-                                'editorGutter.background': '#0b0b0c',
-                                'editorStickyScroll.background': '#0b0b0c',
-                                'minimap.background': '#0b0b0c',
+                                'editor.background': '#0a0a0a',
+                                'editor.foreground': '#e8e8ea',
+                                'editorGutter.background': '#0a0a0a',
+                                'editorLineNumber.foreground': '#ffffff33',
+                                'editorLineNumber.activeForeground': '#ffffff73',
+                                'editorCursor.foreground': '#f5f5f7',
+                                'editor.selectionBackground': '#ffffff26',
+                                'editor.inactiveSelectionBackground': '#ffffff14',
+                                'editorIndentGuide.background1': '#ffffff0d',
+                                'editorWidget.background': '#1c1c1e',
+                                'editorWidget.border': '#ffffff1a',
+                                'editorStickyScroll.background': '#0a0a0a',
+                                'minimap.background': '#0a0a0a',
                                 'scrollbarSlider.background': '#ffffff1a',
                                 'scrollbarSlider.hoverBackground': '#ffffff2e',
                                 'scrollbarSlider.activeBackground': '#ffffff40',
@@ -88,11 +109,13 @@
                     @endif
                     const editor = monaco.editor.create($refs.monacoEditorElement, {
                         value: monacoContent,
-                        theme: document.documentElement.classList.contains('dark') ? 'coolify-dark' : 'vs',
+                        theme: 'coolify-dark',
                         wordWrap: 'on',
                         readOnly: '{{ $readonly ?? false }}',
                         minimap: { enabled: false },
                         fontSize: monacoFontSize,
+                        fontFamily: "'Geist Mono', ui-monospace, SFMono-Regular, Menlo, monospace",
+                        lineHeight: 22,
                         lineNumbersMinChars: 3,
                         automaticLayout: true,
                         language: '{{ $language }}',
@@ -112,20 +135,6 @@
                             horizontalScrollbarSize: 8,
                             useShadows: false
                         }
-                    });
-        
-                    const observer = new MutationObserver((mutations) => {
-                        mutations.forEach((mutation) => {
-                            if (mutation.attributeName === 'class') {
-                                const isDark = document.documentElement.classList.contains('dark');
-                                monaco.editor.setTheme(isDark ? 'coolify-dark' : 'vs');
-                            }
-                        });
-                    });
-        
-                    observer.observe(document.documentElement, {
-                        attributes: true,
-                        attributeFilter: ['class']
                     });
         
                     monacoEditor(editor);

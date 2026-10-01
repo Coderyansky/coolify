@@ -333,7 +333,7 @@
             <div x-show="modalOpen" @click="closeModal()"
                 x-transition:enter="animate-in fade-in-0 duration-150"
                 x-transition:leave="animate-out fade-out-0 duration-100 fill-mode-forwards"
-                class="absolute inset-0 w-full h-full bg-black/50 backdrop-blur-[2px]">
+                class="absolute inset-0 w-full h-full bg-black/60 backdrop-blur-sm">
             </div>
             <div x-show="modalOpen" x-trap.inert="modalOpen"
                 x-transition:enter="animate-in fade-in-0 zoom-in-95 slide-in-from-top-2 duration-150"
@@ -740,7 +740,7 @@
                     x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
                     x-transition:leave="ease-in duration-100" x-transition:leave-start="opacity-100"
                     x-transition:leave-end="opacity-0" @click="modalOpen=false"
-                    class="absolute inset-0 w-full h-full bg-black/50 backdrop-blur-[2px]"></div>
+                    class="absolute inset-0 w-full h-full bg-black/60 backdrop-blur-sm"></div>
                 <div @click.self="modalOpen=false"
                     class="relative flex min-h-full items-start justify-center p-4 sm:items-center">
                     <div x-show="modalOpen" x-trap.inert.noscroll="modalOpen"
@@ -783,7 +783,7 @@
                     x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
                     x-transition:leave="ease-in duration-100" x-transition:leave-start="opacity-100"
                     x-transition:leave-end="opacity-0" @click="modalOpen=false"
-                    class="absolute inset-0 w-full h-full bg-black/50 backdrop-blur-[2px]"></div>
+                    class="absolute inset-0 w-full h-full bg-black/60 backdrop-blur-sm"></div>
                 <div @click.self="modalOpen=false"
                     class="relative flex min-h-full items-start justify-center p-4 sm:items-center">
                     <div x-show="modalOpen" x-trap.inert.noscroll="modalOpen"
@@ -826,7 +826,7 @@
                     x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
                     x-transition:leave="ease-in duration-100" x-transition:leave-start="opacity-100"
                     x-transition:leave-end="opacity-0" @click="modalOpen=false"
-                    class="absolute inset-0 w-full h-full bg-black/50 backdrop-blur-[2px]"></div>
+                    class="absolute inset-0 w-full h-full bg-black/60 backdrop-blur-sm"></div>
                 <div @click.self="modalOpen=false"
                     class="relative flex min-h-full items-start justify-center p-4 sm:items-center">
                     <div x-show="modalOpen" x-trap.inert.noscroll="modalOpen"
@@ -869,7 +869,7 @@
                     x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
                     x-transition:leave="ease-in duration-100" x-transition:leave-start="opacity-100"
                     x-transition:leave-end="opacity-0" @click="modalOpen=false"
-                    class="absolute inset-0 w-full h-full bg-black/50 backdrop-blur-[2px]"></div>
+                    class="absolute inset-0 w-full h-full bg-black/60 backdrop-blur-sm"></div>
                 <div @click.self="modalOpen=false"
                     class="relative flex min-h-full items-start justify-center p-4 sm:items-center">
                     <div x-show="modalOpen" x-trap.inert.noscroll="modalOpen"
@@ -912,7 +912,7 @@
                     x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
                     x-transition:leave="ease-in duration-100" x-transition:leave-start="opacity-100"
                     x-transition:leave-end="opacity-0" @click="modalOpen=false"
-                    class="absolute inset-0 w-full h-full bg-black/50 backdrop-blur-[2px]"></div>
+                    class="absolute inset-0 w-full h-full bg-black/60 backdrop-blur-sm"></div>
                 <div @click.self="modalOpen=false"
                     class="relative flex min-h-full items-start justify-center p-4 sm:items-center">
                     <div x-show="modalOpen" x-trap.inert.noscroll="modalOpen"

@@ -22,11 +22,10 @@
     <script>
         (() => {
             requestAnimationFrame(() => {
-            checkTheme();
             const el = document.getElementById('{!! $deviceChartId !!}');
             if (!el) { return; }
 
-            const palette = ['#3b82f6', '#f59e0b', '#ec4899', '#8b5cf6', '#10b981', '#14b8a6', '#6b7280'];
+            const palette = ['#f5f5f7', '#c7c7cc', '#a1a1a6', '#8e8e93', '#6e6e73', '#48484a', '#2c2c2e'];
             const legend = () => ({ position: 'bottom', labels: { colors: textColor } });
             const escapeHtml = value => String(value).replace(/[&<>'"]/g, character => ({
                 '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#039;', '"': '&quot;',
@@ -57,7 +56,6 @@
             chart.render();
 
             Livewire.on('refreshChartData-{!! $chartId !!}-status', payload => {
-                checkTheme();
                 const data = Array.isArray(payload) ? payload[0] : payload;
                 if (!data || !Array.isArray(data.deviceSeries)) { return; }
                 chart.updateOptions({ labels: data.deviceLabels, legend: legend() });

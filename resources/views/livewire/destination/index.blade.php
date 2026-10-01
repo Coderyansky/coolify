@@ -5,8 +5,8 @@
 
     <header class="mb-5 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
         <div class="min-w-0">
-            <h1 class="truncate text-[24px]! leading-7! font-semibold! tracking-tight!">Destinations</h1>
-            <p class="mt-1 text-[13px] text-neutral-500 dark:text-fg-dim">
+            <h1 class="truncate text-[28px]! leading-[1.1]! font-semibold! tracking-[-0.03em]!">Destinations</h1>
+            <p class="mt-2 max-w-2xl text-[14px] leading-relaxed text-fg-faint">
                 {{ $destinations->count() }} {{ Str::plural('network endpoint', $destinations->count()) }}
             </p>
         </div>
@@ -62,7 +62,7 @@
 
         <div x-cloak x-show="viewMode === 'grid'" class="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
             @foreach ($destinations as $destination)
-                <a x-show="matches(@js([$destination->name, $destination->server->name, $destination->getMorphClass() === 'App\\Models\\SwarmDocker' ? 'Docker Swarm' : 'Standalone Docker']))" class="group flex min-h-28 flex-col rounded-xl border border-neutral-200 bg-white p-3 shadow-sm transition-all hover:-translate-y-px hover:border-neutral-300 hover:no-underline hover:shadow-md dark:border-white/[0.08] dark:bg-white/[0.05] dark:hover:border-white/[0.14]"
+                <a x-show="matches(@js([$destination->name, $destination->server->name, $destination->getMorphClass() === 'App\\Models\\SwarmDocker' ? 'Docker Swarm' : 'Standalone Docker']))" class="group flex min-h-28 flex-col rounded-2xl p-4 hover:no-underline bg-surface ring-1 ring-inset ring-hairline transition-[background-color,box-shadow] duration-150 hover:bg-raised hover:ring-control"
                     {{ wireNavigate() }}
                     href="{{ route('destination.show', ['destination_uuid' => data_get($destination, 'uuid')]) }}">
                     <div class="flex items-start gap-3">

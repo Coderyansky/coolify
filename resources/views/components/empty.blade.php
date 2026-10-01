@@ -25,14 +25,14 @@
     };
 
     $titleClass = match ($size) {
-        'sm' => 'text-[14px] font-semibold text-black dark:text-fg',
-        'lg' => 'text-base font-semibold text-black dark:text-fg',
-        default => 'text-[15px] font-semibold text-black dark:text-fg',
+        'sm' => 'text-[14px]! font-medium! tracking-normal! text-fg',
+        'lg' => 'text-[17px]! font-semibold! tracking-[-0.01em]! text-fg',
+        default => 'text-[15px]! font-semibold! tracking-[-0.01em]! text-fg',
     };
 
     $descriptionClass = match ($size) {
-        'sm' => 'mt-1 max-w-sm text-[12px] leading-5 text-neutral-500 dark:text-fg-dim',
-        default => 'mt-1 max-w-sm text-[13px] leading-5 text-neutral-500 dark:text-fg-dim',
+        'sm' => 'mt-1.5 max-w-sm text-[12.5px] leading-5 text-fg-faint',
+        default => 'mt-1.5 max-w-sm text-[14px] leading-relaxed text-fg-faint',
     };
 
     $hasIconSlot = isset($icon) && $icon instanceof \Illuminate\View\ComponentSlot && ! $icon->isEmpty();
@@ -48,14 +48,15 @@
     }
 @endphp
 
-{{-- Empty state: dashed card, icon badge, title, description, optional actions. --}}
+{{-- Empty state: ringed tile over a fading dot grid, icon tile, title,
+     description, optional actions. --}}
 <div
     {{ $attributes->merge([
-        'class' => "empty-state flex w-full flex-col items-center justify-center rounded-xl border border-dashed border-neutral-300 px-6 py-10 text-center dark:border-white/[0.1] {$minHeight}",
+        'class' => "empty-state relative isolate flex w-full flex-col items-center justify-center overflow-hidden rounded-2xl px-6 py-10 text-center ring-1 ring-inset ring-hairline {$minHeight}",
     ]) }}>
     @if ($hasIcon)
         <div
-            class="{{ $iconBox }} flex items-center justify-center rounded-xl border border-neutral-200 bg-white text-neutral-400 shadow-sm dark:border-white/[0.08] dark:bg-white/[0.035] dark:text-fg-faint">
+            class="{{ $iconBox }} flex items-center justify-center rounded-[14px] bg-black text-fg-dim ring-1 ring-inset ring-white/10">
             @if ($hasIconSlot)
                 {{ $icon }}
             @else

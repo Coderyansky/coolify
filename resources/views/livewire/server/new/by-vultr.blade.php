@@ -145,7 +145,7 @@
                                 <x-forms.checkbox id="disable_public_ipv4" label="Disable public IPv4" fullWidth />
                             </div>
 
-                            <div class="border-t border-neutral-200 pt-4 dark:border-white/[0.08]">
+                            <div class="border-t border-white/[0.06] pt-4">
                                 <div class="flex flex-col gap-4">
                                     <div class="grid items-end gap-3 lg:grid-cols-[minmax(0,1fr)_auto]">
                                         <x-forms.listbox id="selected_cloud_init_script_id"

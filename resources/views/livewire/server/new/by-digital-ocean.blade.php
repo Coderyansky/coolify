@@ -150,7 +150,7 @@
                                     fullWidth />
                             </div>
 
-                            <div class="border-t border-neutral-200 pt-4 dark:border-white/[0.08]">
+                            <div class="border-t border-white/[0.06] pt-4">
                                 @if (!$show_cloud_init_script && blank($cloud_init_script) && blank($selected_cloud_init_script_id))
                                     <button type="button" class="button" wire:click="showCloudInitScript">
                                         <x-reicon name="plus" class="size-3.5" />

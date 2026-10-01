@@ -66,7 +66,7 @@
                                         @endif
                                     </div>
 
-                                    <div class="min-w-0 text-red-600 dark:text-red-400">
+                                    <div class="min-w-0 text-error dark:text-error">
                                         @if ($expandable)
                                             <div class="break-words"
                                                 :class="expandedRows['{{ $changeKey }}'] ? 'whitespace-pre-wrap' : 'truncate'"
@@ -81,7 +81,7 @@
                                         <x-reicon name="arrow-right" class="size-3" />
                                     </div>
 
-                                    <div class="min-w-0 text-emerald-600 dark:text-emerald-400">
+                                    <div class="min-w-0 text-success dark:text-success">
                                         @if ($expandable)
                                             <div class="break-words"
                                                 :class="expandedRows['{{ $changeKey }}'] ? 'whitespace-pre-wrap' : 'truncate'"

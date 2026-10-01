@@ -230,7 +230,7 @@
                     x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
                     x-transition:leave="ease-in duration-100" x-transition:leave-start="opacity-100"
                     x-transition:leave-end="opacity-0"
-                    class="absolute inset-0 h-full w-full bg-black/50 backdrop-blur-[2px]"
+                    class="absolute inset-0 h-full w-full bg-black/60 backdrop-blur-sm"
                     @click="closeEditDomain()"></div>
                 <div class="relative flex min-h-full items-start justify-center p-4 sm:items-center">
                     <div x-show="modalOpen" x-trap.inert.noscroll="modalOpen"
@@ -327,7 +327,7 @@
             <template x-teleport="body">
                 <div x-show="modalOpen"
                     class="fixed inset-0 z-99 flex min-h-full items-center justify-center overflow-y-auto p-4" x-cloak>
-                    <div class="absolute inset-0 bg-black/50 backdrop-blur-[2px]"></div>
+                    <div class="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
                     <div x-show="modalOpen" x-trap.inert.noscroll="modalOpen"
                         class="application-settings-form application-settings-section relative w-full lg:min-w-[36rem] lg:max-w-2xl"
                         style="box-shadow: 0 0 0 1px var(--coollabs-hairline), var(--shadow-modal)">
@@ -345,7 +345,7 @@
                                 One or more of your domains use a different port, or none.
                             </x-callout>
 
-                            <div class="mt-4 flex flex-wrap justify-end gap-2 border-t border-neutral-200 pt-4 dark:border-white/[0.08]">
+                            <div class="mt-4 flex flex-wrap justify-end gap-2 border-t border-white/[0.06] pt-4">
                                 <x-forms.button type="button"
                                     wire:click="cancelRemovePort"
                                     @click="modalOpen = false">

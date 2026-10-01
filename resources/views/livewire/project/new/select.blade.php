@@ -302,7 +302,7 @@
                                             </p>
                                         </div>
                                         <span x-show="service.amd_only || service.arm_only"
-                                            class="shrink-0 rounded-md border border-amber-300/50 bg-amber-50 px-1.5 py-0.5 text-[10px] font-medium text-amber-700 dark:border-warning/20 dark:bg-warning/10 dark:text-warning"
+                                            class="shrink-0 rounded-md border border-white/15 bg-white/[0.06] px-1.5 py-0.5 text-[10px] font-medium text-fg-dim dark:border-warning/20 dark:bg-warning/10 dark:text-warning"
                                             x-text="service.arm_only ? 'ARM only' : 'AMD only'"></span>
                                     </div>
 
@@ -735,7 +735,7 @@
                     needs bundled extensions.</p>
             </div>
             <div class="grid grid-cols-1 gap-3 lg:grid-cols-2">
-                <div class="group relative flex min-h-24 items-center gap-3 rounded-[10px] border border-neutral-200 bg-white p-4 transition-colors hover:border-neutral-300 hover:bg-neutral-50 dark:border-white/[0.07] dark:bg-surface dark:hover:border-white/[0.12] dark:hover:bg-white/[0.035]"
+                <div class="group relative flex min-h-24 items-center gap-3 rounded-[10px] border border-neutral-200 bg-white p-4 transition-colors hover:border-neutral-300 hover:bg-neutral-50 dark:border-white/[0.07] dark:bg-surface dark:hover:border-white/[0.12] dark:hover:bg-raised"
                     :class="{ 'cursor-pointer': !selecting, 'cursor-not-allowed opacity-50': selecting }"
                     x-on:click="!selecting && (selecting = true, $wire.setPostgresqlType('postgres:18-alpine'))"
                     :disabled="selecting">
@@ -749,7 +749,7 @@
                     </div>
                     <a href="https://hub.docker.com/_/postgres/" target="_blank"
                         @click.stop
-                        class="absolute top-2 right-2 flex size-7 items-center justify-center rounded-md text-neutral-400 transition-colors hover:bg-neutral-100 hover:text-black dark:text-fg-faint dark:hover:bg-white/[0.06] dark:hover:text-fg"
+                        class="absolute top-2 right-2 flex size-7 items-center justify-center rounded-full text-neutral-400 transition-colors hover:bg-neutral-100 hover:text-black dark:text-fg-faint dark:hover:bg-white/[0.06] dark:hover:text-fg"
                         title="View documentation">
                         <svg class="w-4 h-4 text-neutral-600 dark:text-neutral-400" fill="none"
                             stroke="currentColor" viewBox="0 0 24 24">
@@ -758,7 +758,7 @@
                         </svg>
                     </a>
                 </div>
-                <div class="group relative flex min-h-24 items-center gap-3 rounded-[10px] border border-neutral-200 bg-white p-4 transition-colors hover:border-neutral-300 hover:bg-neutral-50 dark:border-white/[0.07] dark:bg-surface dark:hover:border-white/[0.12] dark:hover:bg-white/[0.035]"
+                <div class="group relative flex min-h-24 items-center gap-3 rounded-[10px] border border-neutral-200 bg-white p-4 transition-colors hover:border-neutral-300 hover:bg-neutral-50 dark:border-white/[0.07] dark:bg-surface dark:hover:border-white/[0.12] dark:hover:bg-raised"
                     :class="{ 'cursor-pointer': !selecting, 'cursor-not-allowed opacity-50': selecting }"
                     x-on:click="!selecting && (selecting = true, $wire.setPostgresqlType('postgres:17-alpine'))"
                     :disabled="selecting">
@@ -770,7 +770,7 @@
                     </div>
                     <a href="https://hub.docker.com/_/postgres/" target="_blank"
                         @click.stop
-                        class="absolute top-2 right-2 flex size-7 items-center justify-center rounded-md text-neutral-400 transition-colors hover:bg-neutral-100 hover:text-black dark:text-fg-faint dark:hover:bg-white/[0.06] dark:hover:text-fg"
+                        class="absolute top-2 right-2 flex size-7 items-center justify-center rounded-full text-neutral-400 transition-colors hover:bg-neutral-100 hover:text-black dark:text-fg-faint dark:hover:bg-white/[0.06] dark:hover:text-fg"
                         title="View documentation">
                         <svg class="w-4 h-4 text-neutral-600 dark:text-neutral-400" fill="none"
                             stroke="currentColor" viewBox="0 0 24 24">
@@ -779,7 +779,7 @@
                         </svg>
                     </a>
                 </div>
-                <div class="group relative flex min-h-24 items-center gap-3 rounded-[10px] border border-neutral-200 bg-white p-4 transition-colors hover:border-neutral-300 hover:bg-neutral-50 dark:border-white/[0.07] dark:bg-surface dark:hover:border-white/[0.12] dark:hover:bg-white/[0.035]"
+                <div class="group relative flex min-h-24 items-center gap-3 rounded-[10px] border border-neutral-200 bg-white p-4 transition-colors hover:border-neutral-300 hover:bg-neutral-50 dark:border-white/[0.07] dark:bg-surface dark:hover:border-white/[0.12] dark:hover:bg-raised"
                     :class="{ 'cursor-pointer': !selecting, 'cursor-not-allowed opacity-50': selecting }"
                     x-on:click="!selecting && (selecting = true, $wire.setPostgresqlType('postgres:16-alpine'))"
                     :disabled="selecting">
@@ -791,7 +791,7 @@
                     </div>
                     <a href="https://hub.docker.com/_/postgres/" target="_blank"
                         @click.stop
-                        class="absolute top-2 right-2 flex size-7 items-center justify-center rounded-md text-neutral-400 transition-colors hover:bg-neutral-100 hover:text-black dark:text-fg-faint dark:hover:bg-white/[0.06] dark:hover:text-fg"
+                        class="absolute top-2 right-2 flex size-7 items-center justify-center rounded-full text-neutral-400 transition-colors hover:bg-neutral-100 hover:text-black dark:text-fg-faint dark:hover:bg-white/[0.06] dark:hover:text-fg"
                         title="View documentation">
                         <svg class="w-4 h-4 text-neutral-600 dark:text-neutral-400" fill="none"
                             stroke="currentColor" viewBox="0 0 24 24">
@@ -800,7 +800,7 @@
                         </svg>
                     </a>
                 </div>
-                <div class="group relative flex min-h-24 items-center gap-3 rounded-[10px] border border-neutral-200 bg-white p-4 transition-colors hover:border-neutral-300 hover:bg-neutral-50 dark:border-white/[0.07] dark:bg-surface dark:hover:border-white/[0.12] dark:hover:bg-white/[0.035]"
+                <div class="group relative flex min-h-24 items-center gap-3 rounded-[10px] border border-neutral-200 bg-white p-4 transition-colors hover:border-neutral-300 hover:bg-neutral-50 dark:border-white/[0.07] dark:bg-surface dark:hover:border-white/[0.12] dark:hover:bg-raised"
                     :class="{ 'cursor-pointer': !selecting, 'cursor-not-allowed opacity-50': selecting }"
                     x-on:click="!selecting && (selecting = true, $wire.setPostgresqlType('supabase/postgres:17.4.1.032'))"
                     :disabled="selecting">
@@ -812,7 +812,7 @@
                     </div>
                     <a href="https://github.com/supabase/postgres" target="_blank"
                         @click.stop
-                        class="absolute top-2 right-2 flex size-7 items-center justify-center rounded-md text-neutral-400 transition-colors hover:bg-neutral-100 hover:text-black dark:text-fg-faint dark:hover:bg-white/[0.06] dark:hover:text-fg"
+                        class="absolute top-2 right-2 flex size-7 items-center justify-center rounded-full text-neutral-400 transition-colors hover:bg-neutral-100 hover:text-black dark:text-fg-faint dark:hover:bg-white/[0.06] dark:hover:text-fg"
                         title="View documentation">
                         <svg class="w-4 h-4 text-neutral-600 dark:text-neutral-400" fill="none"
                             stroke="currentColor" viewBox="0 0 24 24">
@@ -821,13 +821,13 @@
                         </svg>
                     </a>
                 </div>
-                <div class="group relative flex min-h-24 items-center gap-3 rounded-[10px] border border-neutral-200 bg-white p-4 transition-colors hover:border-neutral-300 hover:bg-neutral-50 dark:border-white/[0.07] dark:bg-surface dark:hover:border-white/[0.12] dark:hover:bg-white/[0.035]"
+                <div class="group relative flex min-h-24 items-center gap-3 rounded-[10px] border border-neutral-200 bg-white p-4 transition-colors hover:border-neutral-300 hover:bg-neutral-50 dark:border-white/[0.07] dark:bg-surface dark:hover:border-white/[0.12] dark:hover:bg-raised"
                     :class="{ 'cursor-pointer': !selecting, 'cursor-not-allowed opacity-50': selecting }"
                     x-on:click="!selecting && (selecting = true, $wire.setPostgresqlType('postgis/postgis:17-3.5-alpine'))"
                     :disabled="selecting">
                     <div class="flex flex-col">
                         <div class="text-[13px] font-semibold text-black dark:text-fg">PostGIS <span
-                                class="ml-1 text-[10px] font-medium text-amber-600 dark:text-amber-300">AMD only</span>
+                                class="ml-1 text-[10px] font-medium text-fg-dim dark:text-fg">AMD only</span>
                         </div>
                         <div class="mt-1 pr-8 text-[11px] leading-4 text-neutral-500 dark:text-fg-faint">
                             PostGIS is a PostgreSQL extension for geographic objects.
@@ -835,7 +835,7 @@
                     </div>
                     <a href="https://github.com/postgis/docker-postgis" target="_blank"
                         @click.stop
-                        class="absolute top-2 right-2 flex size-7 items-center justify-center rounded-md text-neutral-400 transition-colors hover:bg-neutral-100 hover:text-black dark:text-fg-faint dark:hover:bg-white/[0.06] dark:hover:text-fg"
+                        class="absolute top-2 right-2 flex size-7 items-center justify-center rounded-full text-neutral-400 transition-colors hover:bg-neutral-100 hover:text-black dark:text-fg-faint dark:hover:bg-white/[0.06] dark:hover:text-fg"
                         title="View documentation">
                         <svg class="w-4 h-4 text-neutral-600 dark:text-neutral-400" fill="none"
                             stroke="currentColor" viewBox="0 0 24 24">
@@ -844,7 +844,7 @@
                         </svg>
                     </a>
                 </div>
-                <div class="group relative flex min-h-24 items-center gap-3 rounded-[10px] border border-neutral-200 bg-white p-4 transition-colors hover:border-neutral-300 hover:bg-neutral-50 dark:border-white/[0.07] dark:bg-surface dark:hover:border-white/[0.12] dark:hover:bg-white/[0.035]"
+                <div class="group relative flex min-h-24 items-center gap-3 rounded-[10px] border border-neutral-200 bg-white p-4 transition-colors hover:border-neutral-300 hover:bg-neutral-50 dark:border-white/[0.07] dark:bg-surface dark:hover:border-white/[0.12] dark:hover:bg-raised"
                     :class="{ 'cursor-pointer': !selecting, 'cursor-not-allowed opacity-50': selecting }"
                     x-on:click="!selecting && (selecting = true, $wire.setPostgresqlType('pgvector/pgvector:pg18'))"
                     :disabled="selecting">
@@ -856,7 +856,7 @@
                     </div>
                     <a href="https://github.com/pgvector/pgvector" target="_blank"
                         @click.stop
-                        class="absolute top-2 right-2 flex size-7 items-center justify-center rounded-md text-neutral-400 transition-colors hover:bg-neutral-100 hover:text-black dark:text-fg-faint dark:hover:bg-white/[0.06] dark:hover:text-fg"
+                        class="absolute top-2 right-2 flex size-7 items-center justify-center rounded-full text-neutral-400 transition-colors hover:bg-neutral-100 hover:text-black dark:text-fg-faint dark:hover:bg-white/[0.06] dark:hover:text-fg"
                         title="View documentation">
                         <svg class="w-4 h-4 text-neutral-600 dark:text-neutral-400" fill="none"
                             stroke="currentColor" viewBox="0 0 24 24">
@@ -865,7 +865,7 @@
                         </svg>
                     </a>
                 </div>
-                <div class="group relative flex min-h-24 items-center gap-3 rounded-[10px] border border-neutral-200 bg-white p-4 transition-colors hover:border-neutral-300 hover:bg-neutral-50 dark:border-white/[0.07] dark:bg-surface dark:hover:border-white/[0.12] dark:hover:bg-white/[0.035]"
+                <div class="group relative flex min-h-24 items-center gap-3 rounded-[10px] border border-neutral-200 bg-white p-4 transition-colors hover:border-neutral-300 hover:bg-neutral-50 dark:border-white/[0.07] dark:bg-surface dark:hover:border-white/[0.12] dark:hover:bg-raised"
                     :class="{ 'cursor-pointer': !selecting, 'cursor-not-allowed opacity-50': selecting }"
                     x-on:click="!selecting && (selecting = true, $wire.setPostgresqlType('pgvector/pgvector:pg17'))"
                     :disabled="selecting">
@@ -877,7 +877,7 @@
                     </div>
                     <a href="https://github.com/pgvector/pgvector" target="_blank"
                         @click.stop
-                        class="absolute top-2 right-2 flex size-7 items-center justify-center rounded-md text-neutral-400 transition-colors hover:bg-neutral-100 hover:text-black dark:text-fg-faint dark:hover:bg-white/[0.06] dark:hover:text-fg"
+                        class="absolute top-2 right-2 flex size-7 items-center justify-center rounded-full text-neutral-400 transition-colors hover:bg-neutral-100 hover:text-black dark:text-fg-faint dark:hover:bg-white/[0.06] dark:hover:text-fg"
                         title="View documentation">
                         <svg class="w-4 h-4 text-neutral-600 dark:text-neutral-400" fill="none"
                             stroke="currentColor" viewBox="0 0 24 24">

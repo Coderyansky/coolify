@@ -16,12 +16,12 @@
             @else
             <button type="button" title="Upgrade in progress" aria-label="Upgrade in progress"
                 @click="modalOpen=true" x-show="showProgress" x-cloak
-                class="inline-flex h-[18px] cursor-pointer items-center rounded-full bg-coollabs/10 px-1.5 text-[9.5px] font-semibold leading-none text-coollabs ring-1 ring-inset ring-coollabs/25 transition-colors hover:bg-coollabs/15 dark:bg-warning/15 dark:text-warning dark:ring-warning/25 dark:hover:bg-warning/20">
+                class="inline-flex h-[18px] cursor-pointer items-center rounded-full bg-white px-1.5 text-[9.5px] font-semibold leading-none text-black transition-colors hover:bg-white/90">
                 Updating
             </button>
             <button type="button" title="Update available" aria-label="Update available"
                 @click="modalOpen=true" x-show="!showProgress" x-cloak
-                class="inline-flex h-[18px] cursor-pointer items-center rounded-full bg-coollabs/10 px-1.5 text-[9.5px] font-semibold leading-none text-coollabs ring-1 ring-inset ring-coollabs/25 transition-colors hover:bg-coollabs/15 dark:bg-warning/15 dark:text-warning dark:ring-warning/25 dark:hover:bg-warning/20">
+                class="inline-flex h-[18px] cursor-pointer items-center rounded-full bg-white px-1.5 text-[9.5px] font-semibold leading-none text-black transition-colors hover:bg-white/90">
                 Update available
             </button>
             @endif
@@ -33,7 +33,7 @@
                         x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
                         x-transition:leave="ease-in duration-100" x-transition:leave-start="opacity-100"
                         x-transition:leave-end="opacity-0"
-                        class="absolute inset-0 w-full h-full bg-black/50 backdrop-blur-[2px]"></div>
+                        class="absolute inset-0 w-full h-full bg-black/60 backdrop-blur-sm"></div>
                     <div x-show="modalOpen" x-trap.inert.noscroll="modalOpen"
                         x-transition:enter="ease-out duration-100"
                         x-transition:enter-start="opacity-0 -translate-y-2 sm:scale-95"
@@ -57,7 +57,7 @@
                             </div>
                             <button type="button" x-show="!showProgress || upgradeError"
                                 @click="upgradeError ? closeErrorModal() : modalOpen=false"
-                                class="flex size-7 shrink-0 cursor-pointer items-center justify-center rounded-md text-neutral-500 outline-0 transition-colors hover:bg-neutral-100 hover:text-black focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent dark:text-fg-faint dark:hover:bg-white/[0.06] dark:hover:text-fg"
+                                class="flex size-7 shrink-0 cursor-pointer items-center justify-center rounded-full text-neutral-500 outline-0 transition-colors hover:bg-neutral-100 hover:text-black focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent dark:text-fg-faint dark:hover:bg-white/[0.06] dark:hover:text-fg"
                                 aria-label="Close">
                                 <x-reicon name="x" class="size-4" />
                             </button>
@@ -92,11 +92,11 @@
                                         </template>
                                         <template x-if="upgradeComplete">
                                             <x-reicon name="check-circle"
-                                                class="size-4 shrink-0 text-emerald-600 dark:text-emerald-400" />
+                                                class="size-4 shrink-0 text-success dark:text-success" />
                                         </template>
                                         <template x-if="upgradeError">
                                             <x-reicon name="alert-circle"
-                                                class="size-4 shrink-0 text-red-600 dark:text-red-400" />
+                                                class="size-4 shrink-0 text-error dark:text-error" />
                                         </template>
                                         <span x-text="currentStatus"
                                             class="min-w-0 text-[13px] leading-5 text-neutral-700 dark:text-fg"></span>
@@ -127,7 +127,7 @@
                                                 <span class="font-mono text-neutral-700 dark:text-fg">/data/coolify/source/upgrade*</span>.
                                             </p>
                                             <div
-                                                class="flex flex-wrap justify-end gap-2 border-t border-neutral-200 pt-4 dark:border-white/[0.08]">
+                                                class="flex flex-wrap justify-end gap-2 border-t border-white/[0.06] pt-4">
                                                 <x-forms.button @click="closeErrorModal()" type="button">
                                                     Close
                                                 </x-forms.button>
@@ -154,7 +154,7 @@
                                     </p>
 
                                     <div
-                                        class="flex flex-wrap items-center justify-end gap-2 border-t border-neutral-200 pt-4 dark:border-white/[0.08]">
+                                        class="flex flex-wrap items-center justify-end gap-2 border-t border-white/[0.06] pt-4">
                                         <template x-if="devMode">
                                             <x-forms.button @click="simulateUpgrade" type="button">
                                                 Simulate

@@ -97,8 +97,8 @@
         </div>
 
         @if ($validationComplete)
-            <div class="mt-auto flex shrink-0 items-center justify-between gap-3 rounded-[10px] border border-emerald-500/20 bg-emerald-500/[0.06] px-4 py-3">
-                <div class="flex items-center gap-2 text-[13px] font-medium text-emerald-700 dark:text-emerald-300">
+            <div class="mt-auto flex shrink-0 items-center justify-between gap-3 rounded-[10px] border border-white/15 bg-white/[0.04] px-4 py-3">
+                <div class="flex items-center gap-2 text-[13px] font-medium text-success dark:text-success">
                     <x-reicon name="check-circle" class="size-4 shrink-0" />
                     Validation complete
                 </div>
@@ -116,7 +116,7 @@
 
         @isset($error)
             <div
-                class="rounded-[10px] border border-red-500/20 bg-red-500/[0.06] px-4 py-3 text-[13px] leading-5 text-red-700 dark:text-red-300">
+                class="rounded-[10px] border border-error/30 bg-error/10 px-4 py-3 text-[13px] leading-5 text-error dark:text-error">
                 <div class="mb-1 flex items-center gap-2 text-[12px] font-semibold uppercase tracking-[0.06em]">
                     <x-reicon name="alert-circle" class="size-3.5 shrink-0" />
                     Validation failed

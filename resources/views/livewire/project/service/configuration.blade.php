@@ -202,7 +202,7 @@
                 @elseif ($currentRoute === 'project.service.storages')
                     <div class="space-y-6">
                         <div
-                            class="rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-[13px] leading-5 text-amber-800 dark:border-warning/15 dark:bg-warning/[0.07] dark:text-amber-300/90">
+                            class="rounded-lg border border-white/15 bg-white/[0.06] px-4 py-3 text-[13px] leading-5 text-fg-dim dark:border-warning/15 dark:bg-warning/[0.07] dark:text-fg">
                             Service volume mounts are read-only here. Edit the Docker Compose file and reload it to change volumes.
                         </div>
                         @foreach ($applications as $application)

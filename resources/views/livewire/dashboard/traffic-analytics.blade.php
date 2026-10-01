@@ -3,7 +3,7 @@ $tabButtonBase = 'relative inline-flex h-7 items-center justify-center rounded-m
 $tabButtonActive = 'bg-white text-black shadow-sm ring-1 ring-neutral-200 dark:bg-white/[0.09] dark:text-fg dark:ring-white/[0.08]';
 $tabButtonInactive = 'text-neutral-500 hover:text-black dark:text-fg-faint dark:hover:text-fg';
 
-$approxBadge = fn (string $tooltip) => '<span title="'.e($tooltip).'" class="ml-1.5 inline-flex items-center rounded-full bg-amber-100 px-1.5 py-0.5 text-[9px] font-medium tracking-wide text-amber-700 uppercase dark:bg-amber-500/10 dark:text-amber-400">~ approximate</span>';
+$approxBadge = fn (string $tooltip) => '<span title="'.e($tooltip).'" class="ml-1.5 inline-flex items-center rounded-full bg-white/[0.06] px-1.5 py-0.5 text-[9px] font-medium tracking-wide text-fg-dim uppercase dark:bg-white/[0.06] dark:text-fg">~ approximate</span>';
 
 $spark = 'refreshChartData-'.$chartId.'-status';
 ?>
@@ -44,7 +44,7 @@ $spark = 'refreshChartData-'.$chartId.'-status';
                 </div>
             @endif
             <a href="{{ route('analytics') }}" {{ wireNavigate() }}
-                class="group inline-flex h-7 shrink-0 items-center gap-1.5 rounded-md border border-neutral-200 bg-white px-2.5 text-[12px] font-medium text-neutral-600 transition-[color,background-color,transform] duration-100 ease-out hover:bg-neutral-100 hover:text-black active:scale-[0.97] dark:border-white/[0.08] dark:bg-white/[0.06] dark:text-fg-dim dark:hover:bg-white/[0.1] dark:hover:text-fg">
+                class="group inline-flex h-7 shrink-0 items-center gap-1.5 rounded-full border border-neutral-200 bg-white px-2.5 text-[12px] font-medium text-neutral-600 transition-[color,background-color,transform] duration-100 ease-out hover:bg-neutral-100 hover:text-black active:scale-[0.97] dark:border-white/[0.08] dark:bg-white/[0.06] dark:text-fg-dim dark:hover:bg-white/[0.1] dark:hover:text-fg">
                 Open analytics
                 <x-reicon name="arrow-right" class="size-3 opacity-70 transition-transform duration-150 ease-out group-hover:translate-x-0.5" />
             </a>

@@ -227,10 +227,10 @@
     @else
         <header class="mb-8 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
             <div class="min-w-0">
-                <h1 class="truncate text-[24px]! leading-7! font-semibold! tracking-tight!">
+                <h1 class="truncate text-[28px]! leading-[1.1]! font-semibold! tracking-[-0.03em]!">
                     {{ $name ?: 'GitHub App' }}
                 </h1>
-                <p class="mt-1 text-[13px] text-neutral-500 dark:text-fg-dim">
+                <p class="mt-2 max-w-2xl text-[14px] leading-relaxed text-fg-faint">
                     Finish registering this GitHub App before using it as a source
                 </p>
             </div>

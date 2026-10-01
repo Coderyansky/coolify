@@ -113,7 +113,7 @@
                 x-data="{ open: false, search: '', servers: @js($serverSwitcherOptions) }"
                 @click.outside="open = false" @keydown.escape.window="open = false">
                 <button type="button"
-                    class="flex h-8 max-w-56 min-w-0 items-center gap-1.5 rounded-md px-2 transition-colors hover:bg-neutral-100 dark:hover:bg-white/[0.05] xl:max-w-72"
+                    class="flex h-8 max-w-56 min-w-0 items-center gap-1.5 rounded-full px-2 transition-colors hover:bg-neutral-100 dark:hover:bg-white/[0.05] xl:max-w-72"
                     @click="open = !open" :aria-expanded="open" aria-label="Switch server">
                     <span class="min-w-0 truncate font-semibold text-black dark:text-fg">
                         {{ $server->name }}
@@ -159,7 +159,7 @@
         <div class="mb-3 w-full lg:hidden">
             <div class="flex min-w-0 flex-col gap-2">
                 <h1 data-testid="server-subtitle"
-                    class="min-w-0 truncate text-[24px]! leading-7! font-semibold! tracking-tight! text-black dark:text-fg">
+                    class="min-w-0 truncate text-[28px]! leading-[1.1]! font-semibold! tracking-[-0.03em]! text-black dark:text-fg">
                     {{ $server->name }}
                 </h1>
                 <div class="flex w-full min-w-0 items-center gap-2">
@@ -271,7 +271,7 @@
                             {{ $menuItem['label'] }}
                             @if ($menuItem['warning'] ?? false)
                                 <x-reicon name="alert-triangle"
-                                    class="size-3.5 text-orange-500 dark:text-warning" />
+                                    class="size-3.5 text-fg-dim dark:text-warning" />
                             @endif
                         </a>
                     @endforeach

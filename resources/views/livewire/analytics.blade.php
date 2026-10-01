@@ -9,7 +9,7 @@ $dimensionLabels = [
     'os' => 'Operating systems',
 ];
 
-$approxBadge = fn (string $tooltip) => '<span title="'.e($tooltip).'" class="ml-1.5 inline-flex items-center rounded-full bg-amber-100 px-1.5 py-0.5 text-[9px] font-medium tracking-wide text-amber-700 uppercase dark:bg-amber-500/10 dark:text-amber-400">~ approximate</span>';
+$approxBadge = fn (string $tooltip) => '<span title="'.e($tooltip).'" class="ml-1.5 inline-flex items-center rounded-full bg-white/[0.06] px-1.5 py-0.5 text-[9px] font-medium tracking-wide text-fg-dim uppercase dark:bg-white/[0.06] dark:text-fg">~ approximate</span>';
 
 $serverListboxOptions = array_merge(
     [['value' => '', 'label' => 'All servers']],
@@ -31,8 +31,8 @@ $appListboxOptions = array_merge(
     <div class="flex flex-col gap-4">
         @if ($scopedServerUuid === null)
             <div class="min-w-0">
-                <h1 class="min-w-0 text-[24px]! leading-7! font-semibold! tracking-tight!">Analytics</h1>
-                <p class="mt-1 text-[13px] text-neutral-500 dark:text-fg-dim">
+                <h1 class="min-w-0 text-[28px]! leading-[1.1]! font-semibold! tracking-[-0.03em]!">Analytics</h1>
+                <p class="mt-2 max-w-2xl text-[14px] leading-relaxed text-fg-faint">
                     Request traffic across every application and server, reported by Sentinel.
                 </p>
             </div>

@@ -170,22 +170,22 @@
                                 </button></x-slot:trigger>
                                     <div>
                                         <button type="button" class="listbox-option" x-on:click="toggleLogFilter('error')">
-                                            <span class="w-2.5 h-2.5 rounded-full bg-red-500"></span>
+                                            <span class="w-2.5 h-2.5 rounded-full bg-error"></span>
                                             <span class="flex-1 text-left">Error</span>
                                             <span x-show="logFilters.error">✓</span>
                                         </button>
                                         <button type="button" class="listbox-option" x-on:click="toggleLogFilter('warning')">
-                                            <span class="w-2.5 h-2.5 rounded-full bg-yellow-500"></span>
+                                            <span class="w-2.5 h-2.5 rounded-full bg-fg"></span>
                                             <span class="flex-1 text-left">Warning</span>
                                             <span x-show="logFilters.warning">✓</span>
                                         </button>
                                         <button type="button" class="listbox-option" x-on:click="toggleLogFilter('debug')">
-                                            <span class="w-2.5 h-2.5 rounded-full bg-purple-500"></span>
+                                            <span class="w-2.5 h-2.5 rounded-full bg-white/30"></span>
                                             <span class="flex-1 text-left">Debug</span>
                                             <span x-show="logFilters.debug">✓</span>
                                         </button>
                                         <button type="button" class="listbox-option" x-on:click="toggleLogFilter('info')">
-                                            <span class="w-2.5 h-2.5 rounded-full bg-blue-500"></span>
+                                            <span class="w-2.5 h-2.5 rounded-full bg-white/60"></span>
                                             <span class="flex-1 text-left">Info</span>
                                             <span x-show="logFilters.info">✓</span>
                                         </button>

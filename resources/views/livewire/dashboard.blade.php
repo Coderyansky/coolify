@@ -50,9 +50,9 @@
                         @endphp
 
                         <article
-                            class="group relative flex min-h-28 min-w-0 flex-col rounded-xl border border-neutral-200 bg-white p-3 shadow-sm transition-all hover:-translate-y-px hover:border-neutral-300 hover:shadow-md dark:border-white/[0.08] dark:bg-white/[0.05] dark:hover:border-white/[0.14]">
+                            class="group relative flex min-h-28 min-w-0 flex-col rounded-2xl p-4 bg-surface ring-1 ring-inset ring-hairline transition-[background-color,box-shadow] duration-150 hover:bg-raised hover:ring-control">
                             <a href="{{ $project->navigateTo() }}" {{ wireNavigate() }}
-                                class="absolute inset-0 rounded-xl"
+                                class="absolute inset-0 rounded-2xl"
                                 aria-label="Open {{ $project->name }}"></a>
 
                             <div class="flex min-w-0 items-start gap-3">
@@ -99,7 +99,7 @@
                                                 'environment_uuid' => $firstEnvironment->uuid,
                                             ]) }}"
                                                 {{ wireNavigate() }}
-                                                class="flex size-6.5 items-center justify-center rounded-md text-neutral-400 transition-colors hover:bg-neutral-100 hover:text-black dark:text-fg-faint dark:hover:bg-white/[0.06] dark:hover:text-fg"
+                                                class="flex size-6.5 items-center justify-center rounded-full text-neutral-400 transition-colors hover:bg-neutral-100 hover:text-black dark:text-fg-faint dark:hover:bg-white/[0.06] dark:hover:text-fg"
                                                 title="Add resource"
                                                 aria-label="Add resource to {{ $project->name }}">
                                                 <x-reicon name="plus" class="size-3" />
@@ -109,7 +109,7 @@
                                     @can('update', $project)
                                         <a href="{{ route('project.edit', ['project_uuid' => $project->uuid]) }}"
                                             {{ wireNavigate() }}
-                                            class="flex size-6.5 items-center justify-center rounded-md text-neutral-400 transition-colors hover:bg-neutral-100 hover:text-black dark:text-fg-faint dark:hover:bg-white/[0.06] dark:hover:text-fg"
+                                            class="flex size-6.5 items-center justify-center rounded-full text-neutral-400 transition-colors hover:bg-neutral-100 hover:text-black dark:text-fg-faint dark:hover:bg-white/[0.06] dark:hover:text-fg"
                                             title="Project settings"
                                             aria-label="Open settings for {{ $project->name }}">
                                             <x-reicon name="settings" class="size-3" />
@@ -176,7 +176,7 @@
 
                         <a href="{{ route('server.show', ['server_uuid' => $server->uuid]) }}"
                             {{ wireNavigate() }} aria-label="Open {{ $server->name }}"
-                            class="group relative flex min-h-28 min-w-0 flex-col rounded-xl border border-neutral-200 bg-white p-3 shadow-sm transition-all hover:-translate-y-px hover:border-neutral-300 hover:shadow-md dark:border-white/[0.08] dark:bg-white/[0.05] dark:hover:border-white/[0.14]">
+                            class="group relative flex min-h-28 min-w-0 flex-col rounded-2xl p-4 bg-surface ring-1 ring-inset ring-hairline transition-[background-color,box-shadow] duration-150 hover:bg-raised hover:ring-control">
                             @if ($server->isMetricsEnabled())
                                 <livewire:dashboard.server-metrics-chart :server="$server"
                                     :key="'dashboard-server-metrics-'.$server->uuid" />
@@ -201,8 +201,8 @@
                                         aria-label="Server status: {{ $serverStatus }}"
                                         @class([
                                             'flex size-6 shrink-0 items-center justify-center rounded-md',
-                                            'text-orange-500 dark:text-warning' => $serverStatusType === 'warning',
-                                            'text-red-500 dark:text-red-400' => $serverStatusType === 'error',
+                                            'text-fg-dim dark:text-warning' => $serverStatusType === 'warning',
+                                            'text-error dark:text-error' => $serverStatusType === 'error',
                                         ])>
                                         <x-reicon name="alert-triangle" class="size-4" />
                                     </span>

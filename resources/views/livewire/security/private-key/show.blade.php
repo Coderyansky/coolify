@@ -26,7 +26,7 @@
                     </div>
                 </div>
             </div>
-            <div class="flex items-center justify-between gap-2 border-t border-neutral-200 pt-4 dark:border-white/[0.08]">
+            <div class="flex items-center justify-between gap-2 border-t border-white/[0.06] pt-4">
                 @can('delete', $private_key)
                     <x-modal-confirmation title="Confirm Private Key Deletion?" isErrorButton buttonTitle="Delete"
                         submitAction="delete" :disabled="$isInUse" :disabledTooltip="$deleteDisabledReason"

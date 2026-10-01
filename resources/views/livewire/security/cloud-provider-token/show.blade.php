@@ -7,7 +7,7 @@
                 <x-forms.input readonly label="Provider" :value="$this->providerName()" />
                 <x-forms.input readonly label="Created" :value="$cloudProviderToken->created_at->format('Y-m-d H:i')" />
             </div>
-            <div class="flex items-center justify-between gap-2 border-t border-neutral-200 pt-4 dark:border-white/[0.08]">
+            <div class="flex items-center justify-between gap-2 border-t border-white/[0.06] pt-4">
                 <div class="flex items-center gap-2">
                     @can('delete', $cloudProviderToken)
                         <x-modal-confirmation title="Confirm Token Deletion?" isErrorButton buttonTitle="Delete"

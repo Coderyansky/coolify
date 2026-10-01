@@ -139,7 +139,7 @@
                                 @if (filled($row['internal_port'] ?? null))
                                     <span aria-label="Internal port {{ $row['internal_port'] }}">{{ $row['internal_port'] }}</span>
                                 @else
-                                    <span role="img" aria-label="No internal port" title="No internal port. Set Ports Exposes or a per-domain internal port so the proxy can route this domain." class="text-red-500 dark:text-red-400">
+                                    <span role="img" aria-label="No internal port" title="No internal port. Set Ports Exposes or a per-domain internal port so the proxy can route this domain." class="text-error dark:text-error">
                                         <x-reicon name="alert-triangle" class="size-4" />
                                     </span>
                                 @endif
@@ -199,7 +199,7 @@
                                         step2ButtonText="Remove domain">
                                         <x-slot:trigger>
                                             <button type="button"
-                                                class="icon-button shrink-0 text-red-500 hover:text-red-600 dark:text-red-400 dark:hover:text-red-300"
+                                                class="icon-button shrink-0 text-error hover:text-error dark:text-error dark:hover:text-error"
                                                 title="Remove domain" aria-label="Remove domain">
                                                 <x-reicon name="trash" class="size-3.5" />
                                             </button>
@@ -219,7 +219,7 @@
 
     <template x-teleport="body">
         <div x-show="editOpen" x-cloak class="fixed inset-0 z-99 overflow-y-auto">
-            <div class="absolute inset-0 bg-black/50 backdrop-blur-[2px]" @click="closeEditDomain()"></div>
+            <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" @click="closeEditDomain()"></div>
             <div class="relative flex min-h-full items-center justify-center p-4">
                 <div x-show="editOpen" x-trap.inert.noscroll="editOpen"
                     data-preview-domain-dialog class="application-settings-form application-settings-section relative w-full max-w-3xl">
@@ -270,7 +270,7 @@
             <template x-teleport="body">
                 <div x-show="modalOpen"
                     class="fixed inset-0 z-99 flex min-h-full items-center justify-center overflow-y-auto p-4" x-cloak>
-                    <div class="absolute inset-0 bg-black/50 backdrop-blur-[2px]"></div>
+                    <div class="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
                     <div x-show="modalOpen" x-trap.inert.noscroll="modalOpen"
                         class="application-settings-form application-settings-section relative w-full lg:min-w-[36rem] lg:max-w-2xl"
                         style="box-shadow: 0 0 0 1px var(--coollabs-hairline), var(--shadow-modal)">
@@ -289,7 +289,7 @@
                                 but the container may not be listening there.
                             </x-callout>
 
-                            <div class="mt-4 flex flex-wrap justify-end gap-2 border-t border-neutral-200 pt-4 dark:border-white/[0.08]">
+                            <div class="mt-4 flex flex-wrap justify-end gap-2 border-t border-white/[0.06] pt-4">
                                 <x-forms.button type="button" canGate="update" :canResource="$preview->application"
                                     @click="modalOpen = false; $wire.call('cancelUseUnknownPort')">
                                     Cancel

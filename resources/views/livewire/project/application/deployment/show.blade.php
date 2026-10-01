@@ -457,7 +457,7 @@
                                     <span data-line-text="{{ $lineContent }}"
                                         @class([
                                             'text-success dark:text-warning' => $line['hidden'],
-                                            'text-red-500' => $line['stderr'],
+                                            'text-error' => $line['stderr'],
                                             'font-bold' => isset($line['command']) && $line['command'],
                                             'logs-viewer-line-text',
                                         ])>{{ $lineContent }}</span>

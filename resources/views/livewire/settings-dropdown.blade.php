@@ -107,7 +107,7 @@
         <template x-teleport="body">
             <div class="fixed inset-0 z-[99] flex items-center justify-center p-3 sm:p-6"
                 @keydown.escape.window="$wire.closeWhatsNewModal()">
-                <div class="absolute inset-0 bg-black/55 backdrop-blur-[2px]" wire:click="closeWhatsNewModal"></div>
+                <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" wire:click="closeWhatsNewModal"></div>
 
                 <section
                     class="application-settings-form application-settings-section relative flex max-h-[calc(100dvh-3rem)] !w-full max-w-5xl flex-col overflow-hidden"
@@ -153,7 +153,7 @@
                         @endif
                         </div>
                         <button wire:click="closeWhatsNewModal"
-                            class="absolute right-2 top-2 flex size-7 cursor-pointer items-center justify-center rounded-md text-neutral-500 outline-0 hover:bg-neutral-100 hover:text-black focus-visible:ring-1 focus-visible:ring-accent dark:text-fg-faint dark:hover:bg-white/[0.06] dark:hover:text-fg"
+                            class="absolute right-2 top-2 flex size-7 cursor-pointer items-center justify-center rounded-full text-neutral-500 outline-0 hover:bg-neutral-100 hover:text-black focus-visible:ring-1 focus-visible:ring-accent dark:text-fg-faint dark:hover:bg-white/[0.06] dark:hover:text-fg"
                             aria-label="Close What's new">
                             <x-reicon name="x" class="size-4" />
                         </button>

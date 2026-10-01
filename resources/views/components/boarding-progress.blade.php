@@ -12,7 +12,7 @@
                 <span @class([
                     'flex size-5 items-center justify-center rounded-full border text-[10px] font-semibold',
                     'border-coollabs/25 bg-coollabs/10 dark:border-warning/25 dark:bg-warning/15' => $i === $currentStep,
-                    'border-emerald-500/25 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400' => $i < $currentStep,
+                    'border-white/15 bg-white/[0.04] text-success dark:text-success' => $i < $currentStep,
                     'border-neutral-200 dark:border-white/[0.1]' => $i > $currentStep,
                 ])>
                     @if ($i < $currentStep)

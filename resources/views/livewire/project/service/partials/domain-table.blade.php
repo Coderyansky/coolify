@@ -102,7 +102,7 @@
                         @endif
                     </div>
                     @if ($isSuggested && filled($row['dns_message']))
-                        <p class="text-[12px] leading-4 text-amber-700 sm:truncate dark:text-amber-400/90"
+                        <p class="text-[12px] leading-4 text-fg-dim sm:truncate dark:text-fg"
                             title="{{ $row['dns_message'] }}">
                             {{ $row['dns_message'] }}
                         </p>
@@ -203,7 +203,7 @@
                                 step2ButtonText="Remove domain">
                                 <x-slot:trigger>
                                     <button type="button"
-                                        class="icon-button shrink-0 text-red-500 hover:text-red-600 dark:text-red-400 dark:hover:text-red-300"
+                                        class="icon-button shrink-0 text-error hover:text-error dark:text-error dark:hover:text-error"
                                         title="Remove domain" aria-label="Remove domain">
                                         <x-reicon name="trash" class="size-3.5" />
                                     </button>

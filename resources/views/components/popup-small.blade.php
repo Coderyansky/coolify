@@ -56,7 +56,7 @@
         <button type="button" @click="restore()" aria-label="Restore warning" class="surface-popover flex rounded-lg p-2">
             @isset($icon)
                 <span
-                    class="flex size-7 shrink-0 items-center justify-center rounded-md bg-amber-100 text-amber-700 dark:bg-warning/10 dark:text-warning">
+                    class="flex size-7 shrink-0 items-center justify-center rounded-md bg-white/[0.06] text-fg-dim dark:bg-warning/10 dark:text-warning">
                     {{ $icon }}
                 </span>
             @endisset
@@ -71,7 +71,7 @@
         @click="restore()">
         @isset($icon)
             <div
-                class="flex size-7 shrink-0 items-center justify-center rounded-md bg-amber-100 text-amber-700 dark:bg-warning/10 dark:text-warning">
+                class="flex size-7 shrink-0 items-center justify-center rounded-md bg-white/[0.06] text-fg-dim dark:bg-warning/10 dark:text-warning">
                 {{ $icon }}
             </div>
         @endisset
@@ -87,7 +87,7 @@
         </div>
 
         <button type="button" @click.stop="minimizeToIcon()" aria-label="Minimize warning"
-            class="absolute right-2 top-2 flex size-6 items-center justify-center rounded-md text-neutral-400 transition-colors hover:bg-black/5 hover:text-neutral-700 dark:text-fg-faint dark:hover:bg-white/[0.06] dark:hover:text-fg">
+            class="absolute right-2 top-2 flex size-6 items-center justify-center rounded-full text-neutral-400 transition-colors hover:bg-black/5 hover:text-neutral-700 dark:text-fg-faint dark:hover:bg-white/[0.06] dark:hover:text-fg">
             <x-reicon name="x" class="size-3.5" />
         </button>
     </div>

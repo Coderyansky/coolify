@@ -20,13 +20,14 @@
     $badgeStatus = $healthStatus ? "{$displayStatus} ({$healthStatus})" : $displayStatus;
     $showUnknownHelper = ! str($status)->startsWith('Proxy') && (str($status)->contains('unknown') || str($healthStatus)->contains('unknown'));
     $showUnhealthyHelper = ! str($status)->startsWith('Proxy') && (str($status)->contains('unhealthy') || str($healthStatus)->contains('unhealthy'));
+    $badgeType = $showUnknownHelper || $showUnhealthyHelper ? 'warning' : 'success';
 @endphp
 <div class="flex items-center gap-1 leading-none">
     @if ($lastDeploymentLink)
-        <x-status-badge as="a" href="{{ $lastDeploymentLink }}" target="_blank" status="{{ $badgeStatus }}" type="success"
+        <x-status-badge as="a" href="{{ $lastDeploymentLink }}" target="_blank" status="{{ $badgeStatus }}" :type="$badgeType"
             title="{{ $title }}" class="cursor-pointer underline" />
     @else
-        <x-status-badge status="{{ $badgeStatus }}" type="success" title="{{ $title }}" />
+        <x-status-badge status="{{ $badgeStatus }}" :type="$badgeType" title="{{ $title }}" />
     @endif
     @if ($showUnknownHelper)
         <div>

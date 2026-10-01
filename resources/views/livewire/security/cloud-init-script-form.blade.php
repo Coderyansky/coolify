@@ -2,7 +2,7 @@
     <x-forms.input id="name" label="Script name" helper="A recognizable name for this reusable script." required />
     <x-forms.textarea id="script" label="Script content" rows="12" monospace
         helper="Cloud-config YAML or another script accepted by your provider." required />
-    <div class="flex justify-end border-t border-neutral-200 pt-4 dark:border-white/[0.08]">
+    <div class="flex justify-end border-t border-white/[0.06] pt-4">
         <button type="submit"
             class="button button-highlighted">
             {{ $scriptId ? 'Update script' : 'Create script' }}

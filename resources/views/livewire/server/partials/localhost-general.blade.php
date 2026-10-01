@@ -40,7 +40,7 @@
                         @if ($server->server_metadata)
                             @include('livewire.server.partials.server-details', ['server' => $server])
                         @else
-                            <div class="mt-4 border-t border-neutral-200 pt-4 dark:border-white/[0.08]">
+                            <div class="mt-4 border-t border-white/[0.06] pt-4">
                                 <x-forms.button type="button" wire:click="refreshServerMetadata">
                                     <x-reicon name="refresh" class="size-3.5" />
                                     Fetch server details

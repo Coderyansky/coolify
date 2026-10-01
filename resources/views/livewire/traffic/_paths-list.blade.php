@@ -43,9 +43,9 @@
                 </div>
                 <span class="w-12 shrink-0 text-right text-[12px] font-medium tabular-nums text-black dark:text-fg"
                     title="{{ number_format($requests) }} requests">{{ compactNumber($requests) }}</span>
-                <span class="hidden w-14 shrink-0 text-right text-[11px] font-medium tabular-nums text-pink-600 sm:inline dark:text-pink-400"
+                <span class="hidden w-14 shrink-0 text-right text-[11px] font-medium tabular-nums text-fg-dim sm:inline dark:text-fg"
                     title="{{ number_format($s4xx) }} client-error responses">{{ compactNumber($s4xx) }} 4xx</span>
-                <span class="w-14 shrink-0 text-right text-[11px] font-medium tabular-nums text-purple-600 dark:text-purple-400"
+                <span class="w-14 shrink-0 text-right text-[11px] font-medium tabular-nums text-fg-dim dark:text-fg"
                     title="{{ number_format($s5xx) }} server-error responses">{{ compactNumber($s5xx) }} 5xx</span>
                 <span class="hidden w-12 shrink-0 text-right text-[11px] tabular-nums text-neutral-400 lg:inline dark:text-fg-faint"
                     title="Combined 4xx and 5xx response rate">{{ $errorRate }}%</span>

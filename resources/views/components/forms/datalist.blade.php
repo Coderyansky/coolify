@@ -98,25 +98,22 @@
 
             {{-- Unified Input Container with Tags Inside --}}
             <div @click="$refs.searchInput.focus()" x-data="{ focused: false }" @focusin="focused = true" @focusout="focused = false"
-                class="flex flex-wrap gap-1.5 max-h-40 overflow-y-auto scrollbar py-1.5  px-2 w-full text-sm rounded-sm border-0 bg-white dark:bg-coolgray-100 cursor-text px-1 text-black dark:text-white"
+                class="flex flex-wrap gap-1.5 max-h-40 overflow-y-auto scrollbar py-1.5  px-2 w-full text-sm rounded-lg border-0 bg-white/[0.03] cursor-text px-1 text-black dark:text-white"
                 :style="(() => {
-                    const isDark = document.documentElement.classList.contains('dark');
-                    const accent = isDark ? '#fcd452' : '#6b16ed';
-                    const border = isDark ? '#242424' : '#e5e5e5';
                     return focused
-                        ? 'box-shadow: inset 4px 0 0 ' + accent + ', inset 0 0 0 2px ' + border + ';'
-                        : 'box-shadow: inset 4px 0 0 transparent, inset 0 0 0 2px ' + border + ';';
+                        ? 'box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.4), 0 0 0 3px rgb(255 255 255 / 0.08);'
+                        : 'box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.1);';
                 })()"
                 :class="{
                         'opacity-50': {{ $disabled ? 'true' : 'false' }}
                     }" wire:loading.class="opacity-50"
-                wire:dirty.class="[box-shadow:inset_4px_0_0_#6b16ed,inset_0_0_0_2px_#e5e5e5] dark:[box-shadow:inset_4px_0_0_#fcd452,inset_0_0_0_2px_#242424]">
+                wire:dirty.class="[box-shadow:inset_3px_0_0_#f5f5f7,inset_0_0_0_1px_rgb(255_255_255/0.15)]">
 
                 {{-- Selected Tags Inside Input --}}
                 <template x-for="value in selected" :key="value">
                     <button type="button" @click.stop="removeOption(value, $event)"
                         :disabled="{{ $disabled ? 'true' : 'false' }}"
-                        class="inline-flex items-center gap-1.5 px-2 py-0.5 text-xs bg-coolgray-200 dark:bg-coolgray-700 rounded whitespace-nowrap {{ $disabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer hover:bg-red-100 dark:hover:bg-red-900/20 hover:text-red-600 dark:hover:text-red-400' }}"
+                        class="inline-flex items-center gap-1.5 px-2 py-0.5 text-xs bg-coolgray-200 dark:bg-coolgray-700 rounded whitespace-nowrap {{ $disabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer hover:bg-error/15 dark:hover:bg-error/15 hover:text-error dark:hover:text-error' }}"
                         aria-label="Remove">
                         <span x-text="getSelectedText(value)" class="max-w-[200px] truncate"></span>
                     </button>
@@ -149,7 +146,7 @@
                                 class="peer absolute inset-0 m-0 h-full w-full appearance-none opacity-0"
                                 tabindex="-1">
                             <span
-                                class="pointer-events-none absolute inset-0 rounded-[5px] border border-neutral-300 bg-white transition-colors peer-checked:border-coollabs peer-checked:bg-coollabs dark:border-white/[0.14] dark:bg-white/[0.045] dark:peer-checked:border-warning dark:peer-checked:bg-warning"></span>
+                                class="pointer-events-none absolute inset-0 rounded-[5px] border border-neutral-300 bg-white transition-colors peer-checked:border-coollabs peer-checked:bg-coollabs dark:border-control dark:bg-white/[0.045] dark:peer-checked:border-accent dark:peer-checked:bg-accent"></span>
                             <svg class="pointer-events-none absolute inset-0 m-auto size-3 scale-75 text-white opacity-0 transition-[opacity,transform] peer-checked:scale-100 peer-checked:opacity-100 dark:text-black"
                                 viewBox="0 0 12 12" fill="none" aria-hidden="true">
                                 <path d="m2.25 6.15 2.35 2.3 5.15-5" stroke="currentColor"
@@ -239,18 +236,15 @@
 
                 {{-- Input Container --}}
                 <div @click="openDropdown()" x-data="{ focused: false }" @focusin="focused = true" @focusout="focused = false"
-                    class="flex items-center gap-2 py-1.5 w-full text-sm rounded-sm border-0 bg-white dark:bg-coolgray-100 cursor-text text-black dark:text-white"
+                    class="flex items-center gap-2 py-1.5 w-full text-sm rounded-lg border-0 bg-white/[0.03] cursor-text text-black dark:text-white"
                     :style="(() => {
-                        const isDark = document.documentElement.classList.contains('dark');
-                        const accent = isDark ? '#fcd452' : '#6b16ed';
-                        const border = isDark ? '#242424' : '#e5e5e5';
                         return focused
-                            ? 'box-shadow: inset 4px 0 0 ' + accent + ', inset 0 0 0 2px ' + border + ';'
-                            : 'box-shadow: inset 4px 0 0 transparent, inset 0 0 0 2px ' + border + ';';
+                            ? 'box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.4), 0 0 0 3px rgb(255 255 255 / 0.08);'
+                            : 'box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.1);';
                     })()"
                     :class="{
                     'opacity-50': {{ $disabled ? 'true' : 'false' }}
-                }" wire:loading.class="opacity-50" wire:dirty.class="[box-shadow:inset_4px_0_0_#6b16ed,inset_0_0_0_2px_#e5e5e5] dark:[box-shadow:inset_4px_0_0_#fcd452,inset_0_0_0_2px_#242424]">
+                }" wire:loading.class="opacity-50" wire:dirty.class="[box-shadow:inset_3px_0_0_#f5f5f7,inset_0_0_0_1px_rgb(255_255_255/0.15)]">
 
                     {{-- Display Selected Value or Search Input --}}
                     <div class="flex-1 flex items-center min-w-0 px-1">
@@ -303,7 +297,7 @@
 
     @error($modelBinding)
         <label class="label">
-            <span class="text-red-500 label-text-alt">{{ $message }}</span>
+            <span class="text-error label-text-alt">{{ $message }}</span>
         </label>
     @enderror
 </div>

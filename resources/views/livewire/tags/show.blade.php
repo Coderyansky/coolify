@@ -8,8 +8,8 @@
         'lg:hidden' => isset($tag),
     ])>
         <div class="min-w-0">
-            <h1 class="truncate text-[24px]! leading-7! font-semibold! tracking-tight!">Tags</h1>
-            <p class="mt-1 text-[13px] text-neutral-500 dark:text-fg-dim">
+            <h1 class="truncate text-[28px]! leading-[1.1]! font-semibold! tracking-[-0.03em]!">Tags</h1>
+            <p class="mt-2 max-w-2xl text-[14px] leading-relaxed text-fg-faint">
                 @if ($tags->isEmpty())
                     Group applications and services for bulk deploys
                 @elseif (isset($tag))
@@ -96,8 +96,8 @@
                 <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
                     <template x-for="tag in paginatedTags" :key="tag.id">
                         <article
-                            class="group relative flex min-h-28 flex-col rounded-xl border border-neutral-200 bg-white p-3 shadow-sm transition-all hover:-translate-y-px hover:border-neutral-300 hover:shadow-md dark:border-white/[0.08] dark:bg-white/[0.05] dark:hover:border-white/[0.14]">
-                            <a :href="tag.href" {{ wireNavigate() }} class="absolute inset-0 rounded-xl"
+                            class="group relative flex min-h-28 flex-col rounded-2xl p-4 bg-surface ring-1 ring-inset ring-hairline transition-[background-color,box-shadow] duration-150 hover:bg-raised hover:ring-control">
+                            <a :href="tag.href" {{ wireNavigate() }} class="absolute inset-0 rounded-2xl"
                                 :aria-label="`Open ${tag.name}`"></a>
 
                             <div class="flex items-start gap-3">

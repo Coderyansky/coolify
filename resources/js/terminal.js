@@ -25,23 +25,23 @@ const terminalDebugEnabled = import.meta.env.DEV
     || localStorage.getItem('coolify-terminal-debug') === '1';
 
 const baseApplicationTerminalTheme = {
-    black: '#675f70',
-    red: '#ef7272',
-    green: '#7bd88f',
-    yellow: '#e7bd68',
-    blue: '#85aacb',
-    magenta: '#c792ea',
-    cyan: '#72d5d0',
-    white: '#d8d2df',
-    brightBlack: '#8a8292',
-    brightRed: '#ff9b9b',
-    brightGreen: '#a5e7b2',
-    brightYellow: '#f2d596',
-    brightBlue: '#b0c8df',
-    brightMagenta: '#ddb3f4',
-    brightCyan: '#a7e8e4',
+    black: '#484f58',
+    red: '#ff7b72',
+    green: '#7ee787',
+    yellow: '#ffa657',
+    blue: '#79c0ff',
+    magenta: '#d2a8ff',
+    cyan: '#a5d6ff',
+    white: '#b1bac4',
+    brightBlack: '#7d8590',
+    brightRed: '#ffa198',
+    brightGreen: '#a5f3a9',
+    brightYellow: '#ffc68a',
+    brightBlue: '#a5d6ff',
+    brightMagenta: '#e2c5ff',
+    brightCyan: '#c8e6ff',
     brightWhite: '#ffffff',
-    foreground: '#eee9f2',
+    foreground: '#e8e8ea',
     background: '#00000000',
     overviewRulerBorder: '#00000000',
 };
@@ -56,41 +56,15 @@ function createApplicationTerminalTheme(accent, colors = {}) {
     };
 }
 
-function customThemeAccent() {
-    const color = localStorage.getItem('themeColor') || '#6b16ed';
-
-    if (!/^#[0-9a-f]{6}$/i.test(color)) {
-        return '#7c3aed';
-    }
-
-    const channels = color.match(/[a-f\d]{2}/gi).map((channel) => (
-        Math.round(parseInt(channel, 16) * 0.85 + 255 * 0.15)
-    ));
-
-    return `#${channels.map((channel) => channel.toString(16).padStart(2, '0')).join('')}`;
-}
-
+/**
+ * The interface is dark-only and monochrome, so the system terminal theme uses
+ * a neutral white cursor and selection over the shared GitHub Dark ANSI palette.
+ */
 function createSystemTerminalTheme() {
-    if (document.documentElement.dataset.theme === 'custom') {
-        return createApplicationTerminalTheme(customThemeAccent());
-    }
-
-    if (document.documentElement.classList.contains('dark')) {
-        return createApplicationTerminalTheme('#8C8E9C');
-    }
-
-    return createApplicationTerminalTheme('#52525b', {
-        black: '#18181b',
-        red: '#dc2626',
-        green: '#15803d',
-        yellow: '#a16207',
-        blue: '#2563eb',
-        magenta: '#9333ea',
-        cyan: '#0e7490',
-        white: '#52525b',
-        brightBlack: '#71717a',
-        brightWhite: '#18181b',
-        foreground: '#18181b',
+    return createApplicationTerminalTheme('#f5f5f7', {
+        cursorAccent: '#000000',
+        selectionBackground: '#ffffff33',
+        foreground: '#e8e8ea',
     });
 }
 

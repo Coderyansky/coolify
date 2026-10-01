@@ -23,7 +23,7 @@
                         <h1 class="mt-2 text-xl font-semibold text-neutral-950 dark:text-fg">
                             {{ $backup->targetName() }} backup
                         </h1>
-                        <p class="mt-1 text-[13px] text-neutral-500 dark:text-fg-dim">
+                        <p class="mt-2 max-w-2xl text-[14px] leading-relaxed text-fg-faint">
                             {{ $backup->frequency }} schedule
                         </p>
                     </div>

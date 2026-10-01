@@ -5,7 +5,7 @@
 
     <div x-data="projectsIndex()" class="w-full">
         <header class="mb-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-            <h1 class="min-w-0 truncate text-[24px]! leading-7! font-semibold! tracking-tight!">Projects</h1>
+            <h1 class="min-w-0 truncate text-[28px]! leading-[1.1]! font-semibold! tracking-[-0.03em]!">Projects</h1>
             @can('createAnyResource')
                 <div class="w-fit shrink-0">
                     <x-modal-input title="New Project">
@@ -103,8 +103,8 @@
                 <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
                     <template x-for="project in paginatedProjects" :key="project.uuid">
                         <article
-                            class="group relative flex min-h-28 flex-col rounded-xl border border-neutral-200 bg-white p-3 shadow-sm transition-all hover:-translate-y-px hover:border-neutral-300 hover:shadow-md dark:border-white/[0.08] dark:bg-white/[0.05] dark:hover:border-white/[0.14]">
-                            <a :href="project.href" {{ wireNavigate() }} class="absolute inset-0 rounded-xl"
+                            class="group relative flex min-h-28 flex-col rounded-2xl p-4 bg-surface ring-1 ring-inset ring-hairline transition-[background-color,box-shadow] duration-150 hover:bg-raised hover:ring-control">
+                            <a :href="project.href" {{ wireNavigate() }} class="absolute inset-0 rounded-2xl"
                                 :aria-label="`Open ${project.name}`"></a>
                             <div class="flex items-start gap-3">
                                 <div
@@ -142,12 +142,12 @@
                                 <div class="relative z-10 flex shrink-0 items-center gap-0.5">
                                     <a x-show="project.addResourceHref" :href="project.addResourceHref"
                                         {{ wireNavigate() }}
-                                        class="flex size-7.5 items-center justify-center rounded-md text-neutral-400 transition-colors hover:bg-neutral-100 hover:text-black dark:text-fg-faint dark:hover:bg-white/[0.06] dark:hover:text-fg"
+                                        class="flex size-7.5 items-center justify-center rounded-full text-neutral-400 transition-colors hover:bg-neutral-100 hover:text-black dark:text-fg-faint dark:hover:bg-white/[0.06] dark:hover:text-fg"
                                         title="Add resource" :aria-label="`Add resource to ${project.name}`">
                                         <x-reicon name="plus" class="size-3" />
                                     </a>
                                     <a x-show="project.settingsHref" :href="project.settingsHref" {{ wireNavigate() }}
-                                        class="flex size-7.5 items-center justify-center rounded-md text-neutral-400 transition-colors hover:bg-neutral-100 hover:text-black dark:text-fg-faint dark:hover:bg-white/[0.06] dark:hover:text-fg"
+                                        class="flex size-7.5 items-center justify-center rounded-full text-neutral-400 transition-colors hover:bg-neutral-100 hover:text-black dark:text-fg-faint dark:hover:bg-white/[0.06] dark:hover:text-fg"
                                         title="Project settings" :aria-label="`Open settings for ${project.name}`">
                                         <x-reicon name="settings" class="size-3" />
                                     </a>
@@ -208,12 +208,12 @@
 
                         <div class="flex items-center justify-end gap-0.5">
                             <a x-show="project.addResourceHref" :href="project.addResourceHref" {{ wireNavigate() }}
-                                class="flex size-7 items-center justify-center rounded-md text-neutral-400 transition-colors hover:bg-neutral-100 hover:text-black dark:text-fg-faint dark:hover:bg-white/[0.06] dark:hover:text-fg"
+                                class="flex size-7 items-center justify-center rounded-full text-neutral-400 transition-colors hover:bg-neutral-100 hover:text-black dark:text-fg-faint dark:hover:bg-white/[0.06] dark:hover:text-fg"
                                 title="Add resource" :aria-label="`Add resource to ${project.name}`">
                                 <x-reicon name="plus" class="size-3.5" />
                             </a>
                             <a x-show="project.settingsHref" :href="project.settingsHref" {{ wireNavigate() }}
-                                class="flex size-7 items-center justify-center rounded-md text-neutral-400 transition-colors hover:bg-neutral-100 hover:text-black dark:text-fg-faint dark:hover:bg-white/[0.06] dark:hover:text-fg"
+                                class="flex size-7 items-center justify-center rounded-full text-neutral-400 transition-colors hover:bg-neutral-100 hover:text-black dark:text-fg-faint dark:hover:bg-white/[0.06] dark:hover:text-fg"
                                 title="Project settings" :aria-label="`Open settings for ${project.name}`">
                                 <x-reicon name="settings" class="size-3.5" />
                             </a>

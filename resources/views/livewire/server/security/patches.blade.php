@@ -95,7 +95,7 @@
                                     <div class="flex min-w-0 items-center gap-2">
                                         @if (data_get_str($update, 'package')->contains('docker') || data_get_str($update, 'package')->contains('kernel'))
                                             <x-reicon name="alert-triangle"
-                                                class="size-4 shrink-0 text-red-500" />
+                                                class="size-4 shrink-0 text-error" />
                                         @endif
                                         <span class="min-w-0 truncate font-mono text-[12px] text-neutral-950 dark:text-fg">
                                             {{ data_get($update, 'package') }}

@@ -93,7 +93,7 @@
                 <x-popup>
                     <x-slot:customActions>
                         <div
-                            class="relative mx-auto flex w-full max-w-2xl flex-col gap-5 overflow-hidden rounded-2xl border border-red-200 bg-white p-5 shadow-modal sm:p-6 dark:border-red-500/20 dark:bg-surface">
+                            class="relative mx-auto flex w-full max-w-2xl flex-col gap-5 overflow-hidden rounded-2xl border border-error/30 bg-white p-5 shadow-modal sm:p-6 dark:border-error/30 dark:bg-surface">
                             <button type="button" aria-label="Dismiss real-time connection warning"
                                 class="absolute top-3 right-3 flex size-7 items-center justify-center rounded-full text-neutral-400 transition-colors hover:bg-neutral-100 hover:text-black dark:text-fg-faint dark:hover:bg-white/[0.07] dark:hover:text-fg"
                                 @click="bannerVisible=false;disableRealtime()">
@@ -102,7 +102,7 @@
 
                             <div class="flex items-start gap-4 pr-8">
                                 <div
-                                    class="hidden size-12 shrink-0 items-center justify-center rounded-xl border border-red-200 bg-red-50 text-red-600 sm:flex dark:border-red-500/20 dark:bg-red-500/10 dark:text-red-400">
+                                    class="hidden size-12 shrink-0 items-center justify-center rounded-xl border border-error/30 bg-error/10 text-error sm:flex dark:border-error/30 dark:bg-error/10 dark:text-error">
                                     <x-reicon name="alert-triangle" class="size-6" />
                                 </div>
                                 <div class="min-w-0">
@@ -129,7 +129,7 @@
                                     View docs
                                 </a>
                                 <button type="button"
-                                    class="button h-9 justify-center bg-red-600! text-white! ring-1 ring-red-600/25 hover:bg-red-700! sm:min-w-40 dark:bg-red-500! dark:ring-red-500/30 dark:hover:bg-red-400!"
+                                    class="button h-9 justify-center bg-error! text-white! ring-1 ring-error/30 hover:bg-error/90! sm:min-w-40 dark:bg-error! dark:ring-error/30 dark:hover:bg-error/90!"
                                     @click="bannerVisible=false;disableRealtime()">
                                     Acknowledge &amp; disable
                                 </button>
@@ -200,12 +200,12 @@
     @if (request()->query->get('cancelled'))
         <x-banner>
             <div class="flex items-center gap-2">
-                <svg class="w-5 h-5 text-red-500 shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <svg class="w-5 h-5 text-error shrink-0" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd"
                         d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
                         clip-rule="evenodd" />
                 </svg>
-                <span><span class="font-bold text-red-500">Subscription Error.</span> Something went wrong. Please try
+                <span><span class="font-bold text-error">Subscription Error.</span> Something went wrong. Please try
                     again or <a class="underline dark:text-white"
                         href="{{ config('constants.urls.contact') }}" target="_blank">contact support</a>.</span>
             </div>
@@ -220,9 +220,9 @@
     @endif
     @if (currentTeam()->subscriptionPastOverDue())
         <x-banner :closable=false>
-            <div><span class="font-bold text-red-500">WARNING:</span> Your subscription is in over-due. If your
+            <div><span class="font-bold text-error">WARNING:</span> Your subscription is in over-due. If your
                 latest
-                payment is not paid within a week, all automations <span class="font-bold text-red-500">will
+                payment is not paid within a week, all automations <span class="font-bold text-error">will
                     be deactivated</span>. Visit <a href="{{ route('subscription.show') }}" {{ wireNavigate() }}
                     class="underline dark:text-white">/subscription</a> to check your subscription status or pay
                 your
@@ -232,8 +232,8 @@
     @endif
     @if (currentTeam()->serverOverflow())
         <x-banner :closable=false>
-            <div><span class="font-bold text-red-500">WARNING:</span> The number of active servers exceeds the limit
-                covered by your payment. If not resolved, some of your servers <span class="font-bold text-red-500">will
+            <div><span class="font-bold text-error">WARNING:</span> The number of active servers exceeds the limit
+                covered by your payment. If not resolved, some of your servers <span class="font-bold text-error">will
                     be deactivated</span>. Visit <a href="{{ route('subscription.show') }}" {{ wireNavigate() }}
                     class="underline dark:text-white">/subscription</a> to update your subscription or remove some
                 servers.
@@ -254,7 +254,7 @@
 
                         <div class="flex items-start gap-4 pr-8">
                             <div x-show="!reminders.notification.compact" x-transition.opacity
-                                class="hidden size-12 shrink-0 items-center justify-center rounded-xl border border-amber-200 bg-amber-50 text-amber-700 sm:flex dark:border-warning/20 dark:bg-warning/10 dark:text-warning">
+                                class="hidden size-12 shrink-0 items-center justify-center rounded-xl border border-white/15 bg-white/[0.06] text-fg-dim sm:flex dark:border-warning/20 dark:bg-warning/10 dark:text-warning">
                                 <x-reicon name="alert-triangle" class="size-6" />
                             </div>
                             <div class="min-w-0">

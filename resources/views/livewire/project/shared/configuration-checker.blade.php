@@ -68,18 +68,18 @@
                             <header>
                                 <div class="flex items-center gap-1.5">
                                     <x-reicon name="alert-triangle"
-                                        class="size-3.5 text-amber-600 dark:text-warning" />
+                                        class="size-3.5 text-fg-dim dark:text-warning" />
                                     <h3>Configuration changes</h3>
                                 </div>
                                 <button type="button" @click="configurationDiffModalOpen = false"
-                                    class="flex size-6 items-center justify-center rounded-md text-neutral-500 transition-colors hover:bg-black/5 hover:text-neutral-800 dark:text-fg-faint dark:hover:bg-white/[0.06] dark:hover:text-fg">
+                                    class="flex size-6 items-center justify-center rounded-full text-neutral-500 transition-colors hover:bg-black/5 hover:text-neutral-800 dark:text-fg-faint dark:hover:bg-white/[0.06] dark:hover:text-fg">
                                     <x-reicon name="x" class="size-3.5" />
                                 </button>
                             </header>
                             <div
                                 class="application-settings-section-body min-h-0 flex-1 overflow-y-auto !p-3">
                                 <div
-                                    class="mb-3 flex items-center justify-between gap-2 rounded-md bg-amber-50 px-2.5 py-1.5 ring-1 ring-amber-200 dark:bg-warning/[0.07] dark:ring-warning/15">
+                                    class="mb-3 flex items-center justify-between gap-2 rounded-md bg-white/[0.06] px-2.5 py-1.5 ring-1 ring-white/15 dark:bg-warning/[0.07] dark:ring-warning/15">
                                     <div class="flex min-w-0 items-center gap-2">
                                         <div class="min-w-0">
                                             <p class="text-xs font-semibold text-neutral-900 dark:text-fg">

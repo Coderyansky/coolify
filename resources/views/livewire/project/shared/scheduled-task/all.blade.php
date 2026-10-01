@@ -40,7 +40,7 @@
                 {{ wireNavigate() }}
                 href="{{ route($taskRoute, [...$parameters, 'task_uuid' => $task->uuid]) }}">
                 <div
-                    class="flex size-9 shrink-0 items-center justify-center rounded-lg bg-neutral-100 text-neutral-500 ring-1 ring-neutral-200 dark:bg-white/[0.05] dark:text-fg-dim dark:ring-white/[0.07]">
+                    class="flex size-9 shrink-0 items-center justify-center rounded-lg bg-neutral-100 text-neutral-500 ring-1 ring-neutral-200 dark:bg-white/[0.05] dark:text-fg-dim dark:ring-hairline">
                     <x-reicon name="browser-terminal" class="size-[18px]" />
                 </div>
                 <div class="min-w-0 flex-1">
@@ -51,7 +51,7 @@
                                 class="rounded bg-neutral-100 px-1.5 py-0.5 font-mono text-[11px] text-neutral-600 dark:bg-white/[0.05] dark:text-fg-dim">{{ $task->container }}</code>
                         @endif
                     </div>
-                    <p class="mt-1 text-[13px] text-neutral-500 dark:text-fg-dim">
+                    <p class="mt-2 max-w-2xl text-[14px] leading-relaxed text-fg-faint">
                         Runs on
                         <code
                             class="ml-1 rounded bg-neutral-100 px-1.5 py-0.5 font-mono text-xs text-neutral-700 dark:bg-white/[0.05] dark:text-fg-dim">{{ $task->frequency }}</code>

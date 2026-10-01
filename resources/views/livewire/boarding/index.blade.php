@@ -8,7 +8,7 @@
                 <div class="w-full max-w-3xl">
                     <div class="mb-6 text-center">
                         <h1 class="text-2xl! font-semibold!">Welcome to Coolify</h1>
-                        <p class="mt-1 text-[13px] text-neutral-500 dark:text-fg-dim">
+                        <p class="mt-2 max-w-2xl text-[14px] leading-relaxed text-fg-faint">
                             Connect your first server and start deploying in minutes.
                         </p>
                     </div>
@@ -101,7 +101,7 @@
                                 <p class="mb-3 text-sm text-neutral-500 dark:text-neutral-400">Use this machine or connect a server you already manage.</p>
                                 <div class="grid w-full grid-cols-1 gap-4 lg:grid-cols-2">
                             <button
-                                class="group relative cursor-pointer min-h-36 rounded-[10px] border border-neutral-200 bg-white p-4 text-left shadow-sm transition-all hover:-translate-y-px hover:border-neutral-300 hover:shadow-md dark:border-white/[0.08] dark:bg-white/[0.05] dark:hover:border-white/[0.14]"
+                                class="group relative cursor-pointer min-h-36 rounded-2xl p-4 text-left bg-surface ring-1 ring-inset ring-hairline transition-[background-color,box-shadow] duration-150 hover:bg-raised hover:ring-control"
                                 wire:target="setServerType('localhost')" wire:click="setServerType('localhost')">
                                 <span role="button" tabindex="0" aria-label="About this machine"
                                     data-tooltip="The machine running Coolify. Not recommended for production workloads due to resource contention."
@@ -125,7 +125,7 @@
 
 
                             <button
-                                class="group relative cursor-pointer min-h-36 rounded-[10px] border border-neutral-200 bg-white p-4 text-left shadow-sm transition-all hover:-translate-y-px hover:border-neutral-300 hover:shadow-md dark:border-white/[0.08] dark:bg-white/[0.05] dark:hover:border-white/[0.14]"
+                                class="group relative cursor-pointer min-h-36 rounded-2xl p-4 text-left bg-surface ring-1 ring-inset ring-hairline transition-[background-color,box-shadow] duration-150 hover:bg-raised hover:ring-control"
                                 wire:target="setServerType('remote')" wire:click="setServerType('remote')">
                                 <span role="button" tabindex="0" aria-label="About remote servers"
                                     data-tooltip="Any SSH-accessible server, including cloud VPS, bare metal, and self-hosted infrastructure."
@@ -157,7 +157,7 @@
                                     <x-modal-input title="Connect a Hetzner Server" isFullWidth>
                                         <x-slot:content>
                                             <div
-                                                class="group relative cursor-pointer flex h-full min-h-36 flex-col rounded-[10px] border border-neutral-200 bg-white p-4 text-left shadow-sm transition-all hover:-translate-y-px hover:border-neutral-300 hover:shadow-md dark:border-white/[0.08] dark:bg-white/[0.05] dark:hover:border-white/[0.14]">
+                                                class="group relative cursor-pointer flex h-full min-h-36 flex-col rounded-2xl p-4 text-left bg-surface ring-1 ring-inset ring-hairline transition-[background-color,box-shadow] duration-150 hover:bg-raised hover:ring-control">
                                                 <div class="flex h-full flex-col gap-4 text-left">
                                                     <img src="{{ asset('svgs/hetzner.svg') }}" alt="Hetzner"
                                                         class="size-10 shrink-0">
@@ -175,7 +175,7 @@
                                     <x-modal-input title="Connect a Vultr Server" isFullWidth>
                                         <x-slot:content>
                                             <div
-                                                class="group relative cursor-pointer flex h-full min-h-36 flex-col rounded-[10px] border border-neutral-200 bg-white p-4 text-left shadow-sm transition-all hover:-translate-y-px hover:border-neutral-300 hover:shadow-md dark:border-white/[0.08] dark:bg-white/[0.05] dark:hover:border-white/[0.14]">
+                                                class="group relative cursor-pointer flex h-full min-h-36 flex-col rounded-2xl p-4 text-left bg-surface ring-1 ring-inset ring-hairline transition-[background-color,box-shadow] duration-150 hover:bg-raised hover:ring-control">
                                                 <div class="flex h-full flex-col gap-4 text-left">
                                                     <img src="https://www.vultr.com/media/logo_ondark.svg" alt="Vultr"
                                                         class="h-10 w-28 shrink-0 object-contain object-left">
@@ -193,7 +193,7 @@
                                     <x-modal-input title="Connect a DigitalOcean Server" isFullWidth>
                                         <x-slot:content>
                                             <div
-                                                class="group relative cursor-pointer flex h-full min-h-36 flex-col rounded-[10px] border border-neutral-200 bg-white p-4 text-left shadow-sm transition-all hover:-translate-y-px hover:border-neutral-300 hover:shadow-md dark:border-white/[0.08] dark:bg-white/[0.05] dark:hover:border-white/[0.14]">
+                                                class="group relative cursor-pointer flex h-full min-h-36 flex-col rounded-2xl p-4 text-left bg-surface ring-1 ring-inset ring-hairline transition-[background-color,box-shadow] duration-150 hover:bg-raised hover:ring-control">
                                                 <div class="flex h-full flex-col gap-4 text-left">
                                                     <x-digital-ocean-icon class="size-10 shrink-0" />
                                                     <div class="min-h-0 flex-1">
@@ -237,7 +237,7 @@
                                     <p class="mb-2">If the connection details are correct, please ensure:</p>
                                     <ul class="list-disc list-inside">
                                         <li>The correct public key is in your <code
-                                                class="bg-red-200 dark:bg-red-900 px-1 rounded-sm">~/.ssh/authorized_keys</code>
+                                                class="bg-error/10 dark:bg-error/10 px-1 rounded-sm">~/.ssh/authorized_keys</code>
                                             file for the specified user</li>
                                         <li>Or skip the boarding process and manually add a new private key to Coolify and
                                             the server</li>
@@ -304,7 +304,7 @@
                         @endif
                         <div class="grid w-full grid-cols-1 gap-3 lg:grid-cols-2">
                             <button type="button"
-                                class="group flex h-full min-h-28 items-start gap-3 rounded-[10px] border border-neutral-200 bg-white p-4 text-left shadow-sm transition-all hover:-translate-y-px hover:border-neutral-300 hover:shadow-md dark:border-white/[0.08] dark:bg-white/[0.05] dark:hover:border-white/[0.14]"
+                                class="group flex h-full min-h-28 items-start gap-3 rounded-2xl p-4 text-left bg-surface ring-1 ring-inset ring-hairline transition-[background-color,box-shadow] duration-150 hover:bg-raised hover:ring-control"
                                 wire:target="setPrivateKey('own')" wire:click="setPrivateKey('own')">
                                 <span
                                     class="flex size-9 shrink-0 items-center justify-center rounded-lg border border-neutral-200 bg-neutral-50 text-neutral-500 dark:border-white/[0.08] dark:bg-white/[0.035] dark:text-fg-dim">
@@ -318,7 +318,7 @@
                                 </span>
                             </button>
                             <button type="button"
-                                class="group flex h-full min-h-28 items-start gap-3 rounded-[10px] border border-neutral-200 bg-white p-4 text-left shadow-sm transition-all hover:-translate-y-px hover:border-neutral-300 hover:shadow-md dark:border-white/[0.08] dark:bg-white/[0.05] dark:hover:border-white/[0.14]"
+                                class="group flex h-full min-h-28 items-start gap-3 rounded-2xl p-4 text-left bg-surface ring-1 ring-inset ring-hairline transition-[background-color,box-shadow] duration-150 hover:bg-raised hover:ring-control"
                                 wire:target="setPrivateKey('create')" wire:click="setPrivateKey('create')">
                                 <span
                                     class="flex size-9 shrink-0 items-center justify-center rounded-lg border border-neutral-200 bg-neutral-50 text-neutral-500 dark:border-white/[0.08] dark:bg-white/[0.035] dark:text-fg-dim">
@@ -565,11 +565,11 @@
                 <div class="w-full max-w-3xl">
                     <div class="mb-6 text-center">
                         <div
-                            class="mx-auto mb-4 flex size-12 items-center justify-center rounded-[10px] border border-emerald-500/25 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
+                            class="mx-auto mb-4 flex size-12 items-center justify-center rounded-[10px] border border-white/15 bg-white/[0.04] text-success dark:text-success">
                             <x-reicon name="check-circle" class="size-6" />
                         </div>
                         <h1 class="text-2xl! font-semibold!">Setup complete</h1>
-                        <p class="mt-1 text-[13px] text-neutral-500 dark:text-fg-dim">
+                        <p class="mt-2 max-w-2xl text-[14px] leading-relaxed text-fg-faint">
                             Your server is connected and ready. Start deploying your first resource.
                         </p>
                     </div>

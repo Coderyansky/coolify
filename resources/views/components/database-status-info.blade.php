@@ -55,9 +55,9 @@
             @if ($enableSsl && $certificateValidUntil)
                 <div class="mb-4 text-sm text-neutral-600 dark:text-fg-dim">Valid until:
                     @if (now()->gt($certificateValidUntil))
-                        <span class="text-red-500">{{ $certificateValidUntil->format('d.m.Y H:i:s') }} - Expired</span>
+                        <span class="text-error">{{ $certificateValidUntil->format('d.m.Y H:i:s') }} - Expired</span>
                     @elseif(now()->addDays(30)->gt($certificateValidUntil))
-                        <span class="text-red-500">{{ $certificateValidUntil->format('d.m.Y H:i:s') }} - Expiring
+                        <span class="text-error">{{ $certificateValidUntil->format('d.m.Y H:i:s') }} - Expiring
                             soon</span>
                     @else
                         <span>{{ $certificateValidUntil->format('d.m.Y H:i:s') }}</span>

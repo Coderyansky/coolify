@@ -103,17 +103,16 @@
                     x-transition:leave-start="translate-y-0 opacity-100"
                     x-transition:leave-end="translate-y-1 opacity-0"
                     @mouseenter="pauseToast(toast)" @mouseleave="resumeToast(toast)"
-                    class="surface-popover relative flex w-full items-start rounded-lg group"
+                    class="surface-popover relative flex w-full items-start rounded-[18px] group"
                     :class="{ 'p-3.5 pr-20': !toast.html, 'p-0': toast.html }">
                     <template x-if="!toast.html">
                         <div class="flex min-w-0 items-start gap-3">
-                            <div class="flex size-8 shrink-0 items-center justify-center rounded-lg"
+                            <div class="flex size-8 shrink-0 items-center justify-center rounded-[10px] ring-1 ring-inset"
                                 :class="{
-                                    'bg-emerald-100 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-400': toast.type === 'success',
-                                    'bg-coollabs/10 text-coollabs dark:bg-warning/10 dark:text-warning': toast.type === 'info',
-                                    'bg-amber-100 text-amber-700 dark:bg-warning/10 dark:text-warning': toast.type === 'warning',
-                                    'bg-red-100 text-red-700 dark:bg-red-500/10 dark:text-red-400': toast.type === 'danger',
-                                    'bg-neutral-100 text-neutral-600 dark:bg-white/[0.06] dark:text-fg-dim': toast.type === 'default',
+                                    'bg-white/[0.04] text-success ring-white/10': toast.type === 'success',
+                                    'bg-white/[0.04] text-fg-dim ring-white/10': toast.type === 'info' || toast.type === 'default',
+                                    'bg-warning/10 text-warning ring-warning/40': toast.type === 'warning',
+                                    'bg-error/10 text-error ring-error/30': toast.type === 'danger',
                                 }">
                                 <x-reicon name="check-circle" x-show="toast.type === 'success'"
                                     class="size-4" />
@@ -127,10 +126,10 @@
                             </div>
 
                             <div class="min-w-0 flex-1 pt-0.5">
-                                <p class="text-sm font-semibold leading-5 text-neutral-950 dark:text-fg"
+                                <p class="text-sm font-medium leading-5 text-fg"
                                     x-text="toast.message"></p>
                                 <div x-show="toast.description"
-                                    class="mt-0.5 w-full whitespace-pre-wrap break-words text-xs leading-5 text-neutral-600 dark:text-fg-dim"
+                                    class="mt-0.5 w-full whitespace-pre-wrap break-words text-xs leading-5 text-fg-faint"
                                     x-html="window.sanitizeHTML(toast.description)"></div>
                             </div>
                         </div>
@@ -142,8 +141,8 @@
 
                     <button type="button" x-show="toast.description && !toast.html"
                         @click="copyToast(toast)" :title="toast.copied ? 'Copied' : 'Copy details'"
-                        class="absolute right-10 top-2.5 flex size-7 items-center justify-center rounded-md text-neutral-400 opacity-0 transition-colors hover:bg-black/5 hover:text-neutral-700 group-hover:opacity-100 dark:text-fg-faint dark:hover:bg-white/[0.06] dark:hover:text-fg"
-                        :class="{ 'bg-emerald-100 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-400': toast.copied }">
+                        class="absolute right-10 top-2.5 flex size-7 items-center justify-center rounded-full text-fg-faint opacity-0 transition-colors hover:bg-white/[0.06] hover:text-fg group-hover:opacity-100"
+                        :class="{ 'bg-white/[0.06] text-fg': toast.copied }">
                         <svg x-show="!toast.copied" class="size-3.5" xmlns="http://www.w3.org/2000/svg" fill="none"
                             viewBox="0 0 24 24" stroke-width="1.7" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -153,7 +152,7 @@
                     </button>
 
                     <button type="button" @click="removeToast(toast.id)" aria-label="Dismiss"
-                        class="absolute right-2.5 top-2.5 flex size-7 items-center justify-center rounded-md text-neutral-400 transition-colors hover:bg-black/5 hover:text-neutral-700 dark:text-fg-faint dark:hover:bg-white/[0.06] dark:hover:text-fg">
+                        class="absolute right-2.5 top-2.5 flex size-7 items-center justify-center rounded-full text-fg-faint transition-colors hover:bg-white/[0.06] hover:text-fg">
                         <x-reicon name="x" class="size-3.5" />
                     </button>
                 </li>

@@ -43,7 +43,7 @@
             </div>
         </div>
 
-        <div class="flex justify-end border-t border-neutral-200 pt-4 dark:border-white/[0.08]">
+        <div class="flex justify-end border-t border-white/[0.06] pt-4">
             <x-forms.button type="submit"
                 class="button-highlighted"
                 wire:target="addToken">

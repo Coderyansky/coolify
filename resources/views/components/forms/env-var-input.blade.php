@@ -202,7 +202,7 @@
                     this.$nextTick(() => {
                         const el = document.getElementById('suggestion-' + this.selectedIndex);
                         if (el) {
-                            el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                            window.scrollElementIntoView(el, { block: 'nearest' });
                         }
                     });
                 } else if (event.key === 'ArrowUp') {
@@ -211,7 +211,7 @@
                     this.$nextTick(() => {
                         const el = document.getElementById('suggestion-' + this.selectedIndex);
                         if (el) {
-                            el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                            window.scrollElementIntoView(el, { block: 'nearest' });
                         }
                     });
                 } else if (event.key === 'Enter' && this.showDropdown) {
@@ -239,7 +239,7 @@
             @readonly($readonly)
             @if ($modelBinding !== 'null')
                 wire:model="{{ $modelBinding }}"
-                wire:dirty.class="[box-shadow:inset_4px_0_0_#6b16ed,inset_0_0_0_2px_#e5e5e5] dark:[box-shadow:inset_4px_0_0_#fcd452,inset_0_0_0_2px_#242424]"
+                wire:dirty.class="[box-shadow:inset_3px_0_0_#f5f5f7,inset_0_0_0_1px_rgb(255_255_255/0.15)]"
             @endif
             wire:loading.attr="disabled"
             wire:target.except="fetchSecretManagerKeys"
@@ -299,7 +299,7 @@
                             </span>
                         </template>
                         <template x-if="suggestion.type === 'variable'">
-                            <span class="rounded-md border border-emerald-500/25 bg-emerald-500/10 px-1.5 py-0.5 text-[10px] font-semibold tracking-wide text-emerald-600 dark:text-emerald-400">
+                            <span class="rounded-md border border-white/15 bg-white/[0.04] px-1.5 py-0.5 text-[10px] font-semibold tracking-wide text-success dark:text-success">
                                 VAR
                             </span>
                         </template>
@@ -315,7 +315,7 @@
     @endif
     @error($modelBinding)
         <label class="label">
-            <span class="text-red-500 label-text-alt">{{ $message }}</span>
+            <span class="text-error label-text-alt">{{ $message }}</span>
         </label>
     @enderror
 </div>

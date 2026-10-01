@@ -65,7 +65,7 @@
                                             </template>
                                             @if ($savedToken->provider === 'cloudflare')
                                                 @if ($savedToken->automaticDnsEnabled())
-                                                    <span class="rounded-full bg-green-100 px-2 py-0.5 text-[10px] font-medium uppercase text-green-700 dark:bg-green-500/10 dark:text-green-400">
+                                                    <span class="rounded-full bg-white/[0.04] px-2 py-0.5 text-[10px] font-medium uppercase text-success dark:bg-white/[0.04] dark:text-success">
                                                         Auto DNS
                                                     </span>
                                                 @endif

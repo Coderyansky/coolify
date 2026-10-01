@@ -1,6 +1,6 @@
 @props(['deploymentsIndicator' => false])
 
-<nav class="flex flex-col flex-1 bg-white border-r border-neutral-200 dark:border-white/[0.06] dark:bg-panel pt-2"
+<nav class="flex flex-col flex-1 bg-panel border-r border-white/[0.08] pt-3"
     :class="collapsed ? 'px-2 lg:px-3 sidebar-collapsed' : 'px-2 lg:px-3'"
     @mouseover="
         if (!collapsed) return;
@@ -23,46 +23,18 @@
             const ua = navigator.userAgent || '';
             return /Mac|iPhone|iPad|iPod/i.test(platform) || /Mac OS X|Macintosh/i.test(ua) ? '⌘' : 'Ctrl+';
         })(),
-        init() {
-                window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-                    const userSettings = localStorage.getItem('theme');
-                    if (userSettings !== 'system') { return; }
-                    document.documentElement.classList.toggle('dark', e.matches);
-                    document.documentElement.dataset.theme = e.matches ? 'dark' : 'light';
-                });
-                this.queryTheme();
-            },
-            queryTheme() {
-                const darkModePreference = window.matchMedia('(prefers-color-scheme: dark)').matches;
-                const userSettings = localStorage.getItem('theme') || 'dark';
-                localStorage.setItem('theme', userSettings);
-                let isDark = false;
-                if (userSettings === 'dark' || userSettings === 'custom') {
-                    document.documentElement.classList.add('dark');
-                    isDark = true;
-                } else if (userSettings === 'light') {
-                    document.documentElement.classList.remove('dark');
-                } else if (darkModePreference) {
-                    document.documentElement.classList.add('dark');
-                    isDark = true;
-                } else {
-                    document.documentElement.classList.remove('dark');
-                }
-                document.documentElement.dataset.theme = userSettings === 'custom' ? 'custom' : (isDark ? 'dark' : 'light');
-                document.querySelector('meta[name=theme-color]')?.setAttribute('content', isDark ? '#101010' : '#ffffff');
-            }
     }">
     {{-- Search is only useful when workspace resources are available --}}
     @if (isSubscribed() || ! isCloud())
         <div class="px-1 pb-3" :class="collapsed && 'lg:px-0'">
             <button @click="$dispatch('open-global-search')" type="button"
                 :title="'Search (Press / or ' + modKeyLabel + 'K)'"
-                class="menu-item justify-between !bg-neutral-100 dark:!bg-white/[0.04] hover:!bg-neutral-200 dark:hover:!bg-white/[0.07] !text-fg-faint">
+                class="menu-item justify-between !rounded-lg ring-1 ring-inset ring-white/[0.08] !text-fg-faint hover:!bg-white/[0.04] hover:!text-fg-dim">
                 <span class="flex items-center gap-2.5 min-w-0">
                     <x-reicon name="search" class="menu-item-icon" />
                     <span class="menu-item-label" :class="collapsed && 'lg:hidden'">Search</span>
                 </span>
-                <kbd class="px-1.5 py-0.5 text-[11px] font-medium text-fg-faint bg-neutral-200 dark:bg-white/[0.06] rounded-md border border-transparent dark:border-white/5"
+                <kbd class="px-1.5 py-0.5 font-sans text-[10px] font-normal leading-none text-fg-faint rounded ring-1 ring-inset ring-white/10"
                     :class="collapsed && 'lg:hidden'" x-text="modKeyLabel + 'K'"></kbd>
             </button>
         </div>
@@ -108,7 +80,7 @@
             @endcan
             {{-- Infrastructure --}}
             <li class="nav-section mt-3" aria-hidden="true"
-                :class="collapsed && 'lg:mx-2.5 lg:my-2 lg:h-0 lg:overflow-hidden lg:border-t lg:border-neutral-200 lg:p-0 lg:text-transparent dark:lg:border-white/10'">
+                :class="collapsed && 'lg:mx-2.5 lg:my-2 lg:h-0 lg:overflow-hidden lg:border-t lg:border-white/[0.08] lg:p-0 lg:text-transparent'">
                 Infrastructure</li>
             <li>
                 <a title="Servers" {{ wireNavigate() }}
@@ -163,7 +135,7 @@
 
             {{-- Manage --}}
             <li class="nav-section mt-3" aria-hidden="true"
-                :class="collapsed && 'lg:mx-2.5 lg:my-2 lg:h-0 lg:overflow-hidden lg:border-t lg:border-neutral-200 lg:p-0 lg:text-transparent dark:lg:border-white/10'">
+                :class="collapsed && 'lg:mx-2.5 lg:my-2 lg:h-0 lg:overflow-hidden lg:border-t lg:border-white/[0.08] lg:p-0 lg:text-transparent'">
                 Manage</li>
             <li>
                 <a title="Team" {{ wireNavigate() }}
@@ -225,7 +197,7 @@
                 <a title="Admin" {{ wireNavigate() }}
                     class="{{ request()->is('admin') ? 'menu-item-active menu-item' : 'menu-item' }}"
                     :class="collapsed && 'lg:justify-center lg:px-0'" href="{{ route('admin.index') }}">
-                    <x-reicon name="fire" class="menu-item-icon text-pink-500" />
+                    <x-reicon name="fire" class="menu-item-icon" />
                     <span class="menu-item-label" :class="collapsed && 'lg:hidden'">Admin</span>
                 </a>
             </li>
@@ -233,7 +205,7 @@
         @if (isCloud() && ! isSubscribed())
             {{-- Unsubscribed cloud has no workspace items — keep these at the top of the list. --}}
             <li class="nav-section" aria-hidden="true"
-                :class="collapsed && 'lg:mx-2.5 lg:my-2 lg:h-0 lg:overflow-hidden lg:border-t lg:border-neutral-200 lg:p-0 lg:text-transparent dark:lg:border-white/10'">
+                :class="collapsed && 'lg:mx-2.5 lg:my-2 lg:h-0 lg:overflow-hidden lg:border-t lg:border-white/[0.08] lg:p-0 lg:text-transparent'">
                 Account</li>
             <li>
                 <a title="Subscription" {{ wireNavigate() }}
@@ -252,7 +224,7 @@
         @endif
     </ul>
     {{-- Sticky sidebar footer (desktop only; mobile uses a temporary slide-over) --}}
-    <div class="sticky bottom-0 mt-auto -mx-2 hidden flex-col gap-1 bg-white px-2 py-2 dark:bg-panel lg:-mx-3 lg:flex lg:px-3">
+    <div class="sticky bottom-0 mt-auto -mx-2 hidden flex-col gap-1 border-t border-white/[0.06] bg-panel px-2 py-2 lg:-mx-3 lg:flex lg:px-3">
         @if ($deploymentsIndicator)
             <livewire:deployments-indicator variant="sidebar" />
         @endif
@@ -269,6 +241,6 @@
     </div>
     <div x-show="collapsed && tooltip.show" x-cloak x-transition.opacity.duration.100ms
         :style="`left: ${tooltip.x}px; top: ${tooltip.y}px;`"
-        class="fixed z-[10000] -translate-y-1/2 px-2 py-1 text-xs font-medium rounded-lg bg-neutral-900 dark:bg-raised text-white whitespace-nowrap pointer-events-none shadow-dropdown border border-neutral-700 dark:border-white/10"
+        class="fixed z-[10000] -translate-y-1/2 px-2.5 py-1 text-xs font-normal rounded-full bg-popover text-fg whitespace-nowrap pointer-events-none shadow-dropdown ring-1 ring-inset ring-white/10"
         x-text="tooltip.text"></div>
 </nav>

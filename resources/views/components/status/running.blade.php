@@ -20,7 +20,11 @@
     $badgeStatus = $healthStatus ? "{$displayStatus} ({$healthStatus})" : $displayStatus;
     $showUnknownHelper = ! str($status)->startsWith('Proxy') && (str($status)->contains('unknown') || str($healthStatus)->contains('unknown'));
     $showUnhealthyHelper = ! str($status)->startsWith('Proxy') && (str($status)->contains('unhealthy') || str($healthStatus)->contains('unhealthy'));
-    $badgeType = $showUnknownHelper || $showUnhealthyHelper ? 'warning' : 'success';
+    $badgeType = match (true) {
+        $showUnhealthyHelper => 'error',
+        $showUnknownHelper => 'warning',
+        default => 'success',
+    };
 @endphp
 <div class="flex items-center gap-1 leading-none">
     @if ($lastDeploymentLink)
@@ -42,9 +46,9 @@
     @if ($showUnhealthyHelper)
         <div>
             <x-helper
-                helper="Unhealthy state. <span class='dark:text-warning text-coollabs'>The health check is failing.</span><br><br>This resource will <span class='dark:text-warning text-coollabs'>NOT work with Traefik</span> as it expects a healthy state. Your action is required to fix the health check or the underlying issue causing it to fail.<br><br>More details in the <a href='https://coolify.io/docs/knowledge-base/proxy/traefik/healthchecks' class='underline dark:text-warning text-coollabs' target='_blank'>documentation</a>.">
+                helper="Unhealthy state. <span class='text-error'>The health check is failing.</span><br><br>This resource will <span class='text-error'>NOT work with Traefik</span> as it expects a healthy state. Your action is required to fix the health check or the underlying issue causing it to fail.<br><br>More details in the <a href='https://coolify.io/docs/knowledge-base/proxy/traefik/healthchecks' class='underline text-accent' target='_blank'>documentation</a>.">
                 <x-slot:icon>
-                    <x-status-badge status="Unhealthy" type="warning" class="cursor-help" />
+                    <x-status-badge status="Unhealthy" type="error" class="cursor-help" />
                 </x-slot:icon>
             </x-helper>
         </div>

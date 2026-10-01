@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { scrollElementIntoView, prefersReducedMotion } from './smooth-scroll.js';
+import { scrollElementIntoView, prefersReducedMotion } from './scroll.js';
 
 function fakeWindow({ reducedMotion = false } = {}) {
     return {

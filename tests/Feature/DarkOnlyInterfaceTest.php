@@ -72,17 +72,23 @@ test('status badges expose their semantic state and readable label', function (s
     'neutral',
 ]);
 
-test('running resources expose health warnings without a healthy state badge', function (string $status, string $label) {
-    $html = Blade::render('<x-status.running :status="$status" />', ['status' => $status]);
+test('running resources distinguish failed and missing health checks', function (string $status, string $label, string $type, ?string $deploymentLink) {
+    $html = Blade::render('<x-status.running :status="$status" :lastDeploymentLink="$deploymentLink" />', [
+        'status' => $status,
+        'deploymentLink' => $deploymentLink,
+    ]);
+
+    preg_match_all('/data-status-type="([^"]+)"/', $html, $matches);
 
     expect($html)
-        ->toContain('data-status-type="warning"')
         ->toContain($label)
         ->not->toContain('data-status-type="success"');
+
+    expect(array_values(array_unique($matches[1])))->toBe([$type]);
 })->with([
-    ['running:unhealthy', 'Unhealthy'],
-    ['running:unknown', 'No healthcheck'],
-]);
+    'failed health check' => ['running:unhealthy', 'Unhealthy', 'error'],
+    'missing health check' => ['running:unknown', 'No healthcheck', 'warning'],
+])->with([null, '/deployment/latest']);
 
 test('healthy running resources expose a healthy state badge', function () {
     $html = Blade::render('<x-status.running status="running:healthy" />');

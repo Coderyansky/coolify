@@ -1,0 +1,92 @@
+name: Interface validation
+
+on:
+  push:
+    branches: ["codex/fix-theme-accessibility"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: interface-validation-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  php:
+    runs-on: ubuntu-latest
+    env:
+      APP_ENV: testing
+      APP_MAINTENANCE_DRIVER: file
+      APP_MAINTENANCE_STORE: array
+      DB_CONNECTION: testing
+      CACHE_DRIVER: array
+      SESSION_DRIVER: array
+      QUEUE_CONNECTION: sync
+      BROADCAST_DRIVER: "null"
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.5"
+          extensions: dom, mbstring, curl, zip, pdo_sqlite, pdo_pgsql, redis, intl, sodium
+          coverage: none
+          tools: composer:v2
+      - name: Prepare test environment
+        run: |
+          mkdir -p storage/framework/cache/data storage/framework/sessions storage/framework/views storage/logs bootstrap/cache
+          echo "APP_KEY=base64:$(php -r 'echo base64_encode(random_bytes(32));')" >> "$GITHUB_ENV"
+      - name: Install PHP dependencies
+        run: composer install --no-interaction --prefer-dist --no-progress
+      - name: Format changed PHP tests
+        run: |
+          vendor/bin/pint --format agent \
+            tests/Feature/DarkOnlyInterfaceTest.php \
+            tests/Feature/AdminAccessAuthorizationTest.php \
+            tests/Feature/Authorization/ServerAuthorizationTest.php \
+            tests/Feature/ResourcePermissionCalloutTest.php \
+            tests/Feature/SettingsSectionDescriptionTest.php
+          git diff --binary > "${{ runner.temp }}/pint.patch"
+      - name: Run affected PHP tests
+        run: |
+          php artisan test --compact \
+            tests/Feature/DarkOnlyInterfaceTest.php \
+            tests/Feature/AdminAccessAuthorizationTest.php \
+            tests/Feature/Authorization/ServerAuthorizationTest.php \
+            tests/Feature/ResourcePermissionCalloutTest.php \
+            tests/Feature/SettingsSectionDescriptionTest.php
+      - name: Compile Blade views
+        run: php artisan view:cache
+      - name: Clear compiled views
+        if: always()
+        run: php artisan view:clear
+      - name: Verify formatting
+        run: git diff --exit-code
+      - name: Upload formatting patch
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pint-patch
+          path: ${{ runner.temp }}/pint.patch
+          if-no-files-found: ignore
+
+  frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+      - name: Install frontend dependencies
+        run: npm ci
+      - name: Install browser
+        run: npx playwright install --with-deps chromium
+      - name: Run JavaScript and contrast tests
+        run: node --test resources/js/*.test.js
+      - name: Build frontend assets
+        run: npm run build

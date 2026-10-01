@@ -5,7 +5,7 @@ import { initializeTerminalComponent } from './terminal.js';
 import './traffic-globe.js';
 import { registerLivewireRequestFailureHandler } from './livewire-request-failure.js';
 import { parseSubmitAction } from './modal-confirmation.js';
-import { scrollElementIntoView } from './smooth-scroll.js';
+import { scrollElementIntoView } from './scroll.js';
 
 // Used by the modal-confirmation Blade component to call its submitAction.
 window.parseModalSubmitAction = parseSubmitAction;

@@ -52,8 +52,9 @@ distinct semantic colors:
 Semantic hue remains visible in these places:
 
 1. the operational / success dot (`--color-success` `#4ade80`);
-2. destructive and error states (`--color-error` `#ff453a`);
-3. warning states (`--color-warning` `#fbbf24`), including unhealthy and
+2. destructive and error states (`--color-error` `#ff453a`), including unhealthy
+   containers whose failed health check prevents Traefik from routing traffic;
+3. warning states (`--color-warning` `#fbbf24`), including
    restarting containers, missing health checks, callouts and toasts;
 4. syntax highlighting (GitHub Dark palette, see §3).
 
@@ -244,7 +245,7 @@ flat `fg` so `currentColor` glyphs stay visible.
   `cubic-bezier(.32, .72, 0, 1)` for drawers and sheets.
 - Root and nested scrolling stay native. Explicit settings jumps and
   suggestion navigation call `scrollElementIntoView()` from
-  `resources/js/smooth-scroll.js`; it uses the browser API and moves instantly
+  `resources/js/scroll.js`; it uses the browser API and moves instantly
   when `prefers-reduced-motion: reduce` is active. Browser/Livewire navigation
   controls history restoration without a second scroll engine.
 
@@ -891,7 +892,7 @@ Use these as implementation references:
 | Command palette / global search | `resources/views/livewire/global-search.blade.php` |
 | Outline icons | `resources/views/components/reicon.blade.php` |
 | Shared styling | `resources/css/app.css`, `resources/css/utilities.css` |
-| Explicit scroll navigation | `resources/js/smooth-scroll.js` |
+| Explicit scroll navigation | `resources/js/scroll.js` |
 | Auth canvas | `resources/views/components/auth/shell.blade.php` |
 | HTTP error pages | `resources/views/components/error-page.blade.php`, `resources/views/errors/*` |
 

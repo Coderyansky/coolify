@@ -100,7 +100,7 @@ async function installContrastMeasurement(page) {
 test('warning statuses and callouts render amber distinctly from healthy green', async () => {
     const page = await renderedPage([
         await badgeMarkup('success', 'Running'),
-        await badgeMarkup('warning', 'Unhealthy'),
+        await badgeMarkup('warning', 'No healthcheck'),
         await calloutMarkup('warning'),
     ].join(''));
     try {
@@ -116,6 +116,25 @@ test('warning statuses and callouts render amber distinctly from healthy green',
         assert.ok(warningContrast >= 4.5, `warning foreground contrast ${warningContrast.toFixed(2)}:1 is below 4.5:1`);
         await mkdir(`${root}tests/Browser/Screenshots`, { recursive: true });
         await page.screenshot({ path: `${root}tests/Browser/Screenshots/interface-status-colors.png` });
+    } finally {
+        await page.close();
+    }
+});
+
+test('failed health checks render red while missing health checks remain amber', async () => {
+    const blade = await source('resources/views/components/status/running.blade.php');
+    const unhealthyType = blade.match(/<x-status-badge status="Unhealthy" type="([^"]+)"/)[1];
+    const unknownType = blade.match(/<x-status-badge status="No healthcheck" type="([^"]+)"/)[1];
+    const page = await renderedPage([
+        await badgeMarkup(unhealthyType, 'Unhealthy'),
+        await badgeMarkup(unknownType, 'No healthcheck'),
+    ].join(''));
+    try {
+        await installContrastMeasurement(page);
+        const unhealthy = await page.evaluate((type) => window.colorChannels(`[data-dot="${type}"]`), unhealthyType);
+        const unknown = await page.evaluate((type) => window.colorChannels(`[data-dot="${type}"]`), unknownType);
+        assert.ok(unhealthy[0] > unhealthy[1] + 100 && unhealthy[0] > unhealthy[2] + 100, `failed health check must be red: ${unhealthy}`);
+        assert.ok(unknown[0] > unknown[1] + 20 && unknown[1] > unknown[2] + 50, `missing health check must be amber: ${unknown}`);
     } finally {
         await page.close();
     }

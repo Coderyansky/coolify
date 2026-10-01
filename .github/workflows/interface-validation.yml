@@ -40,6 +40,14 @@ jobs:
           echo "APP_KEY=base64:$(php -r 'echo base64_encode(random_bytes(32));')" >> "$GITHUB_ENV"
       - name: Install PHP dependencies
         run: composer install --no-interaction --prefer-dist --no-progress
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+      - name: Build assets for rendered PHP views
+        run: |
+          npm ci
+          npm run build
       - name: Format changed PHP tests
         run: |
           vendor/bin/pint --format agent \

@@ -2478,6 +2478,13 @@ class ApplicationsController extends Controller
                 required: false,
                 schema: new OA\Schema(type: 'boolean', default: false),
             ),
+            new OA\Parameter(
+                name: 'service_name',
+                in: 'query',
+                description: 'Return logs only from the container of the Docker Compose service with this name. Returns 404 when no running container matches.',
+                required: false,
+                schema: new OA\Schema(type: 'string'),
+            ),
         ],
         responses: [
             new OA\Response(
@@ -2550,6 +2557,13 @@ class ApplicationsController extends Controller
                 required: false,
                 schema: new OA\Schema(type: 'boolean', default: false),
             ),
+            new OA\Parameter(
+                name: 'service_name',
+                in: 'query',
+                description: 'Return logs only from the container of the Docker Compose service with this name. Returns 404 when no running container matches.',
+                required: false,
+                schema: new OA\Schema(type: 'string'),
+            ),
         ],
         responses: [
             new OA\Response(response: 200, description: 'Preview runtime logs.', content: new OA\JsonContent(
@@ -2603,7 +2617,24 @@ class ApplicationsController extends Controller
             ], 400);
         }
 
-        $container = $containers->first();
+        $serviceName = $request->query('service_name');
+        if (filled($serviceName)) {
+            $matchingContainer = $containers->first(function ($container) use ($serviceName) {
+                $labels = data_get($container, 'Labels');
+
+                return filled($labels) && format_docker_labels_to_json($labels)->get('com.docker.compose.service') === $serviceName;
+            });
+
+            if (! $matchingContainer) {
+                return response()->json([
+                    'message' => "No running container found for service_name '{$serviceName}'.",
+                ], 404);
+            }
+
+            $container = $matchingContainer;
+        } else {
+            $container = $containers->first();
+        }
 
         $status = getContainerStatus($application->destination->server, $container['Names']);
         if ($status !== 'running') {
@@ -3214,7 +3245,7 @@ class ApplicationsController extends Controller
             'include_source_commit_in_build' => 'boolean',
             'ports_exposes' => 'nullable|string|regex:/^(\d+)(,\d+)*$/',
         ];
-        $validationRules = array_merge(sharedDataApplications(), $validationRules);
+        $validationRules = array_merge(sharedDataApplications($application), $validationRules);
         $validationMessages = [
             'docker_compose_domains.*.array' => 'An item in the docker_compose_domains array has invalid fields. Only name, domain, and redirect fields are supported.',
         ];

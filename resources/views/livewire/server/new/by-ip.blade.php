@@ -76,7 +76,7 @@
                     <x-forms.input id="description" label="Description" />
                 </div>
 
-                <x-forms.collapsible class="mt-5 border-t border-neutral-200 pt-4 dark:border-white/[0.08]"
+                <x-forms.collapsible class="mt-5 border-t border-white/[0.06] pt-4"
                     content-class="flex flex-col gap-4">
                     <div class="grid gap-4 lg:grid-cols-2">
                         <x-forms.input id="user" label="User" required

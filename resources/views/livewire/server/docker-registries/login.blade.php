@@ -15,7 +15,7 @@
                     </div>
                 @endif
                 @error('selectedServers')
-                    <p class="mt-1 text-[12px] text-red-500">{{ $message }}</p>
+                    <p class="mt-1 text-[12px] text-error">{{ $message }}</p>
                 @enderror
             </div>
         @endif

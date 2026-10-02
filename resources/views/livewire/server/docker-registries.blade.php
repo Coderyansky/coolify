@@ -5,7 +5,7 @@
 
     <div class="mb-5 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
         <div class="flex min-w-0 flex-col gap-1">
-            <h1 class="min-w-0 text-[24px]! leading-7! font-semibold! tracking-tight!">Docker Registries</h1>
+            <h1 class="min-w-0 text-[28px]! leading-[1.1]! font-semibold! tracking-[-0.03em]!">Docker Registries</h1>
             <p class="text-[12px] text-neutral-500 dark:text-fg-dim">
                 Registry logins on each server, read from the Docker config that deployments use. Use <b>Multi-server login</b>,
                 or run <code>docker login &lt;registry&gt;</code> on a server.

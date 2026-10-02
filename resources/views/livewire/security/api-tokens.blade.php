@@ -48,7 +48,7 @@
                                 :options="$expirationList" />
                         </div>
 
-                        <div class="mt-5 border-t border-neutral-200 pt-4 dark:border-white/[0.08]">
+                        <div class="mt-5 border-t border-white/[0.06] pt-4">
                             <div class="mb-3 flex items-center gap-2">
                                 <h4 class="text-[12px] font-semibold text-black dark:text-fg">Permissions</h4>
                                 <x-helper helper="Only grant the abilities this token needs." />
@@ -235,7 +235,7 @@
                                                 :confirmWithPassword="false" step2ButtonText="Revoke token">
                                                 <x-slot:trigger>
                                                     <button type="button"
-                                                        class="inline-flex h-7 items-center rounded-md px-2 text-[11px] font-medium text-error transition-colors hover:bg-error/10">
+                                                        class="inline-flex h-7 items-center rounded-full px-2 text-[11px] font-medium text-error transition-colors hover:bg-error/10">
                                                         Revoke
                                                     </button>
                                                 </x-slot:trigger>

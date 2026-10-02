@@ -4,7 +4,7 @@
     </x-slot>
 
     <div class="mb-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <h1 class="min-w-0 text-[24px]! leading-7! font-semibold! tracking-tight!">Servers</h1>
+        <h1 class="min-w-0 text-[28px]! leading-[1.1]! font-semibold! tracking-[-0.03em]!">Servers</h1>
         <div class="flex flex-wrap items-center gap-2">
             @if (isDev())
                 @can('create', App\Models\Server::class)
@@ -136,7 +136,7 @@
                     <a x-cloak
                         x-show="filteredServers.some(server => server.uuid === @js($server->uuid))"
                         href="{{ $serverRow['href'] }}" {{ wireNavigate() }}
-                        class="group relative flex min-h-28 flex-col rounded-xl border border-neutral-200 bg-white p-3 shadow-sm transition-all hover:-translate-y-px hover:border-neutral-300 hover:no-underline hover:shadow-md dark:border-white/[0.08] dark:bg-white/[0.05] dark:hover:border-white/[0.14]">
+                        class="group relative flex min-h-28 flex-col rounded-2xl p-4 hover:no-underline bg-surface ring-1 ring-inset ring-hairline transition-[background-color,box-shadow] duration-150 hover:bg-raised hover:ring-control">
                         @if ($server->isMetricsEnabled())
                             <livewire:dashboard.server-metrics-chart :server="$server"
                                 :key="'server-index-metrics-'.$server->uuid" />
@@ -160,8 +160,8 @@
                                     aria-label="Server status: {{ $serverRow['status'] }}"
                                     @class([
                                         'ml-auto flex size-6 shrink-0 items-center justify-center rounded-md',
-                                        'text-orange-500 dark:text-warning' => $serverRow['statusType'] === 'warning',
-                                        'text-red-500 dark:text-red-400' => $serverRow['statusType'] === 'error',
+                                        'text-fg-dim dark:text-warning' => $serverRow['statusType'] === 'warning',
+                                        'text-error dark:text-error' => $serverRow['statusType'] === 'error',
                                     ])>
                                     <x-reicon name="alert-triangle" class="size-4" />
                                 </span>
@@ -196,7 +196,7 @@
                             <span x-show="server.statusType !== 'success'" :data-tooltip="server.status"
                                 :aria-label="`Server status: ${server.status}`"
                                 class="ml-auto flex size-6 shrink-0 items-center justify-center rounded-md md:hidden"
-                                :class="server.statusType === 'warning' ? 'text-orange-500 dark:text-warning' : 'text-red-500 dark:text-red-400'">
+                                :class="server.statusType === 'warning' ? 'text-fg-dim dark:text-warning' : 'text-error dark:text-error'">
                                 <x-reicon name="alert-triangle" class="size-4" />
                             </span>
                         </div>
@@ -209,9 +209,9 @@
                         <div class="flex items-center gap-2 text-[11px] font-medium text-neutral-600 dark:text-fg-dim">
                             <span x-show="server.statusType !== 'success'"
                                 class="hidden size-2 shrink-0 rounded-full md:inline-block"
-                                :class="server.statusType === 'warning' ? 'bg-orange-500 dark:bg-warning' : 'bg-red-500 dark:bg-red-400'"></span>
+                                :class="server.statusType === 'warning' ? 'bg-fg dark:bg-warning' : 'bg-error dark:bg-error'"></span>
                             <span x-show="server.statusType === 'success'"
-                                class="hidden size-2 shrink-0 rounded-full bg-green-500 md:inline-block dark:bg-green-400"></span>
+                                class="hidden size-2 shrink-0 rounded-full bg-success md:inline-block dark:bg-success"></span>
                             <span x-text="server.status"></span>
                         </div>
                     </a>
@@ -227,7 +227,7 @@
         @endif
 
         @isset($error)
-            <div class="mt-4 rounded-lg border border-red-200 bg-red-50 p-3 text-[12px] text-red-700 dark:border-red-500/20 dark:bg-red-500/[0.06] dark:text-red-300">
+            <div class="mt-4 rounded-lg border border-error/30 bg-error/10 p-3 text-[12px] text-error dark:border-error/30 dark:bg-error/10 dark:text-error">
                 {{ $error }}
             </div>
         @endisset

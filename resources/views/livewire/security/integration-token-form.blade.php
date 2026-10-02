@@ -48,7 +48,7 @@
                     </p>
                 </div>
                 @error('capabilities')
-                    <span class="text-xs text-red-500">{{ $message }}</span>
+                    <span class="text-xs text-error">{{ $message }}</span>
                 @enderror
             </fieldset>
             <div class="rounded-lg border border-neutral-200 p-1 dark:border-white/[0.08]">
@@ -101,7 +101,7 @@
             </div>
         @endif
 
-        <div class="flex justify-end border-t border-neutral-200 pt-4 dark:border-white/[0.08]">
+        <div class="flex justify-end border-t border-white/[0.06] pt-4">
             <x-forms.button type="submit" wire:target="addToken" isHighlighted>
                 Validate and add
             </x-forms.button>

@@ -158,7 +158,7 @@
                     <x-forms.input loading :allowToPeak="false" />
                 </div>
             </div>
-            <div class="flex items-center justify-between gap-2 border-t border-neutral-200 pt-4 dark:border-white/[0.08]">
+            <div class="flex items-center justify-between gap-2 border-t border-white/[0.06] pt-4">
                 <x-forms.button disabled isError>Delete</x-forms.button>
                 <x-forms.button disabled isHighlighted>Save changes</x-forms.button>
             </div>

@@ -6,10 +6,10 @@
     <div class="mb-5 flex min-h-9 flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div class="min-w-0">
             <div class="flex flex-wrap items-center gap-2">
-                <h1 class="min-w-0 text-[24px]! leading-7! font-semibold! tracking-tight!">Import server</h1>
+                <h1 class="min-w-0 text-[28px]! leading-[1.1]! font-semibold! tracking-[-0.03em]!">Import server</h1>
                 <x-status-badge label="Dev" />
             </div>
-            <p class="mt-1 text-[13px] text-neutral-500 dark:text-fg-dim">
+            <p class="mt-2 max-w-2xl text-[14px] leading-relaxed text-fg-faint">
                 Import a server that you downloaded from another Coolify instance. This instance then manages it.
             </p>
         </div>

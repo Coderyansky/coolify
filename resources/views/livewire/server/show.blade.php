@@ -235,7 +235,7 @@
                         </div>
 
                         @if (!$server->isLocalhost())
-                            <div class="mt-4 border-t border-neutral-200 pt-4 dark:border-white/[0.08]">
+                            <div class="mt-4 border-t border-white/[0.06] pt-4">
                                 <x-forms.listbox canGate="update" :canResource="$server" id="serverRole"
                                     label="Server role" onChange="requestServerRoleChange"
                                     helper="Builds can use large amounts of CPU and memory. Deployments on the same server can become slow or unreachable during a build. GitHub Actions runners need the Builds only role."
@@ -326,7 +326,7 @@
                         @if ($server->server_metadata)
                             @include('livewire.server.partials.server-details', ['server' => $server])
                         @else
-                            <div class="mt-4 border-t border-neutral-200 pt-4 dark:border-white/[0.08]">
+                            <div class="mt-4 border-t border-white/[0.06] pt-4">
                                 <x-forms.button type="button" wire:click="refreshServerMetadata">
                                     <x-reicon name="refresh" class="size-3.5" />
                                     Fetch server details

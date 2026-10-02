@@ -5,7 +5,7 @@
             <x-forms.textarea canGate="update" :canResource="$cloudInitScript" id="script"
                 label="Script content" rows="16" monospace
                 helper="Cloud-config YAML or another script accepted by your provider." required />
-            <div class="flex items-center justify-between gap-2 border-t border-neutral-200 pt-4 dark:border-white/[0.08]">
+            <div class="flex items-center justify-between gap-2 border-t border-white/[0.06] pt-4">
                 @can('delete', $cloudInitScript)
                     <x-modal-confirmation title="Confirm Script Deletion?" isErrorButton buttonTitle="Delete"
                         submitAction="delete" :actions="['This cloud-init script will be permanently deleted.']"

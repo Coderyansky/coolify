@@ -26,7 +26,7 @@
     </div>
 
     @if ($error)
-        <div class="px-4 py-3 text-[12px] text-red-700 dark:text-red-300">{{ $error }}</div>
+        <div class="px-4 py-3 text-[12px] text-error dark:text-error">{{ $error }}</div>
     @endif
 
     @if (empty($visibleRows))

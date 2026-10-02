@@ -5,6 +5,7 @@ import { initializeTerminalComponent } from './terminal.js';
 import './traffic-globe.js';
 import { registerLivewireRequestFailureHandler } from './livewire-request-failure.js';
 import { parseSubmitAction } from './modal-confirmation.js';
+import { scrollElementIntoView } from './scroll.js';
 
 // Used by the modal-confirmation Blade component to call its submitAction.
 window.parseModalSubmitAction = parseSubmitAction;
@@ -12,6 +13,8 @@ window.parseModalSubmitAction = parseSubmitAction;
 document.addEventListener('livewire:init', () => {
     registerLivewireRequestFailureHandler(window.Livewire);
 });
+
+window.scrollElementIntoView = scrollElementIntoView;
 
 // Livewire 3.5.19+ re-applies `x-cloak` to morphed elements during wire:navigate
 // (via replaceHtmlAttributes). With `[x-cloak]{display:none}` on the app wrapper,
@@ -91,7 +94,7 @@ window.scrollToSettingsSection = function scrollToSettingsSection(id) {
         el._sectionHighlightCleanup = null;
     };
 
-    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    scrollElementIntoView(el);
 
     // Prefer the native scrollend event when the browser fires it.
     scrollEndHandler = () => finish();

@@ -11,7 +11,7 @@
                 <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                     <div class="flex min-w-0 items-center gap-3">
                         <div
-                            class="flex size-10 shrink-0 items-center justify-center rounded-lg bg-neutral-100 text-neutral-500 ring-1 ring-neutral-200 dark:bg-white/[0.05] dark:text-fg-dim dark:ring-white/[0.07]">
+                            class="flex size-10 shrink-0 items-center justify-center rounded-lg bg-neutral-100 text-neutral-500 ring-1 ring-neutral-200 dark:bg-white/[0.05] dark:text-fg-dim dark:ring-hairline">
                             <x-reicon name="servers" class="size-5" />
                         </div>
                         <div class="min-w-0">
@@ -83,7 +83,7 @@
                                 wire:key="destination-{{ $destination->id }}">
                                 <div class="flex min-w-0 items-center gap-3">
                                     <div
-                                        class="flex size-9 shrink-0 items-center justify-center rounded-lg bg-neutral-100 text-neutral-500 ring-1 ring-neutral-200 dark:bg-white/[0.05] dark:text-fg-dim dark:ring-white/[0.07]">
+                                        class="flex size-9 shrink-0 items-center justify-center rounded-lg bg-neutral-100 text-neutral-500 ring-1 ring-neutral-200 dark:bg-white/[0.05] dark:text-fg-dim dark:ring-hairline">
                                         <x-reicon name="servers" class="size-[18px]" />
                                     </div>
                                     <div class="min-w-0">
@@ -186,14 +186,14 @@
                                     wire:key="available-destination-{{ $network->id }}">
                                     <div class="flex min-w-0 items-center gap-3">
                                         <div
-                                            class="flex size-9 shrink-0 items-center justify-center rounded-lg bg-neutral-100 text-neutral-500 ring-1 ring-neutral-200 dark:bg-white/[0.05] dark:text-fg-dim dark:ring-white/[0.07]">
+                                            class="flex size-9 shrink-0 items-center justify-center rounded-lg bg-neutral-100 text-neutral-500 ring-1 ring-neutral-200 dark:bg-white/[0.05] dark:text-fg-dim dark:ring-hairline">
                                             <x-reicon name="plus" class="size-[18px]" />
                                         </div>
                                         <div class="min-w-0">
                                             <h4 class="truncate text-sm font-semibold text-black dark:text-fg">
                                                 {{ data_get($network, 'server.name') }}
                                             </h4>
-                                            <p class="mt-1 text-[13px] text-neutral-500 dark:text-fg-dim">
+                                            <p class="mt-2 max-w-2xl text-[14px] leading-relaxed text-fg-faint">
                                                 Network
                                                 <code
                                                     class="ml-1 rounded bg-neutral-100 px-1.5 py-0.5 font-mono text-xs text-neutral-700 dark:bg-white/[0.05] dark:text-fg-dim">{{ data_get($network, 'name') }}</code>
@@ -234,7 +234,7 @@
                 <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                     <div class="flex min-w-0 items-center gap-3">
                         <div
-                            class="flex size-10 shrink-0 items-center justify-center rounded-lg bg-neutral-100 text-neutral-500 ring-1 ring-neutral-200 dark:bg-white/[0.05] dark:text-fg-dim dark:ring-white/[0.07]">
+                            class="flex size-10 shrink-0 items-center justify-center rounded-lg bg-neutral-100 text-neutral-500 ring-1 ring-neutral-200 dark:bg-white/[0.05] dark:text-fg-dim dark:ring-hairline">
                             <x-reicon name="servers" class="size-5" />
                         </div>
                         <div class="min-w-0">

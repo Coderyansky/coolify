@@ -28,7 +28,7 @@
         @service-deploy-finished.window="deploying = false">
         <div class="mb-3 w-full xl:hidden">
             <div class="flex min-w-0 flex-col items-start gap-2">
-                <h1 class="min-w-0 max-w-full truncate text-[24px]! leading-7! font-semibold! tracking-tight! text-black dark:text-fg">
+                <h1 class="min-w-0 max-w-full truncate text-[28px]! leading-[1.1]! font-semibold! tracking-[-0.03em]! text-black dark:text-fg">
                     {{ $service->name }}
                 </h1>
                 <div class="relative flex w-full min-w-0 items-center gap-2">

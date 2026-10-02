@@ -118,7 +118,7 @@
                                         shortConfirmationLabel="Backup Filename">
                                         <x-slot:trigger>
                                             <button type="button"
-                                                class="icon-button shrink-0 text-red-500 hover:text-red-600 dark:text-red-400 dark:hover:text-red-300"
+                                                class="icon-button shrink-0 text-error hover:text-error dark:text-error dark:hover:text-error"
                                                 title="Delete backup" aria-label="Delete backup">
                                                 <x-reicon name="trash" class="size-3.5" />
                                             </button>

@@ -10,7 +10,7 @@ $dimensionLabels = [
 ];
 // Shared by the application and service analytics tabs. A resource with several Sentinel
 // keys (compose services, previews) is merged, so latency and uniques become approximate.
-$approxBadge = fn (string $tooltip) => '<span title="'.e($tooltip).'" class="ml-1.5 inline-flex items-center rounded-full bg-amber-100 px-1.5 py-0.5 text-[9px] font-medium tracking-wide text-amber-700 uppercase dark:bg-amber-500/10 dark:text-amber-400">~ approximate</span>';
+$approxBadge = fn (string $tooltip) => '<span title="'.e($tooltip).'" class="ml-1.5 inline-flex items-center rounded-full bg-white/[0.06] px-1.5 py-0.5 text-[9px] font-medium tracking-wide text-fg-dim uppercase dark:bg-white/[0.06] dark:text-fg">~ approximate</span>';
 ?>
 <div class="flex flex-col gap-6">
     @if (! $enabled)

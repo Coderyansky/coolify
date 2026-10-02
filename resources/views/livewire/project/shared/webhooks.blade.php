@@ -69,7 +69,7 @@
                                         <h4 class="text-sm font-semibold text-black dark:text-fg">
                                             {{ $provider['name'] }}
                                         </h4>
-                                        <p class="mt-1 text-[13px] leading-5 text-neutral-500 dark:text-fg-dim">
+                                        <p class="mt-2 max-w-2xl text-[14px] leading-relaxed text-fg-faint">
                                             {{ $provider['description'] }}
                                         </p>
                                     </div>

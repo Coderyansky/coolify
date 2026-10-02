@@ -25,7 +25,7 @@
 
             @if (blank($privateKeyId))
                 <div
-                    class="mb-4 flex items-center justify-between gap-3 rounded-lg bg-neutral-50 px-3 py-2.5 ring-1 ring-neutral-200 dark:bg-white/[0.05] dark:ring-white/[0.07]">
+                    class="mb-4 flex items-center justify-between gap-3 rounded-lg bg-neutral-50 px-3 py-2.5 ring-1 ring-neutral-200 dark:bg-white/[0.05] dark:ring-hairline">
                     <span class="text-[12px] text-neutral-500 dark:text-fg-dim">Connected source</span>
                     <span class="text-[12px] font-medium text-neutral-900 dark:text-fg">
                         {{ data_get($application, 'source.name', 'No source connected') }}
@@ -48,7 +48,7 @@
         <x-application.settings-section title="Deploy key"
             description="The SSH key Coolify uses to clone this private repository.">
             <div
-                class="mb-4 flex items-center justify-between gap-3 rounded-lg bg-neutral-50 px-3 py-2.5 ring-1 ring-neutral-200 dark:bg-white/[0.05] dark:ring-white/[0.07]">
+                class="mb-4 flex items-center justify-between gap-3 rounded-lg bg-neutral-50 px-3 py-2.5 ring-1 ring-neutral-200 dark:bg-white/[0.05] dark:ring-hairline">
                 <span class="text-[12px] text-neutral-500 dark:text-fg-dim">Attached private key</span>
                 <span class="text-[12px] font-medium text-neutral-900 dark:text-fg">{{ $privateKeyName }}</span>
             </div>
@@ -129,7 +129,7 @@
                             shortConfirmationLabel="Confirmation text" :confirmWithPassword="false">
                             <x-slot:trigger>
                                 <button type="button"
-                                    class="group flex w-full min-h-16 items-center gap-3 rounded-xl border border-neutral-200 bg-white p-3 text-left shadow-sm transition-all hover:-translate-y-px hover:border-neutral-300 hover:bg-neutral-50 hover:shadow-md focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent dark:border-white/[0.08] dark:bg-white/[0.05] dark:hover:border-white/[0.14] dark:hover:bg-white/[0.05]">
+                                    class="group flex w-full min-h-16 items-center gap-3 rounded-2xl p-4 text-left focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent dark:hover:bg-white/[0.05] bg-surface ring-1 ring-inset ring-hairline transition-[background-color,box-shadow] duration-150 hover:bg-raised hover:ring-control">
                                     <div
                                         class="flex size-9 shrink-0 items-center justify-center rounded-lg border border-neutral-200 bg-neutral-50 text-neutral-500 transition-colors group-hover:border-neutral-300 group-hover:text-neutral-700 dark:border-white/[0.08] dark:bg-white/[0.04] dark:text-fg-dim dark:group-hover:border-white/[0.12] dark:group-hover:text-fg">
                                         <x-git-icon class="size-4" :git="$sourceMorph" />

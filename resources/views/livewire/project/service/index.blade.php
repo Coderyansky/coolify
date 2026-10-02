@@ -118,7 +118,7 @@
                             <template x-teleport="body">
                                 <div x-show="modalOpen"
                                     class="fixed inset-0 z-99 flex min-h-full items-center justify-center overflow-y-auto p-4" x-cloak>
-                                    <div x-show="modalOpen" class="absolute inset-0 bg-black/50 backdrop-blur-[2px]"></div>
+                                    <div x-show="modalOpen" class="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
                                     <div x-show="modalOpen" x-trap.inert.noscroll="modalOpen" x-transition:enter="ease-out duration-100"
                                         x-transition:enter-start="opacity-0 -translate-y-2 sm:scale-95"
                                         x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100"
@@ -130,7 +130,7 @@
                                         <header>
                                             <h3>Use a different port?</h3>
                                             <button @click="modalOpen = false; $wire.call('cancelRemovePort')"
-                                                class="flex size-7 items-center justify-center rounded-md text-neutral-500 transition-colors hover:bg-neutral-100 hover:text-black dark:text-fg-faint dark:hover:bg-white/[0.06] dark:hover:text-fg">
+                                                class="flex size-7 items-center justify-center rounded-full text-neutral-500 transition-colors hover:bg-neutral-100 hover:text-black dark:text-fg-faint dark:hover:bg-white/[0.06] dark:hover:text-fg">
                                                 <x-reicon name="x" class="size-4" />
                                             </button>
                                         </header>
@@ -149,7 +149,7 @@
                                                 </ul>
                                             </x-callout>
 
-                                            <div class="mt-4 flex flex-wrap justify-end gap-2 border-t border-neutral-200 pt-4 dark:border-white/[0.08]">
+                                            <div class="mt-4 flex flex-wrap justify-end gap-2 border-t border-white/[0.06] pt-4">
                                                 <x-forms.button @click="modalOpen = false; $wire.call('cancelRemovePort')"
                                                     class="w-auto">
                                                     Keep required port

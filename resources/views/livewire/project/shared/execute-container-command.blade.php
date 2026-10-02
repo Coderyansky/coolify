@@ -139,7 +139,7 @@
                                 <div x-cloak x-show="targetChosen" class="relative min-w-0"
                                     @click.outside="containerOpen = false">
                                     <button type="button"
-                                        class="terminal-session-target-trigger flex h-8 max-w-[34rem] min-w-48 items-center gap-2 rounded-md px-2.5 text-xs font-medium text-white/70 transition-colors hover:bg-white/[0.08] hover:text-white"
+                                        class="terminal-session-target-trigger flex h-8 max-w-[34rem] min-w-48 items-center gap-2 rounded-full px-2.5 text-xs font-medium text-white/70 transition-colors hover:bg-white/[0.08] hover:text-white"
                                         @click="containerOpen = !containerOpen">
                                         <span class="min-w-0 flex-1 truncate text-left"
                                             x-text="selectedContainerLabel"></span>
@@ -157,7 +157,7 @@
                                                 @click="selectContainer(option.value)">
                                                 <span class="min-w-0 flex-1 truncate" x-text="option.label"></span>
                                                 <svg x-show="option.value === selectedContainer"
-                                                    class="size-3 shrink-0 text-[#fcd452]" viewBox="0 0 12 12"
+                                                    class="size-3 shrink-0 text-fg" viewBox="0 0 12 12"
                                                     fill="none" aria-hidden="true">
                                                     <path d="m2.5 6.25 2.1 2.1 4.9-5" stroke="currentColor"
                                                         stroke-width="1.4" stroke-linecap="round"

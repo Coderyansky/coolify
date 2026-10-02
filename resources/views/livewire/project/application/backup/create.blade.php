@@ -14,7 +14,7 @@
                 label="Frequency" required />
         </div>
 
-        <div class="mt-2 flex justify-end border-t border-neutral-200 pt-4 dark:border-white/[0.08]">
+        <div class="mt-2 flex justify-end border-t border-white/[0.06] pt-4">
             <x-forms.button type="submit"
                 class="button-highlighted">
                 Create schedule

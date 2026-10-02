@@ -2,8 +2,8 @@
     <x-slot:title>{{ data_get_str($project, 'name')->limit(10) }} > Clone | Coolify</x-slot>
     <div class="w-full max-w-none">
         <header class="mb-5">
-            <h1 class="truncate text-[24px]! leading-7! font-semibold! tracking-tight!">{{ $environment->name }}</h1>
-            <p class="mt-1 text-[13px] text-neutral-500 dark:text-fg-dim">
+            <h1 class="truncate text-[28px]! leading-[1.1]! font-semibold! tracking-[-0.03em]!">{{ $environment->name }}</h1>
+            <p class="mt-2 max-w-2xl text-[14px] leading-relaxed text-fg-faint">
                 Clone this environment inside {{ $project->name }}
             </p>
         </header>

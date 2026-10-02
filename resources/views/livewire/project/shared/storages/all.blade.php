@@ -10,7 +10,7 @@
 <div class="flex w-full flex-col">
     @if (data_get($resource, 'build_pack') === 'dockercompose')
         <div
-            class="border-b border-neutral-200 px-4 py-3 text-[13px] leading-5 text-amber-800 dark:border-white/[0.08] dark:text-amber-300/90">
+            class="border-b border-neutral-200 px-4 py-3 text-[13px] leading-5 text-fg-dim dark:border-white/[0.08] dark:text-fg">
             Docker Compose volume mounts are read-only here. Edit the compose file and reload it to change volumes.
         </div>
     @endif
@@ -63,12 +63,12 @@
                                     <span class="block text-xs text-neutral-500 dark:text-fg-dim">Volume mount</span>
                                 @endif
                                 @if ($form['replacedExternalVolume'])
-                                    <span class="block text-xs text-amber-800 dark:text-amber-300/90">
+                                    <span class="block text-xs text-fg-dim dark:text-fg">
                                         Replaces the external volume '{{ $form['replacedExternalVolume'] }}'. Copy the data into the external volume, then delete this entry to use it.
                                     </span>
                                 @endif
                                 @if ($form['ignoresDriverOptions'])
-                                    <span class="block text-xs text-amber-800 dark:text-amber-300/90">
+                                    <span class="block text-xs text-fg-dim dark:text-fg">
                                         Coolify does not apply the driver options of this volume because it was created before they were supported. To apply them: stop the resource, back up any data you need, delete this entry together with the Docker volume, then redeploy.
                                     </span>
                                 @endif

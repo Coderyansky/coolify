@@ -5,8 +5,8 @@
     <div x-data="projectEnvironments()" class="w-full">
         <header class="mb-5 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
             <div class="min-w-0">
-                <h1 class="truncate text-[24px]! leading-7! font-semibold! tracking-tight!">{{ $project->name }}</h1>
-                <p class="mt-1 text-[13px] text-neutral-500 dark:text-fg-dim">
+                <h1 class="truncate text-[28px]! leading-[1.1]! font-semibold! tracking-[-0.03em]!">{{ $project->name }}</h1>
+                <p class="mt-2 max-w-2xl text-[14px] leading-relaxed text-fg-faint">
                     <span
                         x-text="`${environments.length} ${environments.length === 1 ? 'environment' : 'environments'}`"></span>
                     in this project
@@ -37,7 +37,7 @@
                             <x-forms.input placeholder="staging" id="name" label="Name" required />
 
                             <footer
-                                class="flex justify-end border-t border-neutral-200 pt-4 dark:border-white/[0.08]">
+                                class="flex justify-end border-t border-white/[0.06] pt-4">
                                 <x-forms.button type="submit"
                                     defaultClass="button button-highlighted">
                                     Create environment
@@ -123,8 +123,8 @@
                 <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
                     <template x-for="environment in paginatedEnvironments" :key="environment.uuid">
                         <article
-                            class="group relative flex min-h-28 flex-col rounded-xl border border-neutral-200 bg-white p-3 shadow-sm transition-all hover:-translate-y-px hover:border-neutral-300 hover:shadow-md dark:border-white/[0.08] dark:bg-white/[0.05] dark:hover:border-white/[0.14]">
-                            <a :href="environment.href" {{ wireNavigate() }} class="absolute inset-0 rounded-xl"
+                            class="group relative flex min-h-28 flex-col rounded-2xl p-4 bg-surface ring-1 ring-inset ring-hairline transition-[background-color,box-shadow] duration-150 hover:bg-raised hover:ring-control">
+                            <a :href="environment.href" {{ wireNavigate() }} class="absolute inset-0 rounded-2xl"
                                 :aria-label="`Open ${environment.name}`"></a>
 
                             <div class="flex items-start gap-3">
@@ -149,13 +149,13 @@
                                 <div class="relative z-10 flex shrink-0 items-center gap-0.5">
                                     <a x-show="environment.addResourceHref" :href="environment.addResourceHref"
                                         {{ wireNavigate() }}
-                                        class="flex size-7.5 items-center justify-center rounded-md text-neutral-400 transition-colors hover:bg-neutral-100 hover:text-black dark:text-fg-faint dark:hover:bg-white/[0.06] dark:hover:text-fg"
+                                        class="flex size-7.5 items-center justify-center rounded-full text-neutral-400 transition-colors hover:bg-neutral-100 hover:text-black dark:text-fg-faint dark:hover:bg-white/[0.06] dark:hover:text-fg"
                                         title="Add resource" :aria-label="`Add resource to ${environment.name}`">
                                         <x-reicon name="plus" class="size-3" />
                                     </a>
                                     <a x-show="environment.settingsHref" :href="environment.settingsHref"
                                         {{ wireNavigate() }}
-                                        class="flex size-7.5 items-center justify-center rounded-md text-neutral-400 transition-colors hover:bg-neutral-100 hover:text-black dark:text-fg-faint dark:hover:bg-white/[0.06] dark:hover:text-fg"
+                                        class="flex size-7.5 items-center justify-center rounded-full text-neutral-400 transition-colors hover:bg-neutral-100 hover:text-black dark:text-fg-faint dark:hover:bg-white/[0.06] dark:hover:text-fg"
                                         title="Environment settings"
                                         :aria-label="`Open settings for ${environment.name}`">
                                         <x-reicon name="settings" class="size-3" />
@@ -203,12 +203,12 @@
                         <div class="relative flex items-center justify-end gap-0.5">
                             <a x-show="environment.addResourceHref" :href="environment.addResourceHref"
                                 {{ wireNavigate() }}
-                                class="flex size-7 items-center justify-center rounded-md text-neutral-400 transition-colors hover:bg-neutral-100 hover:text-black dark:text-fg-faint dark:hover:bg-white/[0.06] dark:hover:text-fg"
+                                class="flex size-7 items-center justify-center rounded-full text-neutral-400 transition-colors hover:bg-neutral-100 hover:text-black dark:text-fg-faint dark:hover:bg-white/[0.06] dark:hover:text-fg"
                                 title="Add resource" :aria-label="`Add resource to ${environment.name}`">
                                 <x-reicon name="plus" class="size-3.5" />
                             </a>
                             <a x-show="environment.settingsHref" :href="environment.settingsHref" {{ wireNavigate() }}
-                                class="flex size-7 items-center justify-center rounded-md text-neutral-400 transition-colors hover:bg-neutral-100 hover:text-black dark:text-fg-faint dark:hover:bg-white/[0.06] dark:hover:text-fg"
+                                class="flex size-7 items-center justify-center rounded-full text-neutral-400 transition-colors hover:bg-neutral-100 hover:text-black dark:text-fg-faint dark:hover:bg-white/[0.06] dark:hover:text-fg"
                                 title="Environment settings"
                                 :aria-label="`Open settings for ${environment.name}`">
                                 <x-reicon name="settings" class="size-3.5" />

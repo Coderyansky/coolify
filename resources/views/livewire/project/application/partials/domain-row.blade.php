@@ -70,7 +70,7 @@
                 @endif
             </div>
             @if ($isSuggested && filled($row['dns_message']))
-                <p class="text-[12px] leading-4 text-amber-700 sm:truncate dark:text-amber-400/90"
+                <p class="text-[12px] leading-4 text-fg-dim sm:truncate dark:text-fg"
                     title="{{ $row['dns_message'] }}">
                     {{ $row['dns_message'] }}
                 </p>
@@ -91,7 +91,7 @@
             @if (filled($row['internal_port'] ?? null))
                 <span aria-label="Internal port {{ $row['internal_port'] }}">{{ $row['internal_port'] }}</span>
             @else
-                <span role="img" aria-label="No internal port" title="No internal port. Set Ports Exposes or a per-domain internal port so the proxy can route this domain." class="text-red-500 dark:text-red-400">
+                <span role="img" aria-label="No internal port" title="No internal port. Set Ports Exposes or a per-domain internal port so the proxy can route this domain." class="text-error dark:text-error">
                     <x-reicon name="alert-triangle" class="size-4" />
                 </span>
             @endif
@@ -166,7 +166,7 @@
                             ]" :checkboxes="[['id' => 'deleteManagedDns', 'label' => 'Also delete the DNS record created by Coolify, if present.']]"
                             :confirmWithPassword="false" :confirmWithText="false" step2ButtonText="Remove domain">
                             <x-slot:trigger>
-                                <button type="button" class="icon-button shrink-0 text-red-500 hover:text-red-600 dark:text-red-400 dark:hover:text-red-300"
+                                <button type="button" class="icon-button shrink-0 text-error hover:text-error dark:text-error dark:hover:text-error"
                                     title="Remove domain" aria-label="Remove domain">
                                     <x-reicon name="trash" class="size-3.5" />
                                 </button>

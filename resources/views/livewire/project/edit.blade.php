@@ -2,8 +2,8 @@
     <x-slot:title>{{ data_get_str($project, 'name')->limit(10) }} > Edit | Coolify</x-slot>
     <div class="w-full max-w-none">
         <header class="mb-5">
-            <h1 class="truncate text-[24px]! leading-7! font-semibold! tracking-tight!">{{ $project->name }}</h1>
-            <p class="mt-1 text-[13px] text-neutral-500 dark:text-fg-dim">Project settings</p>
+            <h1 class="truncate text-[28px]! leading-[1.1]! font-semibold! tracking-[-0.03em]!">{{ $project->name }}</h1>
+            <p class="mt-2 max-w-2xl text-[14px] leading-relaxed text-fg-faint">Project settings</p>
         </header>
 
         <div class="flex flex-col gap-6">
@@ -81,8 +81,8 @@
                             <x-forms.button type="button" wire:click="removeIcon" x-bind:disabled="processing" isError>Remove</x-forms.button>
                         @endif
                     </div>
-                    <p x-cloak x-show="uploadError" x-text="uploadError" class="text-xs text-red-500"></p>
-                    @error('icon') <p class="text-xs text-red-500">{{ $message }}</p> @enderror
+                    <p x-cloak x-show="uploadError" x-text="uploadError" class="text-xs text-error"></p>
+                    @error('icon') <p class="text-xs text-error">{{ $message }}</p> @enderror
                 </div>
             </div>
         </section>
@@ -104,11 +104,11 @@
         </form>
 
         <section
-            class="overflow-hidden rounded-[10px] border border-red-300 bg-red-50/80 dark:border-red-500/25 dark:bg-red-500/[0.06]">
+            class="overflow-hidden rounded-[10px] border border-error/30 bg-error/10 dark:border-error/30 dark:bg-error/10">
             <div class="flex items-start justify-between gap-4 px-5 py-4">
                 <div>
-                    <h2 class="text-sm font-semibold text-red-800 dark:text-red-300">Delete project</h2>
-                    <p class="mt-1 max-w-2xl text-sm text-red-700/80 dark:text-red-200/70">
+                    <h2 class="text-sm font-semibold text-error dark:text-error">Delete project</h2>
+                    <p class="mt-1 max-w-2xl text-sm text-error/80 dark:text-error/70">
                         Empty the project before permanently deleting it.
                     </p>
                 </div>

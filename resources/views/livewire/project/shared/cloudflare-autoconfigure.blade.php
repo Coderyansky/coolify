@@ -43,7 +43,7 @@
                     x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
                     x-transition:leave="ease-in duration-100" x-transition:leave-start="opacity-100"
                     x-transition:leave-end="opacity-0"
-                    class="absolute inset-0 h-full w-full bg-black/50 backdrop-blur-[2px]"
+                    class="absolute inset-0 h-full w-full bg-black/60 backdrop-blur-sm"
                     @click="modalOpen = false; $wire.closeCloudflareAutoconfigureModal()"></div>
                 <div class="relative flex min-h-full items-start justify-center p-4 sm:items-center">
                     <div x-show="modalOpen" x-trap.inert.noscroll="modalOpen"
@@ -136,7 +136,7 @@
                 x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
                 x-transition:leave="ease-in duration-100" x-transition:leave-start="opacity-100"
                 x-transition:leave-end="opacity-0"
-                class="absolute inset-0 h-full w-full bg-black/50 backdrop-blur-[2px]"
+                class="absolute inset-0 h-full w-full bg-black/60 backdrop-blur-sm"
                 @click="closeDnsRecords()"></div>
             <div class="relative flex min-h-full items-start justify-center p-4 sm:items-center">
                 <div x-show="modalOpen" x-trap.inert.noscroll="modalOpen"

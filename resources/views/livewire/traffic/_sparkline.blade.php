@@ -36,7 +36,7 @@
     x-data="{
         chart: null,
         refreshCleanup: null,
-        accent() { return getComputedStyle(document.documentElement).getPropertyValue('{{ $colorVar }}').trim() || '#3b82f6'; },
+        accent() { return getComputedStyle(document.documentElement).getPropertyValue('{{ $colorVar }}').trim() || '#f5f5f7'; },
         muted() { return getComputedStyle(document.documentElement).getPropertyValue('--chart-geo-empty').trim() || 'rgba(128,128,128,0.45)'; },
         isFlat(a) { return !Array.isArray(a) || a.length === 0 || a.every(v => !Number(v)); },
         points(values, categories) {

@@ -91,7 +91,7 @@
         @else
             <button type="button" x-on:click="expanded = !expanded" title="{{ $deploymentLabel }}"
                 aria-label="Active deployments" :aria-expanded="expanded.toString()"
-                class="flex h-9 items-center gap-1.5 rounded-md px-2 text-[13px] font-medium text-coollabs transition-colors hover:bg-neutral-100 dark:text-warning dark:hover:bg-white/[0.06]">
+                class="flex h-9 items-center gap-1.5 rounded-full px-2 text-[13px] font-medium text-coollabs transition-colors hover:bg-neutral-100 dark:text-warning dark:hover:bg-white/[0.06]">
                 <svg class="size-3.5 shrink-0 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                     aria-hidden="true">
                     <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>

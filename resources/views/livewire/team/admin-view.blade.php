@@ -74,7 +74,7 @@
                                     shortConfirmationLabel="User name">
                                     <x-slot:trigger>
                                         <button type="button"
-                                            class="text-[12px] font-medium text-red-600 transition-colors hover:text-red-700 dark:text-red-400 dark:hover:text-red-300">
+                                            class="text-[12px] font-medium text-error transition-colors hover:text-error dark:text-error dark:hover:text-error">
                                             Delete
                                         </button>
                                     </x-slot:trigger>

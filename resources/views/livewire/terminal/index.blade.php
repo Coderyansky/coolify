@@ -53,11 +53,11 @@
 
     <header class="terminal-page-header shrink-0">
         <div class="flex items-center gap-2">
-            <h1 class="text-[24px]! leading-7! font-semibold! tracking-tight!">Terminal</h1>
+            <h1 class="text-[28px]! leading-[1.1]! font-semibold! tracking-[-0.03em]!">Terminal</h1>
             <x-helper
                 helper="If you cannot connect, confirm the server is reachable and that the terminal port is open on the firewall.<br><br><a class='underline' href='https://coolify.io/docs/knowledge-base/server/firewall/#terminal' target='_blank' rel='noopener noreferrer'>Documentation</a>" />
         </div>
-        <p class="mt-1 text-[13px] text-neutral-500 dark:text-fg-dim">
+        <p class="mt-2 max-w-2xl text-[14px] leading-relaxed text-fg-faint">
             Run commands on reachable servers and containers from the browser.
         </p>
     </header>
@@ -202,7 +202,7 @@
                     @else
                         <button type="button"
                             x-cloak x-show="targetChosen"
-                            class="terminal-session-target-trigger flex h-8 min-w-0 max-w-sm cursor-pointer items-center gap-2 rounded-md px-2.5 text-left text-xs font-medium text-white/70 transition-colors hover:bg-white/[0.08] hover:text-white"
+                            class="terminal-session-target-trigger flex h-8 min-w-0 max-w-sm cursor-pointer items-center gap-2 rounded-full px-2.5 text-left text-xs font-medium text-white/70 transition-colors hover:bg-white/[0.08] hover:text-white"
                             x-on:click="targetOpen = !targetOpen" :aria-expanded="targetOpen"
                             aria-label="Choose terminal target">
                             <span class="min-w-0 truncate text-[11px] font-semibold text-white/80"
@@ -240,7 +240,7 @@
                                                     class="size-3.5 shrink-0 text-white/35" />
                                                 <span class="min-w-0 flex-1 truncate" x-text="target.label"></span>
                                                 <svg x-show="$wire.selected_uuid === target.value"
-                                                    class="size-3 text-[#fcd452]" viewBox="0 0 12 12" fill="none"
+                                                    class="size-3 text-fg" viewBox="0 0 12 12" fill="none"
                                                     aria-hidden="true">
                                                     <path d="m2.5 6.25 2.1 2.1 4.9-5" stroke="currentColor"
                                                         stroke-width="1.4" stroke-linecap="round"

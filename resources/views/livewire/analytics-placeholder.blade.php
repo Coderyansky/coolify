@@ -4,8 +4,8 @@
     <div class="flex flex-col gap-4">
         @if (empty($scopedServerUuid ?? null))
             <div class="min-w-0">
-                <h1 class="min-w-0 text-[24px]! leading-7! font-semibold! tracking-tight!">Analytics</h1>
-                <p class="mt-1 text-[13px] text-neutral-500 dark:text-fg-dim">
+                <h1 class="min-w-0 text-[28px]! leading-[1.1]! font-semibold! tracking-[-0.03em]!">Analytics</h1>
+                <p class="mt-2 max-w-2xl text-[14px] leading-relaxed text-fg-faint">
                     Request traffic across every application and server, reported by Sentinel.
                 </p>
             </div>

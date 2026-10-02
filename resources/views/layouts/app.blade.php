@@ -53,25 +53,24 @@
             }
         }" @open-global-search.window="open = false" @page-width-changed.window="pageWidth = $event.detail" x-on:livewire:navigated.window="applyCollapsed(true)"
             :style="{ '--sidebar-w': collapsed ? '4rem' : '14rem' }" x-cloak
-            class="dark:text-inherit text-black">
+            class="text-inherit">
             {{-- ============ DESKTOP TOP BAR ============ --}}
             <header
                 x-data="{ resourceActionsOpen: false }"
                 @resource-actions-toggled.window="resourceActionsOpen = $event.detail.open"
                 :class="{ 'z-[1000]': resourceActionsOpen }"
-                class="hidden lg:flex fixed top-0 inset-x-0 z-50 h-12 items-center bg-white/95 dark:bg-panel/95 backdrop-blur">
+                class="hidden lg:flex fixed top-0 inset-x-0 z-50 h-12 items-center border-b border-white/[0.08] bg-panel/90 backdrop-blur-2xl backdrop-saturate-150">
                 {{-- Brand (width tracks sidebar) --}}
-                <div class="flex items-center gap-2 h-full shrink-0 border-r border-neutral-200 dark:border-white/[0.06] transition-[width] duration-200"
+                <div class="flex items-center gap-2 h-full shrink-0 border-r border-white/[0.08] transition-[width] duration-200"
                     :class="collapsed ? 'w-16 justify-center px-0' : 'w-56 px-4'">
                     <div class="flex shrink-0 items-baseline gap-1.5 min-w-0">
                         <a href="/" {{ wireNavigate() }} title="Coolify"
-                            class="flex items-center hover:opacity-80 transition-opacity">
-                            <img x-show="collapsed" x-cloak src="/coolify-logo.svg" alt="Coolify"
-                                class="size-5" />
-                            <span x-show="!collapsed" class="text-[15px] font-semibold tracking-tight text-black dark:text-white">Coolify</span>
+                            class="flex items-center gap-2 text-fg/90 transition-opacity hover:opacity-70">
+                            <img src="/coolify-logo-monochrome.svg" alt="" class="size-[18px] shrink-0 invert" />
+                            <span x-show="!collapsed" class="text-[15px] font-semibold tracking-[-0.01em]">Coolify</span>
                         </a>
                         <x-version x-show="!collapsed"
-                            class="!text-[10.5px] font-medium text-neutral-400 dark:text-fg-faint !opacity-100 hover:!opacity-100 dark:hover:text-fg hover:text-black" />
+                            class="!text-[10.5px] font-mono font-normal text-fg-faint !opacity-100 hover:!opacity-100 hover:text-fg" />
                     </div>
                     @if (isInstanceAdmin() && !isCloud())
                         <div x-show="!collapsed" class="ml-auto shrink-0">
@@ -83,7 +82,7 @@
                 </div>
                 {{-- Collapse toggle + team switcher --}}
                 <div
-                    class="flex h-full items-center gap-0.5 min-w-0 flex-1 border-b border-neutral-200 pl-3 pr-4 dark:border-white/[0.06]">
+                    class="flex h-full items-center gap-0.5 min-w-0 flex-1 pl-3 pr-4">
                     <div class="relative flex min-w-0 flex-1 items-center">
                         <x-top-breadcrumb />
                         <div id="server-topbar-context" class="min-w-0"></div>
@@ -101,7 +100,7 @@
                 x-on:keydown.escape.window="open = false"
                 x-on:livewire:navigated.window="open = false">
                 {{-- Scrim: fades in/out --}}
-                <div class="fixed inset-0 bg-black/50" x-show="open" x-cloak x-on:click="open = false"
+                <div class="fixed inset-0 bg-black/60 backdrop-blur-sm" x-show="open" x-cloak x-on:click="open = false"
                     x-transition:enter="transition-opacity ease-out duration-300"
                     x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
                     x-transition:leave="transition-opacity ease-in duration-200"
@@ -114,18 +113,18 @@
                         x-transition:enter-start="translate-x-full" x-transition:enter-end="translate-x-0"
                         x-transition:leave="transform transition ease-in duration-200"
                         x-transition:leave-start="translate-x-0" x-transition:leave-end="translate-x-full"
-                        class="relative flex h-full w-72 max-w-[85vw] min-w-0 flex-col overflow-hidden rounded-l-2xl border-l border-neutral-200 bg-white shadow-[-8px_0_30px_-6px_rgba(0,0,0,0.18)] dark:border-white/[0.12] dark:bg-panel dark:shadow-[-8px_0_30px_-4px_rgba(0,0,0,0.5)]">
+                        class="relative flex h-full w-72 max-w-[85vw] min-w-0 flex-col overflow-hidden rounded-l-[22px] bg-panel ring-1 ring-inset ring-white/[0.1]">
                         <div data-mobile-sidebar-brand
-                            class="flex h-12 shrink-0 items-center justify-between gap-1.5 border-b border-neutral-200 px-4 dark:border-white/[0.06]">
+                            class="flex h-12 shrink-0 items-center justify-between gap-1.5 border-b border-white/[0.08] px-4">
                             <div class="flex min-w-0 items-baseline gap-1.5">
                                 <a href="/" {{ wireNavigate() }} title="Coolify"
-                                    class="text-[15px] font-semibold tracking-tight text-black transition-opacity hover:opacity-80 dark:text-white">
+                                    class="text-[15px] font-semibold tracking-[-0.01em] text-fg/90 transition-opacity hover:opacity-70">
                                     Coolify
                                 </a>
-                                <x-version class="!text-[10.5px] font-medium text-neutral-400 dark:text-fg-faint !opacity-100 hover:!opacity-100 hover:text-black dark:hover:text-fg" />
+                                <x-version class="!text-[10.5px] font-mono font-normal text-fg-faint !opacity-100 hover:!opacity-100 hover:text-fg" />
                             </div>
                             <button type="button" x-on:click="open = false" aria-label="Close menu"
-                                class="-mr-1.5 flex size-8 shrink-0 items-center justify-center rounded-md text-neutral-500 transition-colors hover:bg-neutral-100 hover:text-black active:scale-95 dark:text-fg-dim dark:hover:bg-white/[0.06] dark:hover:text-fg">
+                                class="-mr-1.5 flex size-7 shrink-0 items-center justify-center rounded-full text-fg-dim ring-1 ring-inset ring-white/[0.08] transition-colors hover:bg-white/[0.06] hover:text-fg active:scale-95">
                                 <svg class="size-5" fill="none" viewBox="0 0 24 24" stroke-width="1.75"
                                     stroke="currentColor" aria-hidden="true">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -149,11 +148,11 @@
 
             {{-- ============ MOBILE TOP BAR ============ --}}
             <div
-                class="sticky top-0 z-40 flex items-center justify-between px-4 py-3 gap-x-4 sm:px-6 lg:hidden bg-white/95 dark:bg-panel/95 backdrop-blur-sm border-b border-neutral-200/60 dark:border-white/[0.06]">
+                class="sticky top-0 z-40 flex items-center justify-between px-4 py-2.5 gap-x-4 sm:px-6 lg:hidden bg-panel/90 backdrop-blur-2xl backdrop-saturate-150 border-b border-white/[0.08]">
                 <div class="flex min-w-0 flex-1 items-center gap-2.5">
                     <a href="/"
-                        class="flex size-8 shrink-0 items-center justify-center rounded-lg bg-neutral-100 transition-opacity hover:opacity-80 dark:bg-white/[0.06]">
-                        <img src="/coolify-logo.svg" alt="Coolify" class="w-[18px] h-[18px]" />
+                        class="flex size-8 shrink-0 items-center justify-center rounded-[10px] bg-white/[0.04] ring-1 ring-inset ring-white/10 transition-opacity hover:opacity-70">
+                        <img src="/coolify-logo-monochrome.svg" alt="Coolify" class="size-4 invert" />
                     </a>
                     <div class="min-w-0" x-data="{ collapsed: false }">
                         <livewire:switch-team />
@@ -170,7 +169,7 @@
                     @endif
                     <x-top-user-menu />
                     <button type="button" x-on:click="open = !open"
-                        class="-mr-1 flex size-9 items-center justify-center rounded-md text-neutral-500 transition-transform duration-100 ease-out hover:bg-neutral-100 hover:text-black active:scale-90 dark:text-fg-dim dark:hover:bg-white/[0.06] dark:hover:text-fg">
+                        class="flex size-7 items-center justify-center rounded-full text-fg-dim ring-1 ring-inset ring-white/[0.08] transition-[transform,background-color] duration-150 ease-out hover:bg-white/[0.05] hover:text-fg active:scale-90">
                         <span class="sr-only">Open sidebar</span>
                         <svg class="size-5" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                             <rect x="3" y="4" width="18" height="16" rx="2" stroke="currentColor" stroke-width="1.6" />
@@ -182,7 +181,7 @@
 
             {{-- ============ MAIN ============ --}}
             <main
-                class="min-h-screen bg-neutral-50 dark:bg-app px-5 py-6 sm:px-8 lg:px-10 lg:pt-[calc(3rem+1.75rem)] lg:pb-10"
+                class="app-canvas relative isolate min-h-screen bg-app px-5 py-6 sm:px-8 lg:px-10 lg:pt-[calc(3rem+2rem)] lg:pb-16"
                 :class="[collapsed ? 'lg:ml-16' : 'lg:ml-56', sidebarReady ? 'transition-[margin] duration-200' : '']">
                 <div class="w-full" :class="pageWidth === 'centered' ? 'mx-auto max-w-[1400px]' : 'max-w-none'">
                     {{ $slot }}

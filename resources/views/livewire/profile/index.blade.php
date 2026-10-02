@@ -112,9 +112,9 @@
                                 isError>Remove</x-forms.button>
                         @endif
                     </div>
-                    <p x-cloak x-show="uploadError" x-text="uploadError" class="text-xs text-red-500"></p>
+                    <p x-cloak x-show="uploadError" x-text="uploadError" class="text-xs text-error"></p>
                     @error('avatar')
-                        <p class="text-xs text-red-500">{{ $message }}</p>
+                        <p class="text-xs text-error">{{ $message }}</p>
                     @enderror
                 </div>
             </div>

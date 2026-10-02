@@ -13,7 +13,7 @@
         <form wire:submit.prevent="sendTestEmail" class="application-settings-form flex flex-col gap-4">
             <x-forms.input wire:model="testEmailAddress" placeholder="test@example.com" :id="$inputId"
                 label="Recipient" required />
-            <div class="flex justify-end border-t border-neutral-200 pt-4 dark:border-white/[0.08]">
+            <div class="flex justify-end border-t border-white/[0.06] pt-4">
                 <button type="submit" class="button" @click="modalOpen=false">Send email</button>
             </div>
         </form>

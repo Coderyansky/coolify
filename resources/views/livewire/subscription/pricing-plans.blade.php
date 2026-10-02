@@ -58,7 +58,7 @@
                     'All upcoming platform features',
                 ] as $feature)
                     <div class="flex min-h-10 items-center gap-2.5 py-2 text-[12px]">
-                        <x-reicon name="check-circle" class="size-4 shrink-0 text-emerald-500" />
+                        <x-reicon name="check-circle" class="size-4 shrink-0 text-success" />
                         <span>{{ $feature }}</span>
                     </div>
                 @endforeach

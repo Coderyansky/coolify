@@ -48,15 +48,15 @@
                     <span class="text-neutral-500">&middot; {{ $billingInterval === 'yearly' ? 'Yearly' : 'Monthly' }}</span>
                     <span class="text-neutral-500">&middot;</span>
                     @if (currentTeam()->subscription->stripe_cancel_at_period_end)
-                        <span class="text-red-500 font-medium">Cancelling at end of period</span>
+                        <span class="text-error font-medium">Cancelling at end of period</span>
                     @else
-                        <span class="text-green-500 font-medium">Active</span>
+                        <span class="text-success font-medium">Active</span>
                     @endif
                 </div>
                 <div class="text-sm flex items-center gap-2 flex-wrap">
                     <span>
                         <span class="text-neutral-500">Active servers:</span>
-                        <span class="font-medium {{ currentTeam()->serverOverflow() ? 'text-red-500' : 'dark:text-white' }}">{{ currentTeam()->servers->count() }}</span>
+                        <span class="font-medium {{ currentTeam()->serverOverflow() ? 'text-error' : 'dark:text-white' }}">{{ currentTeam()->servers->count() }}</span>
                         <span class="text-neutral-500">/</span>
                         <span class="font-medium dark:text-white" x-text="current"></span>
                         <span class="text-neutral-500">paid</span>
@@ -101,7 +101,7 @@
                         <div class="flex min-h-11 shrink-0 items-center justify-between px-4">
                             <h3 class="text-[13px]! font-semibold!">Adjust server limit</h3>
                             <button type="button" @click="closeAdjust()"
-                                class="flex size-7 items-center justify-center rounded-md text-neutral-400 transition-colors hover:bg-neutral-100 hover:text-black dark:text-fg-faint dark:hover:bg-white/[0.06] dark:hover:text-fg">
+                                class="flex size-7 items-center justify-center rounded-full text-neutral-400 transition-colors hover:bg-neutral-100 hover:text-black dark:text-fg-faint dark:hover:bg-white/[0.06] dark:hover:text-fg">
                                 <x-reicon name="x" class="size-3.5" />
                             </button>
                         </div>

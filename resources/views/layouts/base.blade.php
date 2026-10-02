@@ -1,116 +1,22 @@
 <!DOCTYPE html>
-<html data-theme="dark" lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html class="dark" data-theme="dark" lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <script data-navigate-once>
-    // Immediate theme application - runs before any rendering
+    // Apply this fork's dark palette without deleting saved preferences.
     (function () {
-        // The OS color picker only speaks hex. Convert it once so the whole theme
-        // cascade is authored in OKLCH (sRGB -> linear -> OKLab -> OKLCH).
-        const srgbToLinear = (c) => c <= 0.04045 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4;
-        window.hexToOklch = (hex) => {
-            const [r, g, b] = hex.match(/[a-f\d]{2}/gi).map((channel) => srgbToLinear(parseInt(channel, 16) / 255));
-            const l = Math.cbrt(0.4122214708 * r + 0.5363325363 * g + 0.0514459929 * b);
-            const m = Math.cbrt(0.2119034982 * r + 0.6806995451 * g + 0.1073969566 * b);
-            const s = Math.cbrt(0.0883024619 * r + 0.2817188376 * g + 0.6299787005 * b);
-            const okL = 0.2104542553 * l + 0.7936177850 * m - 0.0040720468 * s;
-            const okA = 1.9779984951 * l - 2.4285922050 * m + 0.4505937099 * s;
-            const okB = 0.0259040371 * l + 0.7827717662 * m - 0.8086757660 * s;
-            const chroma = Math.sqrt(okA * okA + okB * okB);
-            let hue = Math.atan2(okB, okA) * 180 / Math.PI;
-            if (hue < 0) hue += 360;
-            return `oklch(${(okL * 100).toFixed(2)}% ${chroma.toFixed(4)} ${hue.toFixed(2)})`;
-        };
-        window.themeAccentForeground = (color) => {
-            const channels = color.match(/[a-f\d]{2}/gi).map(channel => parseInt(channel, 16) * 0.85 + 255 * 0.15);
-            const luminance = channels
-                .map(channel => channel / 255)
-                .map(channel => channel <= 0.04045 ? channel / 12.92 : ((channel + 0.055) / 1.055) ** 2.4)
-                .reduce((sum, channel, index) => sum + channel * [0.2126, 0.7152, 0.0722][index], 0);
-
-            return luminance > 0.179 ? 'oklch(0% 0 0)' : 'oklch(100% 0 0)';
-        };
         window.applyStoredTheme = () => {
-            const theme = localStorage.theme === 'purple' ? 'custom' : (localStorage.theme || 'dark');
-            const themeColor = localStorage.themeColor || '#6b16ed';
-            const customMode = localStorage.customMode || 'dark';
-            const isDark = theme === 'dark'
-                || (theme === 'custom' && customMode === 'dark')
-                || (theme === 'system' && matchMedia('(prefers-color-scheme: dark)').matches);
-
-            localStorage.theme = theme;
-            document.documentElement.classList.toggle('dark', isDark);
-            document.documentElement.dataset.theme = theme === 'custom' ? 'custom' : (isDark ? 'dark' : 'light');
-            document.documentElement.style.setProperty('--theme-base-color', window.hexToOklch(themeColor));
-            document.documentElement.style.setProperty('--theme-accent-foreground', window.themeAccentForeground(themeColor));
-            document.querySelector('meta[name=theme-color]')?.setAttribute('content', isDark ? '#101010' : '#ffffff');
+            document.documentElement.classList.add('dark');
+            document.documentElement.dataset.theme = 'dark';
+            document.documentElement.style.removeProperty('--theme-base-color');
+            document.documentElement.style.removeProperty('--theme-accent-foreground');
         };
-        // Single source for the theme controls Alpine state, shared by the
+        // Single source for the layout preference Alpine state, shared by the
         // Appearance page and the profile dropdown via x-data="themeControls()".
         window.themeControls = () => ({
-            theme: localStorage.getItem('theme') === 'purple' ? 'custom' : (localStorage.getItem('theme') || 'dark'),
-            themeColor: localStorage.getItem('themeColor') || '#6b16ed',
-            customMode: localStorage.getItem('customMode') || 'dark',
             pageWidth: localStorage.getItem('pageWidth') || 'full',
-            themeColorFrame: null,
-            pickerOpen: false,
-            init() {
-                localStorage.setItem('theme', this.theme);
-                this.applyTheme();
-            },
-            chooseCustom() {
-                this.setTheme('custom');
-                this.pickerOpen = !this.pickerOpen;
-            },
-            setTheme(type) {
-                this.theme = type;
-                localStorage.setItem('theme', type);
-                this.applyTheme();
-            },
-            setCustomMode(mode) {
-                this.customMode = mode;
-                localStorage.setItem('customMode', mode);
-                if (this.theme !== 'custom') {
-                    this.setTheme('custom');
-                    return;
-                }
-                this.applyTheme();
-            },
             setWidth(width) {
                 this.pageWidth = width;
                 localStorage.setItem('pageWidth', width);
                 window.dispatchEvent(new CustomEvent('page-width-changed', { detail: width }));
-            },
-            previewThemeColor(color) {
-                this.themeColor = color;
-                if (this.theme !== 'custom') {
-                    this.theme = 'custom';
-                    localStorage.setItem('theme', 'custom');
-                }
-                document.documentElement.dataset.theme = 'custom';
-                document.documentElement.classList.toggle('dark', this.customMode === 'dark');
-                if (this.themeColorFrame) {
-                    return;
-                }
-                this.themeColorFrame = requestAnimationFrame(() => {
-                    document.documentElement.style.setProperty('--theme-base-color', window.hexToOklch(this.themeColor));
-                    document.documentElement.style.setProperty('--theme-accent-foreground', window.themeAccentForeground(this.themeColor));
-                    this.themeColorFrame = null;
-                });
-            },
-            saveThemeColor(color) {
-                this.previewThemeColor(color);
-                localStorage.setItem('themeColor', color);
-                localStorage.setItem('theme', 'custom');
-            },
-            applyTheme() {
-                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-                const isDark = this.theme === 'dark'
-                    || (this.theme === 'custom' && this.customMode === 'dark')
-                    || (this.theme === 'system' && prefersDark);
-                document.documentElement.classList.toggle('dark', isDark);
-                document.documentElement.dataset.theme = this.theme === 'custom' ? 'custom' : (isDark ? 'dark' : 'light');
-                document.documentElement.style.setProperty('--theme-base-color', window.hexToOklch(this.themeColor));
-                document.documentElement.style.setProperty('--theme-accent-foreground', window.themeAccentForeground(this.themeColor));
-                document.querySelector('meta[name=theme-color]')?.setAttribute('content', isDark ? '#101010' : '#ffffff');
             },
         });
 
@@ -123,8 +29,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex">
-    <meta name="theme-color" content="#101010" id="theme-color-meta" />
-    <meta name="color-scheme" content="dark light" />
+    <meta name="theme-color" content="#0a0a0a" id="theme-color-meta" />
+    <meta name="color-scheme" content="dark" />
     <meta name="Description" content="Coolify: An open-source & self-hostable Heroku / Netlify / Vercel alternative" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <meta name="twitter:card" content="summary_large_image" />
@@ -164,12 +70,6 @@
     <meta name="apple-mobile-web-app-title" content="Coolify" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
     @vite(['resources/js/app.js', 'resources/css/app.css'])
-    <script>
-        // Update theme-color meta tag (non-critical, can run async)
-        const t = localStorage.theme || 'dark';
-        const isDark = t === 'dark' || t === 'custom' || (t === 'system' && matchMedia('(prefers-color-scheme: dark)').matches);
-        document.getElementById('theme-color-meta')?.setAttribute('content', isDark ? '#101010' : '#ffffff');
-    </script>
     <style>
         [x-cloak] {
             display: none !important;
@@ -188,7 +88,7 @@
 </head>
 @section('body')
 
-<body class="dark:text-inherit text-black">
+<body class="text-fg-dim">
     <x-toast />
     <x-icon-tooltip />
     <script data-navigate-once>
@@ -253,37 +153,9 @@
             return DOMPurify.sanitize(html, config);
         };
 
-        // Initialize theme if not set
-        if (!('theme' in localStorage)) {
-            localStorage.theme = 'dark';
-        }
-
-        let theme = localStorage.theme
-        let cpuColor = '#1e90ff'
-        let ramColor = '#00ced1'
-        let textColor = '#ffffff'
-        let editorBackground = '#181818'
-        let editorTheme = 'blackboard'
-
-        function checkTheme() {
-            theme = localStorage.theme
-            if (theme == 'system') {
-                theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
-            }
-            if (theme == 'dark' || theme == 'custom') {
-                cpuColor = '#1e90ff'
-                ramColor = '#00ced1'
-                textColor = '#ffffff'
-                editorBackground = '#181818'
-                editorTheme = 'blackboard'
-            } else {
-                cpuColor = '#1e90ff'
-                ramColor = '#00ced1'
-                textColor = '#000000'
-                editorBackground = '#ffffff'
-                editorTheme = null
-            }
-        }
+        const cpuColor = '#f5f5f7';
+        const ramColor = '#8e8e93';
+        const textColor = '#8e8e93';
         @auth
             window.Pusher = Pusher;
             const EchoConstructor = typeof Echo === 'function' ? Echo : Echo.default;

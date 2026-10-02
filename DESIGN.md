@@ -29,39 +29,55 @@ compact divided list, not legacy green check SVGs or fixed-width status rows.
 
 ## 1. Visual direction
 
-The interface is compact and product-focused:
+This fork uses a **dark interface with a neutral visual hierarchy**. Surface
+depth and action emphasis use brightness; health, warnings and errors retain
+distinct semantic colors:
 
-- near-neutral layered surfaces instead of large bordered boxes;
-- 13–14px UI typography and 32px controls;
-- crisp hairline rings plus a restrained card lift (single 1px ring +
-  `0 1px 2px rgb(0 0 0 / 0.05)`) so cards and tables separate from the canvas,
-  never heavy borders or a strong floating shadow;
-- full-width data tables for dense collections;
-- outline Reicon glyphs through `<x-reicon>`;
-- the Coolify purple brand accent in light mode;
-- the readable Coolify yellow accent in dark mode;
-- solid active-item fills (neutral black/white opacity), not accent gradients;
-  active state is a flat selected surface with no accent rail;
+- near-black canvas (`#0a0a0a`), `#f5f5f7` foreground, `#8e8e93` muted copy,
+  and distinct surface steps (`#101012`, `#161618`, `#202023`, `#242427`);
+- **rings instead of borders and shadows**: containers are outlined by an
+  inset `ring-hairline` ring (white/18); selection is a
+  brighter ring (`ring-white/30`), not a color;
+- **interactive = pill** (`rounded-full`: buttons, nav links, tabs, badges,
+  chips); **container = 18–24px** (cards 18px, popovers 14px, modals and the
+  command palette 22px); small technical labels and code wells use 8px;
+- **importance = fill, not hue**: the one primary action of a surface is a
+  solid white pill with black text; secondary actions are outline pills;
+  warnings use amber, independently of neutral active tabs and primary actions;
+- Inter for every UI string, Geist Mono for machine values (hashes, domains,
+  ports, durations, code), `tabular-nums` wherever numbers change;
+- decoration is limited to soft white radial glows, a dot grid, and gradient
+  hairlines.
+
+Semantic hue remains visible in these places:
+
+1. the operational / success dot (`--color-success` `#4ade80`);
+2. destructive and error states (`--color-error` `#ff453a`), including unhealthy
+   containers whose failed health check prevents Traefik from routing traffic;
+3. warning states (`--color-warning` `#fbbf24`), including
+   restarting containers, missing health checks, callouts and toasts;
+4. syntax highlighting (GitHub Dark palette, see §3).
+
+Legacy Coollabs utilities retain their purple brand meaning. Use `accent`/`fg`
+for new neutral emphasis, and `warning` only for attention or health states.
+
+Other rules:
+
 - sentence-case labels and headings;
+- outline Reicon glyphs through `<x-reicon>`, 14–16px;
+- full-width data tables for dense collections;
 - never use the em dash (`—`) in UI copy. Prefer a period, colon, comma, or
   ASCII hyphen (`-`) for empty cells and separators.
 
-Avoid oversized titles, generic dashboard cards, strong shadows, thick
-dividers, native browser selects, and isolated colored buttons that do not
-match the current action styles.
+Avoid light surfaces, brand-colored fills, drop shadows on cards, thick
+dividers, native browser selects, and isolated colored buttons.
 
-Standard `.button` controls use a compact 2px bottom depth. Hover raises the
-button face by 1px and increases the visible depth to 3px. Pressing moves the
-face down 2px into the edge and removes the depth until release, keeping the
-overall bottom position stable. Disabled controls stay flat,
-and focus-visible controls retain the accent ring alongside the depth.
-Movement and depth-shadow changes transition over 80ms; color transitions keep
-the shared 120ms duration.
-Standard button labels use `capitalize`, giving each word an initial capital.
-Highlighted buttons use `--color-coollabs-300` for their bottom edge; the
-custom theme derives it from its bright color mixed with black, so custom
-colors keep a matching edge. Dark mode matches the depth edge of neutral
-buttons to their regular border color (`rgb(255 255 255 / 0.08)`).
+Buttons are flat: no depth edge, no lift. Hover changes only the fill
+(`hover:bg-white/[0.06]` on outline pills, `hover:bg-white/90` on the white
+pill); pressing scales to 0.97. Focus-visible shows a soft white halo
+(`0 0 0 3px rgb(255 255 255 / 0.12)`) with a `--color-ring` edge. Destructive
+buttons are red text on a red/35 outline and fill with red/10 on hover, never a
+solid red block.
 
 ---
 
@@ -100,85 +116,161 @@ Important consequences:
 
 ## 3. Tokens and color behavior
 
-The surface ladder is defined in `resources/css/app.css`.
+The product is **dark-only**. `layouts/base.blade.php` renders
+`<html class="dark" data-theme="dark">`, re-asserts it after every
+`wire:navigate`, without deleting saved `theme`, `themeColor` or `customMode`
+preferences. There is no theme switcher and no light or custom palette; the
+Appearance page only offers the page-width preference. Existing `dark:` variants are retained for upstream compatibility. New shared
+components should use semantic tokens instead of adding light-only branches.
+Restoring the light/system/custom theme picker requires verifying those modes
+across the full interface; this fork currently applies the dark palette.
 
-| Token | Light | Dark | Use |
-|---|---|---|---|
-| `--coollabs-canvas` | 97% off-white | 14.48% neutral | page canvas (kept below card fills so cards lift) |
-| `--coollabs-elevated` | 98% neutral | 20.02% neutral | shells and card headers |
-| `--coollabs-base` | white | 22.64% neutral | nested card bodies |
-| `--coollabs-recessed` | 96% neutral | 25.2% neutral | inputs and listboxes |
-| `--coollabs-fill` | 92.2% neutral | 29.31% neutral | dividers and passive fills |
-| `--coollabs-line` | translucent dark | 32% neutral | control borders |
-| `--coollabs-hairline` | 85.5% neutral | 32% neutral | shell rings (crisp enough to read as a card edge, ~1.5:1) |
-| `--coollabs-subtle` | 50% neutral | 70.8% neutral | labels and muted titles (light darkened for WCAG AA 4.5:1) |
+All tokens live in the `@theme` block and the `:root, .dark` surface block of
+`resources/css/app.css`.
 
-Accent behavior is intentionally theme-aware:
+### Semantic colors
 
-- **Light mode:** Coolify purple (`coollabs`) for active controls, focus,
-  primary actions, and navigation accents.
-- **Dark mode:** Coolify yellow (`warning`) for the same states because the
-  original purple did not provide sufficient text and ring contrast.
+| Token | Value | Use |
+|---|---|---|
+| `--color-app` / `--color-panel` | `#0a0a0a` / `#101012` | page canvas, sidebar, topbar |
+| `--color-surface` | `#161618` | card shells, code windows, editors |
+| `--color-raised` | `#202023` | raised nodes |
+| `--color-selected` / `--color-popover` | `#2c2c2e` / `#242427` | menus, listbox panels, tooltips |
+| `--color-fg` | `#f5f5f7` | primary text, primary fill |
+| `--color-fg-dim` | `#aeaeb2` | body text |
+| `--color-fg-faint` | `#8e8e93` | muted copy, labels, descriptions |
+| `--color-accent` | `#f5f5f7` | focus, active, primary (with `--color-accent-foreground` `#000`) |
+| `--color-control` | `#85858b` | enabled form boundaries (at least 3:1) |
+| `--color-ring` | `#f5f5f7` | focus edge |
+| `--color-warning` | `#fbbf24` | attention and health warnings |
+| `--color-success` | `#4ade80` | operational dot and success icons only |
+| `--color-error` | `#ff453a` | destructive and errors |
+| `--color-chart-1…5` | `#f5f5f7` `#a1a1a6` `#6e6e73` `#48484a` `#2c2c2e` | chart series by brightness |
 
-Do not hard-code blue focus rings or leave yellow accent utilities active in
-light mode. Primary action patterns should normally follow:
+Semantic tokens retain their names: `warning` is amber, `success` is green,
+`error` is red, and the legacy `coollabs` scale is purple. Neutral primary
+actions use `bg-accent text-accent-foreground`; active items use `fg` and
+neutral surface fills. Do not use `warning` as a neutral brand accent.
 
-```html
-bg-coollabs/10 text-coollabs ring-coollabs/25
-dark:bg-warning/15 dark:text-warning dark:ring-warning/25
-```
+### Surface tokens
 
-The filled top-level action/tab treatment uses the same palette at a restrained
-opacity rather than a fully saturated fill.
+| Token | Value | Use |
+|---|---|---|
+| `--coollabs-canvas` | `#0a0a0a` | page canvas |
+| `--coollabs-elevated` / `--coollabs-base` | `#161618` | card shell and body (one plane) |
+| `--coollabs-recessed` | `#101012` | inputs, listbox triggers, code wells |
+| `--coollabs-fill` | `#1c1c1e` | passive fills, dividers in dense rows |
+| `--coollabs-line` | `--color-control` (`#85858b`) | control outlines |
+| `--coollabs-hairline` | `white/18` | container rings |
+| `--coollabs-subtle` | `#8e8e93` | labels and descriptions |
 
-### Shell layering
+### White opacity scale
 
-The app shell is three distinct surface layers, not one flat color. Chrome
-lifts, content is the base, cards lift off the content:
+| Opacity | Role |
+|---|---|
+| `white/[0.02]`–`[0.025]` | subtle row hover; cards use `bg-surface` |
+| `white/[0.04]`–`[0.05]` | chips, ghost hover |
+| `white/[0.06]` | inner dividers (`border-t` inside a card), menu hover, inline code |
+| `white/18` | decorative tile and card rings (`ring-hairline`) |
+| `white/[0.08]` | header/sidebar borders, nav active fill, status chip ring |
+| `white/10` | popover and modal decoration; inputs use `border-control` |
+| `white/15` | outline pills and outline badges |
+| `warning/40` | warning callout ring |
+| `white/30` | selected card ring |
+| `white/60` | bottom stop of title gradients |
 
-- **Content canvas** is the base layer: `bg-app` in dark (deepest,
-  `--color-app` `oklch(14.48% 0 0)`, sRGB 10), `bg-neutral-50` in light. The
-  `<main>` content area and page body use it.
-- **Sidebar and topbar chrome** use `bg-panel` in dark (`--color-panel`
-  `oklch(19.13% 0 0)`, sRGB 20, a clear step lighter than the content canvas)
-  and `bg-white` in light, so the chrome reads as a separate panel from the content.
+### Shadows
 
-Dark surface tokens are exact oklch equivalents of chosen sRGB steps. oklch
-lightness compresses toward pure black below ~15%, so do not pick dark values by
-round oklch percentages. The dark ladder is `--color-app` 10,
-`--coollabs-elevated` 22, `--coollabs-base` 28, `--coollabs-recessed` 34 (sRGB),
-which reads as distinct surfaces.
+Cards use rings for depth. Modals and floating menus use explicit
+`shadow-window` and `shadow-dropdown` tokens. Tailwind utility shadows keep
+their standard definitions so existing components and packages retain their
+depth. Glass is reserved for topbars, modals, the command palette and the
+unsaved pill.
 
-Temperature: every panel is **pure neutral gray** (r=g=b), one consistent
-temperature across the sidebar, tables, cards, inputs, dividers, borders, and
-text, in both modes. Do not give one surface a cool (blue) or warm cast while
-the others stay neutral. The light page canvas uses `bg-neutral-50` (not
-`bg-gray-50`, which is faintly cool) so it matches the neutral cards and chrome.
-The only intentional color is the purple/yellow brand accent.
-- **Cards, tables, and collection tiles** lift off the content canvas with
-  `dark:bg-white/[0.05]` plus the crisp `--coollabs-hairline` ring; in light
-  they are `bg-white` with the ring and the restrained card lift.
+Enabled form boundaries must contrast at least 3:1 against both their fill and
+the surrounding surface. Focus and error borders use opaque semantic colors.
+Verify rendered colors in `resources/js/interface-accessibility.test.js`, not
+only class strings. Decorative card dividers can remain softer.
 
-Do not paint the content area with the same `bg-panel` as the sidebar, and do
-not drop card fills below `dark:bg-white/[0.05]`; both make surfaces read as one
-color. Row-hover states keep the lighter `dark:hover:bg-white/[0.025]`.
+### Syntax highlighting (GitHub Dark)
+
+Monaco (`coolify-dark` theme) and the terminal ANSI palette use:
+keywords `#ff7b72`, strings `#a5d6ff`, numbers/constants `#79c0ff`, types and
+variables `#ffa657`, functions `#d2a8ff`, keys and tags `#7ee787`, comments
+`#7d8590`, plain code `#e8e8ea`, punctuation `#8e8e93`, line numbers `white/20`.
+Code surfaces are `#0a0a0a` with an inset `white/9` ring, Geist Mono 12.5px at a
+22px line height.
+
+### Charts
+
+Charts are monochrome: series are separated by brightness using the
+`--chart-*` scale (`cpuColor` is `#f5f5f7`, `ramColor`
+`#8e8e93`, `textColor` `#8e8e93`). HTTP status breakdowns use `2xx` white,
+`3xx` `#a1a1a6`, `4xx` `#6e6e73` and keep `5xx` destructive red; the geo map is
+a five-step gray ramp.
 
 ---
 
-## 4. Page shells and navigation
+## 4. Typography, decoration, and motion
+
+| Role | Size / line height | Weight | Tracking | Color |
+|---|---|---|---|---|
+| Page title (`h1`) | 28px / 1.1 | 600 | −0.03em | `white → white/60` gradient |
+| Auth / error display | 38px / 1.06 | 600 | −0.035em | gradient |
+| Section heading | 15px / 1.5 | 600 | −0.01em | `fg` |
+| Card title | 14px / 1.5 | 500 | 0 | `fg` |
+| Lead / page summary | 14–15px / 1.625 | 400 | 0 | `fg-faint`, `max-w-2xl` |
+| Body | 13–14px | 400 | 0 | `fg-dim` |
+| Nav link | 13px | 400 | 0 | `fg-faint` → `fg` |
+| Overline (table headers, nav sections, group labels) | 10.5–11px | 400 | +0.025em, uppercase | `fg-faint` |
+| Kbd | 10px | 400 | 0 | `fg-faint`, `ring-white/10`, 4px radius |
+| Mono values | 11–13px | 400–600 | 0 | Geist Mono |
+
+Text-only `h1` elements get the gradient automatically (`h1:not(:has(*))`);
+apply `.text-gradient` elsewhere. Titles that contain badges or icons keep a
+flat `fg` so `currentColor` glyphs stay visible.
+
+### Decorative layers
+
+- `.app-canvas` (the `<main>` content area and the boarding layout) paints a
+  top radial glow `radial-gradient(60% 50% at 50% 0%, white/6, transparent)`;
+- auth and error shells add the same glow plus a blurred `white/3` spot;
+- `.dot-grid` (22px, `white/18` dots) and the masked grid behind `x-empty`;
+- `.hairline`: a 1px `transparent → white/10 → transparent` divider.
+
+### Motion
+
+- Default duration 150ms; `--ease-out` `cubic-bezier(0, 0, .2, 1)`,
+  `--ease-in-out` `cubic-bezier(.4, 0, .2, 1)`, `--ease-out-fluid`
+  `cubic-bezier(.32, .72, 0, 1)` for drawers and sheets.
+- Root and nested scrolling stay native. Explicit settings jumps and
+  suggestion navigation call `scrollElementIntoView()` from
+  `resources/js/scroll.js`; it uses the browser API and moves instantly
+  when `prefers-reduced-motion: reduce` is active. Browser/Livewire navigation
+  controls history restoration without a second scroll engine.
+
+---
+
+## 5. Page shells and navigation
 
 ### Global shell
 
-- Main sidebar groups are compact, use outline Reicons, and keep a 32px row
-  height.
-- Active sidebar rows are rounded pills (`rounded-md`) with a solid neutral
-  selected fill (`bg-black/5` light, `bg-white/6` dark) and no accent rail.
-  Hover rows use the same radius. Do not use accent-tinted gradients on nav
-  rows; yellow washes look muddy on dark UI.
+- The desktop topbar is 48px of glass: `border-b border-white/[0.08]
+  bg-black/70 backdrop-blur-2xl backdrop-saturate-150`. The brand is the
+  monochrome logo (`/coolify-logo-monochrome.svg` with `invert`) plus
+  "Coolify" in `text-fg/90`, fading to `opacity-70` on hover; the version is
+  Geist Mono 10.5px muted. The mobile topbar uses the same glass and ringed
+  `size-7` pill buttons.
+- The sidebar is black with a `white/[0.08]` right border. Its search trigger
+  is a 10px-radius ringed field with a `⌘K` kbd (10px, `ring-white/10`, 4px
+  radius), matching the Coolify header search.
+- Nav rows are 32px pills (`rounded-full`), 13px regular text in `fg-faint`
+  that brightens to `fg` on hover. The active row is `bg-white/[0.08]
+  text-fg`; there is no accent rail and no colored icon. Section labels are
+  10.5px uppercase overlines with +0.025em tracking.
 - Nested items sit behind a thin 1px guide line (`.nav-children`) and use the
   same selected pill, not a thick box border.
-- The update badge sits on the version row and uses a tiny fully rounded
-  primary-action pill.
+- The update badge sits on the version row and uses a tiny white pill.
 
 ### Resource navigation
 
@@ -221,8 +313,8 @@ not need a tab just to fill the bar; keep its primary action in the page header.
 A tab must be active on the page that renders it. A bar whose only tab
 points at a different route reads as broken navigation, so project and
 environment pages (`project.show`, `project.edit`, `project.environment.edit`,
-`project.clone-me`) carry a plain page header with a 24px title and a 13px
-muted summary instead of a bar. The environment identity and the way back to
+`project.clone-me`) carry a plain page header with a 28px gradient title and a
+14px muted summary instead of a bar. The environment identity and the way back to
 its resources already live in `x-top-breadcrumb`; do not restate them in a
 sub-header.
 
@@ -238,17 +330,21 @@ the shared status badge.
 Every page opened directly from the main sidebar uses the same compact content
 shell:
 
-- 24px page title and a 13px muted summary;
-- the primary action at the top right using the restrained brand fill;
+- 28px gradient page title (`text-[28px]! leading-[1.1]! tracking-[-0.03em]!`)
+  and a 14px muted summary (`mt-2 max-w-2xl text-[14px] leading-relaxed
+  text-fg-faint`);
+- the single primary action at the top right as the white pill;
 - no legacy `coolbox`, `.navbar-main`, or oversized subtitle block;
 - four-column compact cards for small browsable collections;
 - a dense table instead of cards when the collection is expected to grow;
 - `x-empty` anatomy for empty states;
 - `x-status-badge` for state and `x-reicon` for all interface icons.
 
-Collection cards are `min-h-28` or `min-h-32`, use a 32px icon tile, and keep
-secondary metadata at 11px. They must not grow into dashboard-sized summary
-cards. Sources, destinations, S3 storage, private keys, and shared-variable
+Collection cards are Coolify tiles: `rounded-2xl bg-surface p-4 ring-1
+ring-inset ring-hairline`, brightening to `bg-raised
+ring-control` on hover (no lift, no shadow). They are `min-h-28` or
+`min-h-32`, use a 32px icon tile on `white/[0.06–0.08]`, and keep secondary
+metadata at 11px. They must not grow into dashboard-sized summary cards. Sources, destinations, S3 storage, private keys, and shared-variable
 scopes use this pattern.
 
 Top-level settings families such as Team, Notifications, Keys & Tokens, and
@@ -287,8 +383,9 @@ content below the filter card.
 
 Application, service, database, server, and top-level settings pages use the
 same 210px grouped, icon-led sidebar and a full-width content column. From `xl`
-the sidebar is a fixed full-height rail below the topbar that tracks the main
-sidebar width, with its own fill, right hairline, filter input, and scroll. Below
+the sidebar is a fixed full-height black rail below the topbar that tracks the
+main sidebar width, with a `white/[0.08]` right border, filter input, and
+scroll. Its rows use the same nav pills as the main sidebar. Below
 `xl` it becomes a wrapped grid of links above the content. Do not use the legacy
 `sub-menu-wrapper`, native mobile page selects, or a row of top-level tabs. Only
 show nested section anchors when a page has at least four useful sections.
@@ -336,7 +433,7 @@ spacing utilities can silently collapse.
 
 ---
 
-## 5. Layer cards
+## 6. Layer cards
 
 Use `resources/views/components/application/settings-section.blade.php`.
 Older manual shells may use `.application-settings-section-header` and
@@ -357,17 +454,20 @@ replace a manual shell when modifying it instead of creating another variant.
 </x-application.settings-section>
 ```
 
-Anatomy:
+Anatomy (the Coolify tile):
 
-- 8px shell radius;
-- elevated header strip;
-- no divider below the header;
-- nested base-color body with its own fill ring;
-- 16px body padding;
-- optional `flush` mode for full-bleed tables;
-- card-level actions belong in the header slot.
+- 18px radius, `#161618` fill, inset `white/18` ring, no shadow;
+- the header sits on the same plane: 14px medium `fg` title, 12px muted
+  description;
+- a `white/6` hairline separates the header from the body (only when a header
+  exists);
+- 20px body padding on the same fill (no nested panel);
+- optional `flush` mode for full-bleed tables; its bottom corners follow the
+  card radius;
+- card-level actions belong in the header slot;
+- a section scrolled into view from the settings nav flashes a `white/30` ring.
 
-Header actions use an 8px top/right inset while the title keeps its 16px left
+Header actions use a 10px top/right inset while the title keeps its 20px left
 inset. Do not leave a larger empty strip between the final action and the
 card's top-right corner.
 
@@ -387,8 +487,9 @@ outer radius = inner radius + visible inset
 
 Examples:
 
-- a 6px tab or listbox option inside 4px padding uses a 10px outer well;
-- an 8px button inside the unsaved pill's 8px padding uses a 16px outer pill.
+- a 10px listbox option inside 4px padding uses a 14px panel;
+- pill buttons inside pills stay pills (`9999px` absorbs any inset);
+- an 18px card hosting a 14px code well uses a 4px inset.
 
 Do not give visibly inset parent and child boxes the same radius. Flush or
 edge-to-edge children are exempt because there is no visible inset to add.
@@ -405,9 +506,14 @@ Use an empty state when the section has no usable controls:
 
 ---
 
-## 6. Controls
+## 7. Controls
 
-All normal controls are 32px high with an 8px radius.
+Buttons, tabs and chips are 32px pills (28px for compact tabs and toolbar
+icons). Text fields and listbox triggers are 36px high with a 10px radius,
+`white/3` fill and a `white/10` outline; focus brightens the outline to
+`white/40` and adds a 3px `white/8` halo; `aria-invalid` swaps both to
+destructive red. A field with unsaved edits shows a 3px white inset bar on its
+left edge.
 
 ### Field grids
 
@@ -448,19 +554,18 @@ rerender.
 
 Keep checkboxes for compact permission matrices and multi-select lists. Those
 controls must use the shared `x-forms.checkbox` anatomy: an 18px rounded custom
-box, purple checked fill in light mode, yellow checked fill in dark mode, and a
-high-contrast check mark. Never expose the browser or Tailwind Forms default
+box with a `white/14` outline, a solid white checked fill, and a black check
+mark. Never expose the browser or Tailwind Forms default
 checkbox on application pages.
 
-The popup panel uses a 10px radius around 6px options with a 4px inset. Keep
+The popup panel is a `#1c1c1e` popover with a `white/10` outline and a 14px
+radius around 10px options with a 4px inset; option hover is `white/6`. Keep
 the option content left-aligned and size the panel to its content or trigger;
 do not create an unnecessarily wide menu.
 
-Every dropdown, menu, listbox panel, and the command palette uses the shared
-`--shadow-dropdown` token (`0 4px 12px rgb(0 0 0 / 0.12), 0 2px 4px
-rgb(0 0 0 / 0.08)`) for a restrained, consistent lift. Do not hand-roll a
-heavier `shadow-lg` / `0 18px 50px` / `0.45`-alpha drop shadow on a menu.
-Reserve the stronger `--shadow-modal` for actual modals, dialogs, and toasts.
+Every dropdown, menu and listbox panel uses the shared `--shadow-dropdown`
+underlay. Do not hand-roll other drop shadows on a menu. Modals, the command
+palette and the unsaved pill use `--shadow-window`.
 
 Toolbar filter and sort buttons keep static labels (`Filter`, `Sort`). The
 selected option is indicated inside the menu, not repeated on the trigger.
@@ -503,8 +608,8 @@ history filter in
 - set `aria-multiselectable="true"` on the listbox;
 - group related options under compact uppercase labels;
 - keep the dropdown open while options are toggled;
-- use the shared 16px custom checkbox treatment: purple checked fill in light
-  mode, yellow checked fill in dark mode, and a high-contrast check mark;
+- use the shared 16px custom checkbox treatment: white checked fill and a black
+  check mark;
 - show the number of active selections in a small count pill on the static
   `Filter` trigger;
 - combine selections within one group with OR logic and combine different
@@ -539,11 +644,20 @@ and control anatomy but do not show an artificial loading state.
 
 ### Buttons
 
-- neutral actions use the shared `.button`;
-- primary actions use the theme-aware purple/yellow tint;
-- destructive actions use the existing error treatment;
+| Variant | Recipe |
+|---|---|
+| Secondary (`.button`) | 32px pill, transparent, `border-white/15`, `text-fg/90`, `hover:bg-white/[0.06]` |
+| Primary (`isHighlighted`, `.button-highlighted`) | solid white pill, black semibold text, `hover:bg-white/90` |
+| Destructive (`isError`) | red text, `error/35` outline, `error/10` hover fill |
+| Icon (`.icon-button`, `size-7` controls) | round, `fg-faint`, `hover:bg-white/[0.06]` |
+| Split action | white pill split by a `black/15` divider; caret is the round end |
+| Disabled | `opacity-60`, no hover change |
+
+- one white pill per surface (page header, card, modal footer); everything
+  next to it is an outline pill;
+- arrow glyphs inside links nudge on hover (`group-hover:translate-x-0.5`);
 - use outline Reicons where a matching glyph exists;
-- avoid raw browser-default buttons and old dark-mode purple fills.
+- avoid raw browser-default buttons and colored fills.
 
 ### Unsaved changes
 
@@ -551,12 +665,14 @@ and control anatomy but do not show an artificial loading state.
 bottom-center pill. It contains:
 
 - “You have changes that haven't been saved yet.”
-- a subtle Reset action;
-- a theme-aware Save changes button matching the tab accent.
+- an outline Reset pill;
+- the white Save changes pill with an `Enter` kbd hint.
 
-On small viewports the pill is inset (`inset-x-3`) and stacks: full label on
-the first line, Reset / Save on the second (right-aligned). From `sm` up it
-returns to the centered single-row nowrap pill.
+The shell is glass (`bg-[#0c0c0d]/95 backdrop-blur-2xl`, `ring-white/[0.12]`,
+`--shadow-window`). On small viewports it is a 22px-radius sheet inset by
+`inset-x-3` and stacks: full label on the first line, Reset / Save on the
+second (right-aligned). From `sm` up it becomes a centered single-row
+`rounded-full` pill.
 
 Do not restore the old full-width footer.
 
@@ -570,7 +686,7 @@ bars only while the modal is open to avoid inactive keyboard shortcuts.
 
 ---
 
-## 7. Dense tables
+## 8. Dense tables
 
 Collections with many rows should use the Cloudflare-inspired table pattern:
 
@@ -622,16 +738,20 @@ Do not squeeze desktop label/value columns into a mobile card or move settings
 behind an overflow menu. Long domains wrap, and icon actions retain 40px touch
 targets.
 
-## 8. Modals, confirmations, and toasts
+## 9. Modals, confirmations, and toasts
 
 ### Modals
 
-`x-modal-input` and confirmation dialogs reuse the layer-card shell:
+`x-modal-input` and confirmation dialogs reuse the layer-card shell as a
+floating glass panel (`.application-settings-section.application-settings-form`):
 
-- compact elevated header;
-- nested base-color body;
+- 22px radius, `rgb(12 12 13 / 0.95)` with `backdrop-blur`, inset `white/10`
+  ring and `--shadow-window`;
+- `bg-black/60 backdrop-blur-sm` scrim;
+- header on the same plane, a `white/6` hairline above the body, and a round
+  ringed close button;
 - content-width desktop sizing;
-- shared 32px controls;
+- shared pill buttons and 36px fields;
 - no redundant description below a self-explanatory title;
 - custom listboxes instead of native browser selects;
 - listbox and dropdown panels must render above the modal body and escape its
@@ -650,18 +770,18 @@ create modal.
 The global search command palette (`livewire:global-search`) is a compact
 top-anchored overlay:
 
-- elevated shell with hairline ring and modal shadow (not a heavy floating card);
-- recessed-neutral header strip with outline search glyph and 14px input;
-- compact OS-aware mod+K (`⌘K` on macOS, `Ctrl+K` on Windows/Linux) / `/` / `ESC` kbd chips matching the sidebar search trigger;
-- nested base-color results body with group labels in sentence case;
-- dense result rows as inset 6px-radius pills (listbox anatomy), not full-bleed
+- 22px glass panel (`rgb(12 12 13 / 0.95)`, blur, inset `white/10` ring,
+  `--shadow-window`), the Coolify analysis-panel recipe;
+- transparent 52px header with outline search glyph and 15px input;
+- compact OS-aware mod+K (`⌘K` on macOS, `Ctrl+K` on Windows/Linux) / `/` / `ESC` kbd chips (10px, `ring-white/10`, 4px radius);
+- results separated by `white/6` hairlines, group labels as uppercase overlines;
+- dense result rows as inset 10px-radius rows (listbox anatomy), not full-bleed
   bars with global focus rings;
-- hover uses neutral fill; keyboard focus uses a soft accent wash plus a 2px
-  left rail — never the global `ring-2` / ring-offset treatment;
-- create rows use a neutral plus tile that only picks up the accent when the
-  row is focused;
-- type pills and quickcommand chips stay recessed; they tint with the accent
-  only on the focused row;
+- hover uses `white/5`; keyboard focus uses `white/8` (no rail, no ring);
+- create rows use a neutral plus tile that brightens (`white/8` fill,
+  `white/15` ring) when the row is focused;
+- type pills and quickcommand chips stay recessed and brighten on the focused
+  row;
 - neutral thin scrollbar inside the results body (not brand-colored);
 - create-resource modals opened from the palette reuse the standard
   `application-settings-section` layer-card shell.
@@ -677,8 +797,10 @@ server → destination → project → environment create flow.
 
 Current toast behavior:
 
-- compact layered card, maximum width 26rem;
-- Reicon status tile for success, info, warning, danger, or default;
+- compact `surface-popover` card (`#242427`, inset `white/10` ring), 18px
+  radius, maximum width 26rem;
+- ringed 10px Reicon status tile: success keeps a green glyph, warning uses an
+  amber glyph and tinted tile, danger is red, info/default are neutral;
 - title plus optional description;
 - dismiss and copy-details actions;
 - normally up to four stacked notifications, without evicting persistent notices;
@@ -690,7 +812,7 @@ Do not bring back the old oversized dark rectangle.
 
 ---
 
-## 9. Terminals, logs, and metrics
+## 10. Terminals, logs, and metrics
 
 ### Terminals
 
@@ -727,7 +849,8 @@ Metrics pages use separate layer cards for range selection, CPU, and memory.
 Charts follow the application metrics implementation:
 
 - 240px area chart;
-- smooth 2px stroke and restrained gradient fill;
+- monochrome series (`cpuColor` white, `ramColor` `#8e8e93`) with a smooth 2px
+  stroke and restrained gradient fill;
 - dashed neutral grid;
 - no ApexCharts toolbar;
 - tooltip positioned at the hovered point;
@@ -743,7 +866,7 @@ disk-usage graph yet.
 
 ---
 
-## 10. Current reference surfaces
+## 11. Current reference surfaces
 
 Use these as implementation references:
 
@@ -769,17 +892,19 @@ Use these as implementation references:
 | Command palette / global search | `resources/views/livewire/global-search.blade.php` |
 | Outline icons | `resources/views/components/reicon.blade.php` |
 | Shared styling | `resources/css/app.css`, `resources/css/utilities.css` |
+| Explicit scroll navigation | `resources/js/scroll.js` |
+| Auth canvas | `resources/views/components/auth/shell.blade.php` |
 | HTTP error pages | `resources/views/components/error-page.blade.php`, `resources/views/errors/*` |
 
 HTTP error pages (400, 401, 402, 403, 404, 419, 429, 500, 503) use the shared
-`<x-error-page>` component on the public auth-style canvas: theme-aware status
-code, compact title and muted description, neutral `.button` actions, and an
+`<x-error-page>` component on the public auth-style canvas: a Geist Mono
+status code with the white gradient (red gradient for server errors), compact title and muted description, neutral `.button` actions, and an
 `auth-text-link`-style Contact support link. Keep copy sentence-case and avoid
 oversized 200px status numbers.
 
 ---
 
-## 11. UI implementation checklist
+## 12. UI implementation checklist
 
 1. Inventory every route and reusable partial in the family before editing.
 2. Read the current Blade and Livewire class before changing presentation.
@@ -794,10 +919,12 @@ oversized 200px status numbers.
 10. Keep modal descriptions purposeful and footer actions compact/right-aligned.
 11. Use tables for dense collections and cards for forms or summaries.
 12. Use `x-status-badge`, `x-empty`, and `x-reicon`.
-13. Confirm light and dark accent behavior.
+13. Confirm the neutral hierarchy preserves green health, amber warnings,
+    red errors, and syntax colors; verify enabled controls clear 3:1 contrast.
 14. Check fixed-nav anchor offsets and responsive stacking.
 15. Sweep every sibling route for legacy controls and shells.
 16. Run `git diff --check`.
 17. Compile Blade views with `./scripts/dev exec php artisan view:cache`.
 18. Build assets with `npm run build`.
-19. Hard-refresh and inspect the family routes in both themes.
+19. Hard-refresh and inspect the family routes, including with
+    `prefers-reduced-motion` and on a touch device (native scrolling).

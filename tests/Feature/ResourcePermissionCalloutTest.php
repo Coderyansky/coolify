@@ -46,8 +46,7 @@ it('shows one red insufficient permissions callout for resource operations when 
         ->assertDontSee("You don't have permission to move resources");
 
     expect(substr_count($component->html(), 'Insufficient permissions'))->toBe(1)
-        ->and($component->html())->toContain('bg-red-50')
-        ->and($component->html())->not->toContain('bg-warning-50');
+        ->and($component->html())->toContain('data-callout-type="danger"');
 });
 
 it('shows the red insufficient permissions callout for tags when update is denied', function () {
@@ -60,6 +59,5 @@ it('shows the red insufficient permissions callout for tags when update is denie
         ->assertDontSee("You don't have permission to manage tags");
 
     expect(substr_count($component->html(), 'Insufficient permissions'))->toBe(1)
-        ->and($component->html())->toContain('bg-red-50')
-        ->and($component->html())->not->toContain('bg-warning-50');
+        ->and($component->html())->toContain('data-callout-type="danger"');
 });

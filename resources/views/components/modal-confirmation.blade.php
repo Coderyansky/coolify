@@ -209,7 +209,7 @@
     <template x-teleport="body">
         <div x-show="modalOpen"
             class="fixed inset-0 z-99 flex min-h-full items-center justify-center overflow-y-auto p-4" x-cloak>
-            <div x-show="modalOpen" class="absolute inset-0 bg-black/50 backdrop-blur-[2px]"
+            <div x-show="modalOpen" class="absolute inset-0 bg-black/60 backdrop-blur-sm"
                 x-transition:enter="transition-opacity ease-out duration-200"
                 x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
                 x-transition:leave="transition-opacity ease-in duration-150"
@@ -227,7 +227,7 @@
                 <header class="flex-nowrap!">
                     <h3 class="min-w-0 flex-1 truncate">{{ $title }}</h3>
                     <button type="button" @click="modalOpen = false; resetModal()"
-                        class="flex size-7 shrink-0 items-center justify-center rounded-md text-neutral-500 transition-colors hover:bg-neutral-100 hover:text-black dark:text-fg-faint dark:hover:bg-white/[0.06] dark:hover:text-fg">
+                        class="flex size-7 shrink-0 items-center justify-center rounded-full text-fg-faint ring-1 ring-inset ring-white/[0.08] transition-colors hover:bg-white/[0.06] hover:text-fg">
                         <x-reicon name="x" class="size-4" />
                     </button>
                 </header>
@@ -244,7 +244,7 @@
                                 </div>
                             @endforeach
 
-                            <div class="mt-4 flex flex-wrap justify-end gap-2 border-t border-neutral-200 pt-4 dark:border-white/[0.08]">
+                            <div class="mt-4 flex flex-wrap justify-end gap-2 border-t border-white/[0.06] pt-4">
                                 <x-forms.button @click="step++" class="w-auto" isError>
                                     <span x-text="step1ButtonText"></span>
                                 </x-forms.button>
@@ -260,21 +260,21 @@
                         <div class="mb-2 text-[12px] font-medium text-neutral-700 dark:text-fg-dim">The following actions will be performed:</div>
                         <ul class="mb-4 space-y-2">
                             @foreach ($actions as $action)
-                                <li class="flex items-start gap-2 text-[12px] leading-5 text-red-600 dark:text-red-400">
+                                <li class="flex items-start gap-2 text-[12px] leading-5 text-error dark:text-error">
                                     <span class="shrink-0" aria-hidden="true">-</span>
                                     <span>{{ $action }}</span>
                                 </li>
                             @endforeach
                             @foreach ($checkboxes as $checkbox)
                                 <template x-if="selectedActions.includes('{{ $checkbox['id'] }}')">
-                                    <li class="flex items-start gap-2 text-[12px] leading-5 text-red-600 dark:text-red-400">
+                                    <li class="flex items-start gap-2 text-[12px] leading-5 text-error dark:text-error">
                                         <span class="shrink-0" aria-hidden="true">-</span>
                                         <span>{{ $checkbox['label'] }}</span>
                                     </li>
                                 </template>
                                 @if (isset($checkbox['default_warning']))
                                     <template x-if="!selectedActions.includes('{{ $checkbox['id'] }}')">
-                                        <li class="flex items-start gap-2 text-[12px] leading-5 text-red-600 dark:text-red-400">
+                                        <li class="flex items-start gap-2 text-[12px] leading-5 text-error dark:text-error">
                                             <span class="shrink-0" aria-hidden="true">-</span>
                                             <span>{{ $checkbox['default_warning'] }}</span>
                                         </li>
@@ -304,7 +304,7 @@
                             @endif
                         @endif
 
-                        <div class="mt-4 flex flex-wrap justify-end gap-2 border-t border-neutral-200 pt-4 dark:border-white/[0.08]">
+                        <div class="mt-4 flex flex-wrap justify-end gap-2 border-t border-white/[0.06] pt-4">
                             @if (!empty($checkboxes))
                                 <x-forms.button @click="step--">
                                     Back
@@ -367,14 +367,14 @@
                                         x-model="password" class="w-full input" placeholder="Enter your password"
                                         autocomplete="current-password">
                                 </form>
-                                <p x-show="passwordError" x-text="passwordError" class="mt-1 text-sm text-red-500">
+                                <p x-show="passwordError" x-text="passwordError" class="mt-1 text-sm text-error">
                                 </p>
                                 @error('password')
-                                    <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
+                                    <p class="mt-1 text-sm text-error">{{ $message }}</p>
                                 @enderror
                             </div>
 
-                            <div class="mt-4 flex flex-wrap justify-end gap-2 border-t border-neutral-200 pt-4 dark:border-white/[0.08]">
+                            <div class="mt-4 flex flex-wrap justify-end gap-2 border-t border-white/[0.06] pt-4">
                                 <x-forms.button @click="step--">
                                     Back
                                 </x-forms.button>

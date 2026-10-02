@@ -85,7 +85,7 @@
         ])>
             <div class="min-w-0 flex-1">
                 <div class="flex min-w-0 flex-wrap items-center gap-2">
-                    <h1 class="min-w-0 truncate text-[24px]! leading-7! font-semibold! tracking-tight!">{{ $title }}</h1>
+                    <h1 class="min-w-0 truncate text-[28px]! leading-[1.1]! font-semibold! tracking-[-0.03em]!">{{ $title }}</h1>
                     @isset($titleMeta)
                         <div class="flex shrink-0 flex-wrap items-center gap-2">
                             {{ $titleMeta }}
@@ -93,7 +93,7 @@
                     @endisset
                 </div>
                 @if (filled($subtitle))
-                    <p class="mt-1 text-[13px] text-neutral-500 dark:text-fg-dim">{{ $subtitle }}</p>
+                    <p class="mt-2 max-w-2xl text-[14px] leading-relaxed text-fg-faint">{{ $subtitle }}</p>
                 @endif
             </div>
             @isset($titleActions)
@@ -109,18 +109,18 @@
 
 @if ($showNav)
 <nav class="mb-6 w-full lg:mb-0">
-    <div class="w-full lg:fixed lg:top-12 lg:right-0 lg:z-30 lg:h-12 lg:w-auto lg:border-b lg:border-neutral-200 lg:bg-white/95 lg:pr-4 lg:pl-2 lg:backdrop-blur lg:transition-[left] lg:duration-200 lg:dark:border-white/[0.06] lg:dark:bg-panel/95"
+    <div class="w-full lg:fixed lg:top-12 lg:right-0 lg:z-30 lg:h-12 lg:w-auto lg:border-b lg:border-white/[0.08] lg:bg-panel/70 lg:pr-4 lg:pl-3 lg:backdrop-blur-2xl lg:backdrop-saturate-150 lg:transition-[left] lg:duration-200"
         :class="[typeof collapsed !== 'undefined' && collapsed ? 'lg:left-16' : 'lg:left-56']">
         {{-- Mobile: stack tabs then actions so long buttons never crush the tab strip.
              Desktop: single fixed row with tabs left and actions right. --}}
         <div
             class="flex w-full flex-col gap-2 sm:flex-row sm:items-center sm:justify-between sm:gap-3 lg:h-full lg:gap-4">
             @if ($showTabs)
-            <div class="flex min-w-0 w-full items-center gap-0.5 overflow-x-auto rounded-[10px] border border-neutral-200 bg-neutral-100 p-1 sm:flex-1 dark:border-white/[0.07] dark:bg-white/[0.035]">
+            <div class="flex min-w-0 w-full items-center gap-0.5 overflow-x-auto sm:flex-1">
                 @foreach ($items as $item)
                     <a @class([
                         'app-tab shrink-0',
-                        'bg-coollabs/10 text-coollabs shadow-sm ring-1 ring-coollabs/25 hover:bg-coollabs/15 dark:bg-warning/15 dark:text-warning dark:ring-warning/25 dark:hover:bg-warning/20' => $item['active'],
+                        'app-tab-active' => $item['active'],
                     ])
                         {{ wireNavigate() }} href="{{ route($item['route'], $parameters) }}">
                         @if ($item['icon'] ?? null)

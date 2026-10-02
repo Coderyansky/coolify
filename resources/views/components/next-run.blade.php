@@ -18,7 +18,7 @@
     @if (! $enabled)
         <span>Disabled</span>
     @elseif ($isFrequencyInvalid)
-        <span class="text-red-500">Invalid frequency. Change it to a valid cron expression, or this schedule never runs.</span>
+        <span class="text-error">Invalid frequency. Change it to a valid cron expression, or this schedule never runs.</span>
     @elseif (! $nextRunAt)
         <span>Calculating…</span>
     @else

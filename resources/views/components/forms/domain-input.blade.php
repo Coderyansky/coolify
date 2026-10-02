@@ -26,7 +26,7 @@
                 preg_match('/(https?:\/\/\S+)$/', $message, $validationLinkMatches);
                 $validationLink = $validationLinkMatches[1] ?? null;
             @endphp
-            <p class="mt-1 text-[12px] text-red-500">
+            <p class="mt-1 text-[12px] text-error">
                 @if ($validationLink)
                     {{ str($message)->beforeLast($validationLink)->trim() }}
                     <a class="font-medium underline" href="{{ $validationLink }}">Set them here.</a>

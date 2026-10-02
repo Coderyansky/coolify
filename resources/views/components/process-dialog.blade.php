@@ -37,7 +37,7 @@
                 x-transition:leave-start="opacity-100"
                 x-transition:leave-end="opacity-0"
                 @if (! $closeWithX) @click="processDialogOpen = false" @endif
-                class="fixed inset-0 bg-black/50 backdrop-blur-[2px] dark:bg-black/60"></div>
+                class="fixed inset-0 bg-black/60 backdrop-blur-sm dark:bg-black/60"></div>
 
             <div class="fixed inset-0 overflow-y-auto">
                 <div @if (! $closeWithX) @click.self="processDialogOpen = false" @endif
@@ -70,7 +70,7 @@
                                 {{ $title }}
                             </h3>
                             <button type="button" @click="processDialogOpen = false"
-                                class="flex size-7 shrink-0 cursor-pointer items-center justify-center rounded-md text-neutral-500 outline-0 transition-colors hover:bg-neutral-100 hover:text-black focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent dark:text-fg-faint dark:hover:bg-white/[0.06] dark:hover:text-fg"
+                                class="flex size-7 shrink-0 cursor-pointer items-center justify-center rounded-full text-neutral-500 outline-0 transition-colors hover:bg-neutral-100 hover:text-black focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent dark:text-fg-faint dark:hover:bg-white/[0.06] dark:hover:text-fg"
                                 aria-label="Close">
                                 <x-reicon name="x" class="size-4" />
                             </button>

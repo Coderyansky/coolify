@@ -4,10 +4,10 @@
 
 @php
     $styles = match ($type) {
-        'success' => 'border-success/35 bg-success/10 text-success',
-        'error' => 'border-error/35 bg-error/10 text-error',
-        'warning' => 'border-warning/35 bg-warning/10 text-warning',
-        default => 'border-neutral-300 bg-neutral-100 text-neutral-700 dark:border-white/10 dark:bg-white/[0.04] dark:text-fg-dim',
+        'success' => 'bg-white/[0.03] text-fg ring-white/15',
+        'error' => 'bg-error/[0.08] text-error ring-error/30',
+        'warning' => 'bg-warning/[0.06] text-warning ring-warning/40',
+        default => 'bg-white/[0.02] text-fg-dim ring-hairline',
     };
 
     $icon = match ($type) {
@@ -18,8 +18,8 @@
     };
 @endphp
 
-<div {{ $attributes->merge(['class' => "flex items-start gap-3 rounded-lg border px-3 py-2.5 text-sm {$styles}"]) }}>
-    <x-reicon :name="$icon" class="mt-0.5 size-4 shrink-0" />
+<div {{ $attributes->merge(['class' => "flex items-start gap-3 rounded-xl px-3.5 py-3 text-[13px] ring-1 ring-inset {$styles}"]) }}>
+    <x-reicon :name="$icon" class="mt-0.5 size-4 shrink-0 {{ $type === 'success' ? 'text-success' : '' }}" />
     <div class="min-w-0 flex-1 leading-5">
         {{ $slot }}
     </div>

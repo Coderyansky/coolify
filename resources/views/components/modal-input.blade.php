@@ -44,7 +44,7 @@
             <div x-show="modalOpen" x-transition:enter="transition-opacity ease-out duration-200" x-transition:enter-start="opacity-0"
                 x-transition:enter-end="opacity-100" x-transition:leave="transition-opacity ease-in duration-150"
                 x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
-                class="absolute inset-0 w-full h-full bg-black/50 backdrop-blur-[2px]"></div>
+                class="absolute inset-0 w-full h-full bg-black/60 backdrop-blur-sm"></div>
             <div @if ($closeOutside) @click.self="modalOpen=false" @endif class="relative flex min-h-full items-start justify-center p-2 sm:items-center sm:p-4">
                 <div x-show="modalOpen" x-trap.inert.noscroll="modalOpen"
                     x-transition:enter="transition ease-out duration-200"
@@ -73,7 +73,7 @@
                             </div>
                         @endisset
                         <button type="button" @click="modalOpen=false"
-                            class="order-2 sm:order-none flex size-7 shrink-0 cursor-pointer items-center justify-center rounded-md text-neutral-500 outline-0 transition-colors hover:bg-neutral-100 hover:text-black focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent dark:text-fg-faint dark:hover:bg-white/[0.06] dark:hover:text-fg">
+                            class="order-2 sm:order-none flex size-7 shrink-0 cursor-pointer items-center justify-center rounded-full text-neutral-500 outline-0 transition-colors hover:bg-neutral-100 hover:text-black focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent dark:text-fg-faint dark:hover:bg-white/[0.06] dark:hover:text-fg">
                             <x-reicon name="x" class="size-4" />
                         </button>
                     </header>

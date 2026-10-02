@@ -7,13 +7,14 @@
 ])
 
 {{--
-    Shared section heading: a 14px title, an optional 11px muted subtitle, and an
-    optional right-aligned action. Pass `href` for the default "View all"
+    Shared section heading: a 15px feature title, an optional 13px muted
+    subtitle, and an optional right-aligned secondary pill whose arrow nudges
+    right on hover. Pass `href` for the default "View all"
     button, or an `<x-slot:actions>` for a custom control.
 --}}
-<div {{ $attributes->merge(['class' => 'mb-3 min-w-0']) }}>
+<div {{ $attributes->merge(['class' => 'mb-4 min-w-0']) }}>
     <div class="flex items-center justify-between gap-4">
-        <h2 class="min-w-0 truncate text-[14px]! leading-5! font-semibold! text-black dark:text-fg">
+        <h2 class="min-w-0 truncate text-[15px]! leading-6! font-semibold! tracking-[-0.01em]! text-fg">
             {{ $title }}
         </h2>
         @isset($actions)
@@ -29,6 +30,6 @@
         @endisset
     </div>
     @if (filled($subtitle))
-        <p class="mt-0.5 text-[11px] text-neutral-500 dark:text-fg-faint">{{ $subtitle }}</p>
+        <p class="mt-1 text-[13px] text-fg-faint">{{ $subtitle }}</p>
     @endif
 </div>

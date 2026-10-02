@@ -276,13 +276,13 @@
                     @if ($menuItem['tracks_proxy_configuration'] ?? false)
                         <x-reicon name="alert-triangle" x-cloak
                             x-show="proxyConfigurationPending || traefikOutdated || proxyNotRunning"
-                            class="ml-auto size-3.5 shrink-0 text-orange-500 dark:text-warning" />
+                            class="ml-auto size-3.5 shrink-0 text-fg-dim dark:text-warning" />
                     @elseif ($menuItem['tracks_sentinel_status'] ?? false)
                         <x-reicon name="alert-triangle" x-cloak x-show="sentinelOutOfSync"
-                            class="ml-auto size-3.5 shrink-0 text-orange-500 dark:text-warning" />
+                            class="ml-auto size-3.5 shrink-0 text-fg-dim dark:text-warning" />
                     @elseif ($menuItem['warning'] ?? false)
                         <x-reicon name="alert-triangle"
-                            class="ml-auto size-3.5 shrink-0 text-orange-500 dark:text-warning" />
+                            class="ml-auto size-3.5 shrink-0 text-fg-dim dark:text-warning" />
                     @elseif ($menuItem['beta'] ?? false)
                         <x-beta-badge class="ml-auto shrink-0" />
                     @endif

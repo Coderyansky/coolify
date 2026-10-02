@@ -12,7 +12,7 @@
                 <h3>
                     <x-helper :helper="$description ?? $helper" :label="'More information about '.$title">
                         <x-slot:trigger>
-                            <span class="underline underline-offset-4">{{ $title }}</span>
+                            <span class="underline decoration-white/25 underline-offset-4 transition-[text-decoration-color] hover:decoration-white/60">{{ $title }}</span>
                         </x-slot:trigger>
                     </x-helper>
                 </h3>

@@ -8,17 +8,17 @@
 
 @php
     $dotClasses = [
-        'neutral' => 'bg-neutral-400 dark:bg-neutral-500',
-        'success' => 'bg-emerald-500',
+        'neutral' => 'bg-white/30',
+        'success' => 'bg-success',
         'warning' => 'bg-warning',
-        'error' => 'bg-red-500',
+        'error' => 'bg-error',
     ];
 
-    $baseClasses = 'inline-flex h-6 max-w-full items-center gap-1.5 whitespace-nowrap rounded-full border border-neutral-200 bg-neutral-100 px-2 text-xs font-medium leading-none text-neutral-700 dark:border-white/[0.12] dark:bg-white/[0.07] dark:text-white';
+    $baseClasses = 'inline-flex h-6 max-w-full items-center gap-1.5 whitespace-nowrap rounded-full px-2.5 text-xs font-normal leading-none text-fg-dim ring-1 ring-inset ring-white/[0.08]';
 @endphp
 
 @if ($as === 'button')
-    <button {{ $attributes->class([$baseClasses, 'transition-colors'])->merge(['type' => 'button']) }}>
+    <button {{ $attributes->class([$baseClasses, 'transition-colors'])->merge(['type' => 'button', 'data-status-type' => $type]) }}>
         @if ($dynamic)
             {{ $slot }}
         @else
@@ -27,7 +27,7 @@
         @endif
     </button>
 @elseif ($as === 'a')
-    <a {{ $attributes->class([$baseClasses, 'transition-colors']) }}>
+    <a {{ $attributes->class([$baseClasses, 'transition-colors'])->merge(['data-status-type' => $type]) }}>
         @if ($dynamic)
             {{ $slot }}
         @else
@@ -36,7 +36,7 @@
         @endif
     </a>
 @else
-    <span {{ $attributes->class([$baseClasses]) }}>
+    <span {{ $attributes->class([$baseClasses])->merge(['data-status-type' => $type]) }}>
         @if ($dynamic)
             {{ $slot }}
         @else

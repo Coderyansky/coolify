@@ -1,0 +1,330 @@
+name: Interface validation
+run-name: Interface validation - ${{ inputs.test_label || github.ref_name }}
+
+on:
+  push:
+    branches-ignore: ["main"]
+  workflow_dispatch:
+    inputs:
+      test_ref:
+        description: "Optional commit SHA to check out for the full baseline run"
+        type: string
+        required: false
+      test_label:
+        description: "Label identifying the tested branch in the run list"
+        type: string
+        required: false
+
+permissions:
+  contents: read
+
+defaults:
+  run:
+    shell: bash
+
+concurrency:
+  group: interface-validation-${{ github.ref }}-${{ inputs.test_ref || github.sha }}
+  cancel-in-progress: false
+
+jobs:
+  interface:
+    if: ${{ !inputs.test_ref }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    env:
+      APP_ENV: testing
+      APP_MAINTENANCE_DRIVER: file
+      APP_MAINTENANCE_STORE: array
+      DB_CONNECTION: testing
+      CACHE_DRIVER: array
+      SESSION_DRIVER: array
+      QUEUE_CONNECTION: sync
+      BROADCAST_DRIVER: "null"
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: ${{ inputs.test_ref || github.sha }}
+          persist-credentials: false
+      - name: Record tested revision
+        run: |
+          TEST_REPORTS="$RUNNER_TEMP/test-reports"
+          echo "TEST_REPORTS=$TEST_REPORTS" >> "$GITHUB_ENV"
+          mkdir -p "$TEST_REPORTS"
+          git rev-parse HEAD | tee "$TEST_REPORTS/tested-sha.txt"
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.5"
+          extensions: dom, mbstring, curl, zip, pdo_sqlite, pdo_pgsql, redis, intl, sodium
+          coverage: none
+          tools: composer:v2
+      - name: Prepare test environment
+        run: |
+          mkdir -p storage/framework/cache/data storage/framework/sessions storage/framework/views storage/logs bootstrap/cache
+          echo "APP_KEY=base64:$(php -r 'echo base64_encode(random_bytes(32));')" >> "$GITHUB_ENV"
+      - name: Install PHP dependencies
+        run: composer install --no-interaction --prefer-dist --no-progress
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+          cache: npm
+      - name: Install frontend dependencies
+        run: npm ci
+      - name: Install browser
+        run: npx playwright install --with-deps chromium
+      - name: Build frontend assets
+        run: npm run build
+      - name: Run JavaScript and contrast tests
+        run: node --test resources/js/*.test.js
+      - name: Format changed PHP tests
+        run: |
+          vendor/bin/pint --dirty --format agent
+          vendor/bin/pint --format agent \
+            tests/Feature/DarkOnlyInterfaceTest.php \
+            tests/Feature/AdminAccessAuthorizationTest.php \
+            tests/Feature/Authorization/ServerAuthorizationTest.php \
+            tests/Feature/ResourcePermissionCalloutTest.php \
+            tests/Feature/SettingsSectionDescriptionTest.php
+          git diff --binary > "$TEST_REPORTS/pint.patch"
+      - name: Run interface PHP tests
+        run: |
+          php artisan test --compact --log-junit="$TEST_REPORTS/junit.xml" \
+            tests/Feature/DarkOnlyInterfaceTest.php \
+            tests/Feature/AdminAccessAuthorizationTest.php \
+            tests/Feature/Authorization/ServerAuthorizationTest.php \
+            tests/Feature/Authorization/NavbarDeleteTeamAuthorizationTest.php \
+            tests/Feature/ResourcePermissionCalloutTest.php \
+            tests/Feature/SettingsSectionDescriptionTest.php \
+            tests/Feature/CheckpointItemContrastTest.php \
+            tests/Feature/SettingsDropdownTest.php \
+            tests/Feature/PreviewStatusSummaryTest.php \
+            tests/Feature/BreadcrumbsVisibilityTest.php \
+            tests/Feature/ApplicationDomainsTest.php \
+            tests/Feature/ServiceDomainsTest.php \
+            tests/Feature/GithubPrivateRepositoryTest.php \
+            tests/Feature/ExceptionRendererTest.php \
+            tests/Feature/Mcp/McpEndpointTest.php 2>&1 | tee "$TEST_REPORTS/test-output.log"
+      - name: Compile Blade views
+        run: php artisan view:cache
+      - name: Clear compiled views
+        if: always()
+        run: php artisan view:clear
+      - name: Verify formatting
+        run: git diff --exit-code
+      - name: Collect failed tests
+        if: always()
+        run: |
+          if [[ -d tests/Browser/Screenshots ]]; then
+            cp -R tests/Browser/Screenshots "$TEST_REPORTS/screenshots"
+          fi
+          python3 - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+          import xml.etree.ElementTree as ET
+
+          directory = Path(os.environ.get("TEST_REPORTS", os.environ["RUNNER_TEMP"] + "/test-reports"))
+          directory.mkdir(parents=True, exist_ok=True)
+          report = directory / "junit.xml"
+          failures = []
+          try:
+              root = ET.parse(report)
+          except (FileNotFoundError, ET.ParseError) as error:
+              status = f"incomplete JUnit report: {error}; inspect test-output.log and job logs"
+          else:
+              status = "complete"
+              for case in root.iter("testcase"):
+                  for tag in ("failure", "error"):
+                      for failure in case.findall(tag):
+                          failures.append({
+                              "class": case.get("class") or case.get("classname", ""),
+                              "name": case.get("name", ""),
+                              "file": case.get("file", ""),
+                              "type": failure.get("type", tag),
+                              "message": failure.get("message", ""),
+                              "details": failure.text or "",
+                          })
+          (directory / "failed-tests.json").write_text(json.dumps({"status": status, "failures": failures}, indent=2))
+          lines = [status] + [f'{item["class"]} :: {item["name"]} [{item["type"]}]' for item in failures]
+          (directory / "failed-tests.txt").write_text("\n".join(lines) + "\n")
+          PY
+      - name: Upload test results and failed test list
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: ${{ github.job }}-test-results-${{ github.run_id }}
+          path: ${{ runner.temp }}/test-reports/
+          if-no-files-found: warn
+
+  full:
+    if: ${{ github.event_name == 'workflow_dispatch' }}
+    name: full (${{ matrix.name }})
+    strategy:
+      fail-fast: false
+      max-parallel: 6
+      matrix:
+        include:
+          - name: unit-feature
+            paths: tests/Unit tests/Feature tests/v4/Feature
+            timeout: 20m
+          - name: regression-diagnostics
+            paths: tests/Feature/ApplicationHttpBasicAuthUiTest.php tests/Feature/ComposeContentVolumeConfinementTest.php tests/Feature/StaticImageSecurityTest.php tests/Feature/ComposeExternalVolumeTest.php
+            timeout: 5m
+          - name: ApplicationConfigurationTest
+            paths: tests/v4/Browser/ApplicationConfigurationTest.php
+            timeout: 4m
+          - name: AuthorizationTest
+            paths: tests/v4/Browser/AuthorizationTest.php
+            timeout: 4m
+          - name: DashboardTest
+            paths: tests/v4/Browser/DashboardTest.php
+            timeout: 4m
+          - name: DatabaseConfigurationTest
+            paths: tests/v4/Browser/DatabaseConfigurationTest.php
+            timeout: 4m
+          - name: DeploymentConfigReflectionTest
+            paths: tests/v4/Browser/DeploymentConfigReflectionTest.php
+            timeout: 4m
+          - name: EnvironmentVariableListRefreshTest
+            paths: tests/v4/Browser/EnvironmentVariableListRefreshTest.php
+            timeout: 4m
+          - name: LivewireRequestFailurePreviewTest
+            paths: tests/v4/Browser/LivewireRequestFailurePreviewTest.php
+            timeout: 4m
+          - name: LivewireToggleEdgeCasesTest
+            paths: tests/v4/Browser/LivewireToggleEdgeCasesTest.php
+            timeout: 4m
+          - name: LoginTest
+            paths: tests/v4/Browser/LoginTest.php
+            timeout: 4m
+          - name: ProjectAndServerTest
+            paths: tests/v4/Browser/ProjectAndServerTest.php
+            timeout: 4m
+          - name: RegistrationTest
+            paths: tests/v4/Browser/RegistrationTest.php
+            timeout: 4m
+          - name: ResourceSettingsPersistenceTest
+            paths: tests/v4/Browser/ResourceSettingsPersistenceTest.php
+            timeout: 4m
+          - name: RuntimeLogsVirtualizationTest
+            paths: tests/v4/Browser/RuntimeLogsVirtualizationTest.php
+            timeout: 4m
+          - name: ServiceConfigurationTest
+            paths: tests/v4/Browser/ServiceConfigurationTest.php
+            timeout: 4m
+          - name: TagQuickAddTest
+            paths: tests/v4/Browser/TagQuickAddTest.php
+            timeout: 4m
+          - name: TerminalAutoStartFailureTest
+            paths: tests/v4/Browser/TerminalAutoStartFailureTest.php
+            timeout: 4m
+          - name: TerminalConnectionFailureTest
+            paths: tests/v4/Browser/TerminalConnectionFailureTest.php
+            timeout: 4m
+          - name: TrafficAnalyticsTest
+            paths: tests/v4/Browser/TrafficAnalyticsTest.php
+            timeout: 4m
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    env:
+      APP_ENV: testing
+      APP_MAINTENANCE_DRIVER: file
+      APP_MAINTENANCE_STORE: array
+      DB_CONNECTION: testing
+      CACHE_DRIVER: array
+      SESSION_DRIVER: array
+      QUEUE_CONNECTION: sync
+      BROADCAST_DRIVER: "null"
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: ${{ inputs.test_ref || github.sha }}
+          persist-credentials: false
+      - name: Record tested revision
+        run: |
+          TEST_REPORTS="$RUNNER_TEMP/test-reports"
+          echo "TEST_REPORTS=$TEST_REPORTS" >> "$GITHUB_ENV"
+          mkdir -p "$TEST_REPORTS"
+          git rev-parse HEAD | tee "$TEST_REPORTS/tested-sha.txt"
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.5"
+          extensions: dom, mbstring, curl, zip, pdo_sqlite, pdo_pgsql, redis, intl, sodium
+          coverage: none
+          tools: composer:v2
+      - name: Prepare test environment
+        run: |
+          mkdir -p storage/framework/cache/data storage/framework/sessions storage/framework/views storage/logs bootstrap/cache
+          echo "APP_KEY=base64:$(php -r 'echo base64_encode(random_bytes(32));')" >> "$GITHUB_ENV"
+      - name: Install PHP dependencies
+        run: composer install --no-interaction --prefer-dist --no-progress
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+          cache: npm
+      - name: Install frontend dependencies
+        run: npm ci
+      - name: Install browser
+        run: npx playwright install --with-deps chromium
+      - name: Build frontend assets
+        run: npm run build
+      # Pest browser tests need their own PHP processes (see AGENTS.md).
+      - name: Run full PHP test suite shard
+        timeout-minutes: 25
+        env:
+          TEST_PATHS_INPUT: ${{ matrix.paths }}
+          TEST_TIMEOUT: ${{ matrix.timeout }}
+        run: |
+          read -r -a TEST_PATHS <<< "$TEST_PATHS_INPUT"
+          # Playwright children may retain stdout after PHP exits; avoid a pipe.
+          set +e
+          timeout --kill-after=15s "$TEST_TIMEOUT" \
+            php artisan test --compact --log-junit="$TEST_REPORTS/junit.xml" "${TEST_PATHS[@]}" \
+            > "$TEST_REPORTS/test-output.log" 2>&1
+          TEST_EXIT=$?
+          set -e
+          cat "$TEST_REPORTS/test-output.log"
+          exit "$TEST_EXIT"
+      - name: Collect failed tests
+        if: always()
+        run: |
+          if [[ -d tests/Browser/Screenshots ]]; then
+            cp -R tests/Browser/Screenshots "$TEST_REPORTS/screenshots"
+          fi
+          python3 - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+          import xml.etree.ElementTree as ET
+
+          directory = Path(os.environ.get("TEST_REPORTS", os.environ["RUNNER_TEMP"] + "/test-reports"))
+          directory.mkdir(parents=True, exist_ok=True)
+          report = directory / "junit.xml"
+          failures = []
+          try:
+              root = ET.parse(report)
+          except (FileNotFoundError, ET.ParseError) as error:
+              status = f"incomplete JUnit report: {error}; inspect test-output.log and job logs"
+          else:
+              status = "complete"
+              for case in root.iter("testcase"):
+                  for tag in ("failure", "error"):
+                      for failure in case.findall(tag):
+                          failures.append({
+                              "class": case.get("class") or case.get("classname", ""),
+                              "name": case.get("name", ""),
+                              "file": case.get("file", ""),
+                              "type": failure.get("type", tag),
+                              "message": failure.get("message", ""),
+                              "details": failure.text or "",
+                          })
+          (directory / "failed-tests.json").write_text(json.dumps({"status": status, "failures": failures}, indent=2))
+          lines = [status] + [f'{item["class"]} :: {item["name"]} [{item["type"]}]' for item in failures]
+          (directory / "failed-tests.txt").write_text("\n".join(lines) + "\n")
+          PY
+      - name: Upload test results and failed test list
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: full-${{ matrix.name }}-test-results-${{ github.run_id }}
+          path: ${{ runner.temp }}/test-reports/
+          if-no-files-found: warn
